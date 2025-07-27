@@ -189,6 +189,12 @@
 
 /* ===== MOBILE COMPONENTS ===== */
 
+/* Dynamic viewport height for mobile browsers */
+.full-height {
+  height: 100vh; /* fallback */
+  height: calc(var(--vh, 1vh) * 100);
+}
+
 /* Mobile Header */
 .mobile-header {
   display: none; /* Hidden by default, shown in mobile media query */
@@ -219,7 +225,7 @@
   top: 0;
   left: -100vw;
   width: 100vw;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   background-color: var(--color-background-dark);
   transition: left 0.3s ease;
   z-index: 1001;
