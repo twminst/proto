@@ -1,0 +1,31 @@
+/*
+ * Pagination Component Styles
+ * Navigation controls for paginated content with first, previous, next, and last buttons
+ */
+
+/* ===== PAGINATION CONTAINER ===== */
+
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: right;
+    margin: var(--spacing-36) 0;
+}
+
+/* ===== PAGINATION INPUT ===== */
+
+.pagination-input {
+    width: 80px;
+    height: 40px;
+    text-align: center;
+    font-size: var(--font-size-body);
+}
+
+/* ===== PAGINATION TOTAL TEXT ===== */
+
+.pagination-total {
+    font-size: var(--font-size-body);
+    color: var(--color-text-primary);
+    margin: 0 var(--spacing-4);
+}

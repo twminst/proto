@@ -1,0 +1,139 @@
+/* Import design tokens */
+@import url('tokens/colors.css');
+@import url('tokens/spacing.css');
+@import url('tokens/typography.css');
+@import url('tokens/icons.css');
+
+/* Import components */
+@import url('buttons.css');
+@import url('icons.css');
+@import url('wrapper.css');
+@import url('modals.css');
+@import url('tray.css');
+@import url('cards.css');
+@import url('layout.css');
+@import url('tabs.css');
+@import url('statusindicator.css');
+@import url('input.css');
+@import url('pagination.css');
+@import url('menus.css');
+@import url('tags.css');
+@import url('tables.css');
+@import url('avatar.css');
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    font-weight: var(--font-weight-normal);
+    background: var(--color-background-primary);
+    color: var(--color-text-primary);
+}
+
+a:focus{
+    outline: 2px solid var(--color-border-focus) !important;
+    outline-offset: 8px;
+    border-radius: 4px;
+}
+
+
+/* Screen reader only text */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+
+/* Typography Styles */
+h1 {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-h1);
+    line-height: var(--line-height-h1);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-foreground-primary);
+    margin-bottom: var(--spacing-4);
+}
+
+h2 {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-foreground-primary);
+    margin-bottom: var(--spacing-4);
+}
+
+h3 {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-foreground-primary);
+    margin-bottom: var(--spacing-4);
+}
+
+h4 {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-h4);
+    line-height: var(--line-height-h4);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-foreground-primary);
+    margin-bottom: var(--spacing-4);
+}
+
+h5 {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-h5);
+    line-height: var(--line-height-h5);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-foreground-primary);
+    margin-bottom: var(--spacing-4);
+}
+
+h6 {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-h6);
+    line-height: var(--line-height-h6);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-foreground-primary);
+    margin-bottom: var(--spacing-4);
+}
+
+/* Content Styles */
+p {
+    margin-top: var(--spacing-4);
+    margin-bottom: var(--spacing-12);
+}
+
+.body-small {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-body-small);
+    line-height: var(--line-height-body-small);
+    font-weight: var(--font-weight-normal);
+    color: var(--color-foreground-primary);
+}
+
+.body-x-small {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-body-x-small);
+    line-height: var(--line-height-body-x-small);
+    font-weight: var(--font-weight-normal);
+    color: var(--color-foreground-primary);
+}

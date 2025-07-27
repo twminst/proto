@@ -1,0 +1,25 @@
+/**
+ * Spacing Design Tokens
+ */
+
+:root {
+  /* Base Spacing Scale */
+  --spacing-0: 0px;
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-24: 24px;
+  --spacing-36: 36px;
+  --spacing-48: 48px;
+  --spacing-60: 60px;
+
+  /* Border Radius */
+  --spacing-radius-default: 4px;
+
+  /* Card Padding */
+  --spacing-card-padding-12: 12px;
+  --spacing-card-padding-16: 16px;
+  --spacing-card-padding-24: 24px;
+
+}

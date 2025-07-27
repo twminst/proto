@@ -1,0 +1,5 @@
+- In /live create a folder to copy the prototype to
+- Name the folder with a date prefis 'YYMMDD-' then prototype name
+- Copy the file here and name it index.html
+- Also copy the CSS folder and any other asset if specified
+- The goal here is to create a standalone version of the prototype for user testing that won't change with future update

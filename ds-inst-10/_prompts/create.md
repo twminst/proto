@@ -1,5 +1,5 @@
 # Instructions
-- Create a copy of _wrapper.html and give it a name based on the prompt, prefixed with the date 'MMYY-'
+- Create a copy of _wrapper.html and give it a unique name based on the prompt
 - Place this new file in the root directory
 
 # Steering
