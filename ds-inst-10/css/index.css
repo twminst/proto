@@ -1340,6 +1340,8 @@
 @media (max-width: 768px) {
     .tray {
         width: 100vw !important;
+        max-height: 100vh;
+        overflow-y: auto;
     }
 }
 
