@@ -1,0 +1,1402 @@
+[
+    {
+        "id": 1000,
+        "name": "Jamie Jones",
+        "sortable_name": "Jones, Jamie",
+        "short_name": "J. Jones",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "jamie.jones0@example.edu",
+        "uuid": "0dd1f8ca6e9e41cb90c8826c436aedd4",
+        "email": "jamie.jones0@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Jamie Jones is a teacher in the institution.",
+        "title": "Student",
+        "primary_email": "jamie.jones0@example.edu",
+        "avatar_url": "https://example.edu/avatar/1000.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1000/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "observer",
+                "course_id": 370681
+            }
+        ]
+    },
+    {
+        "id": 1001,
+        "name": "Jordan Brown",
+        "sortable_name": "Brown, Jordan",
+        "short_name": "J. Brown",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "jordan.brown1@example.edu",
+        "uuid": "b6434e787650469f81331efc3fe7d87a",
+        "email": "jordan.brown1@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Jordan Brown is a ta in the institution.",
+        "title": "Researcher",
+        "primary_email": "jordan.brown1@example.edu",
+        "avatar_url": "https://example.edu/avatar/1001.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1001/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "observer",
+                "course_id": 370685
+            }
+        ]
+    },
+    {
+        "id": 1002,
+        "name": "Avery Miller",
+        "sortable_name": "Miller, Avery",
+        "short_name": "A. Miller",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "avery.miller2@example.edu",
+        "uuid": "8b960b18d591447b973cd9a0a8e92d99",
+        "email": "avery.miller2@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Avery Miller is a teacher in the institution.",
+        "title": "Student",
+        "primary_email": "avery.miller2@example.edu",
+        "avatar_url": "https://example.edu/avatar/1002.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1002/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "ta",
+                "course_id": 370685
+            }
+        ]
+    },
+    {
+        "id": 1003,
+        "name": "Morgan Brown",
+        "sortable_name": "Brown, Morgan",
+        "short_name": "M. Brown",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "morgan.brown3@example.edu",
+        "uuid": "a4c7ea0623db48ad9cad58b40b8cad8d",
+        "email": "morgan.brown3@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Morgan Brown is a teacher in the institution.",
+        "title": "Student",
+        "primary_email": "morgan.brown3@example.edu",
+        "avatar_url": "https://example.edu/avatar/1003.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1003/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "teacher",
+                "course_id": 370663
+            }
+        ]
+    },
+    {
+        "id": 1004,
+        "name": "Morgan Lopez",
+        "sortable_name": "Lopez, Morgan",
+        "short_name": "M. Lopez",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "morgan.lopez4@example.edu",
+        "uuid": "9f8c2476d10241a597fe83d00c9a35e3",
+        "email": "morgan.lopez4@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Morgan Lopez is a ta in the institution.",
+        "title": "Professor",
+        "primary_email": "morgan.lopez4@example.edu",
+        "avatar_url": "https://example.edu/avatar/1004.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1004/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "teacher",
+                "course_id": 370711
+            }
+        ]
+    },
+    {
+        "id": 1005,
+        "name": "Morgan Miller",
+        "sortable_name": "Miller, Morgan",
+        "short_name": "M. Miller",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "morgan.miller5@example.edu",
+        "uuid": "3dd23235740b48cbb2d9bd7ea12f02ad",
+        "email": "morgan.miller5@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Morgan Miller is a student in the institution.",
+        "title": "Researcher",
+        "primary_email": "morgan.miller5@example.edu",
+        "avatar_url": "https://example.edu/avatar/1005.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1005/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "student",
+                "course_id": 370669
+            }
+        ]
+    },
+    {
+        "id": 1006,
+        "name": "Avery Lopez",
+        "sortable_name": "Lopez, Avery",
+        "short_name": "A. Lopez",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "avery.lopez6@example.edu",
+        "uuid": "ac91c83957e64526b58e33d52714b259",
+        "email": "avery.lopez6@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Avery Lopez is a teacher in the institution.",
+        "title": "Student",
+        "primary_email": "avery.lopez6@example.edu",
+        "avatar_url": "https://example.edu/avatar/1006.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1006/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "ta",
+                "course_id": 370669
+            }
+        ]
+    },
+    {
+        "id": 1007,
+        "name": "Jamie Miller",
+        "sortable_name": "Miller, Jamie",
+        "short_name": "J. Miller",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "jamie.miller7@example.edu",
+        "uuid": "fe37788634214b20a62a869a697a7daa",
+        "email": "jamie.miller7@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Jamie Miller is a observer in the institution.",
+        "title": "Researcher",
+        "primary_email": "jamie.miller7@example.edu",
+        "avatar_url": "https://example.edu/avatar/1007.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1007/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "teacher",
+                "course_id": 370700
+            }
+        ]
+    },
+    {
+        "id": 1008,
+        "name": "Peyton Miller",
+        "sortable_name": "Miller, Peyton",
+        "short_name": "P. Miller",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "peyton.miller8@example.edu",
+        "uuid": "52284c69edfe42ea8e2273147931ebad",
+        "email": "peyton.miller8@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Peyton Miller is a observer in the institution.",
+        "title": "Professor",
+        "primary_email": "peyton.miller8@example.edu",
+        "avatar_url": "https://example.edu/avatar/1008.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1008/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "student",
+                "course_id": 370705
+            }
+        ]
+    },
+    {
+        "id": 1009,
+        "name": "Jordan Clark",
+        "sortable_name": "Clark, Jordan",
+        "short_name": "J. Clark",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "jordan.clark9@example.edu",
+        "uuid": "41f4d8833fcc4040a3baac55004d5073",
+        "email": "jordan.clark9@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Jordan Clark is a ta in the institution.",
+        "title": "Researcher",
+        "primary_email": "jordan.clark9@example.edu",
+        "avatar_url": "https://example.edu/avatar/1009.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1009/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "observer",
+                "course_id": 370681
+            }
+        ]
+    },
+    {
+        "id": 1010,
+        "name": "Taylor Smith",
+        "sortable_name": "Smith, Taylor",
+        "short_name": "T. Smith",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "taylor.smith10@example.edu",
+        "uuid": "aeea57c9440b48fd99e73370a7237e40",
+        "email": "taylor.smith10@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Taylor Smith is a teacher in the institution.",
+        "title": "TA",
+        "primary_email": "taylor.smith10@example.edu",
+        "avatar_url": "https://example.edu/avatar/1010.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1010/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "ta",
+                "course_id": 370689
+            }
+        ]
+    },
+    {
+        "id": 1011,
+        "name": "Morgan Smith",
+        "sortable_name": "Smith, Morgan",
+        "short_name": "M. Smith",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "morgan.smith11@example.edu",
+        "uuid": "36f3a9e4a6ec45a09addde7ca4a7ad12",
+        "email": "morgan.smith11@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Morgan Smith is a teacher in the institution.",
+        "title": "TA",
+        "primary_email": "morgan.smith11@example.edu",
+        "avatar_url": "https://example.edu/avatar/1011.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1011/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "observer",
+                "course_id": 370681
+            }
+        ]
+    },
+    {
+        "id": 1012,
+        "name": "Jordan Lee",
+        "sortable_name": "Lee, Jordan",
+        "short_name": "J. Lee",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "jordan.lee12@example.edu",
+        "uuid": "8c525d3a2fb54ff6b73b94a1913172b6",
+        "email": "jordan.lee12@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Jordan Lee is a observer in the institution.",
+        "title": "Professor",
+        "primary_email": "jordan.lee12@example.edu",
+        "avatar_url": "https://example.edu/avatar/1012.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1012/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "student",
+                "course_id": 370671
+            }
+        ]
+    },
+    {
+        "id": 1013,
+        "name": "Alex Miller",
+        "sortable_name": "Miller, Alex",
+        "short_name": "A. Miller",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "alex.miller13@example.edu",
+        "uuid": "b6e87fdd2eec4ae59b2a6e8d80ed202e",
+        "email": "alex.miller13@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Alex Miller is a ta in the institution.",
+        "title": "TA",
+        "primary_email": "alex.miller13@example.edu",
+        "avatar_url": "https://example.edu/avatar/1013.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1013/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "teacher",
+                "course_id": 370675
+            }
+        ]
+    },
+    {
+        "id": 1014,
+        "name": "Morgan Lee",
+        "sortable_name": "Lee, Morgan",
+        "short_name": "M. Lee",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "morgan.lee14@example.edu",
+        "uuid": "a4022953ad9c47f097293088a81c226c",
+        "email": "morgan.lee14@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Morgan Lee is a ta in the institution.",
+        "title": "TA",
+        "primary_email": "morgan.lee14@example.edu",
+        "avatar_url": "https://example.edu/avatar/1014.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1014/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "observer",
+                "course_id": 370702
+            }
+        ]
+    },
+    {
+        "id": 1015,
+        "name": "Peyton Lee",
+        "sortable_name": "Lee, Peyton",
+        "short_name": "P. Lee",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "peyton.lee15@example.edu",
+        "uuid": "c33655bd1d694eadbf07c37d1ba3cfbb",
+        "email": "peyton.lee15@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Peyton Lee is a observer in the institution.",
+        "title": "Researcher",
+        "primary_email": "peyton.lee15@example.edu",
+        "avatar_url": "https://example.edu/avatar/1015.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1015/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "observer",
+                "course_id": 370708
+            }
+        ]
+    },
+    {
+        "id": 1016,
+        "name": "Reese Johnson",
+        "sortable_name": "Johnson, Reese",
+        "short_name": "R. Johnson",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "reese.johnson16@example.edu",
+        "uuid": "cdbbfa7052e541e69f22adfa5b40109d",
+        "email": "reese.johnson16@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Reese Johnson is a ta in the institution.",
+        "title": "TA",
+        "primary_email": "reese.johnson16@example.edu",
+        "avatar_url": "https://example.edu/avatar/1016.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1016/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "ta",
+                "course_id": 370695
+            }
+        ]
+    },
+    {
+        "id": 1017,
+        "name": "Drew Brown",
+        "sortable_name": "Brown, Drew",
+        "short_name": "D. Brown",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "drew.brown17@example.edu",
+        "uuid": "12ae469dd00b4adebddd1a2c55001e56",
+        "email": "drew.brown17@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Drew Brown is a observer in the institution.",
+        "title": "Professor",
+        "primary_email": "drew.brown17@example.edu",
+        "avatar_url": "https://example.edu/avatar/1017.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1017/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "ta",
+                "course_id": 370680
+            }
+        ]
+    },
+    {
+        "id": 1018,
+        "name": "Avery Garcia",
+        "sortable_name": "Garcia, Avery",
+        "short_name": "A. Garcia",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "avery.garcia18@example.edu",
+        "uuid": "3d40b11c50d64efab1f1880d1c74270d",
+        "email": "avery.garcia18@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Avery Garcia is a observer in the institution.",
+        "title": "TA",
+        "primary_email": "avery.garcia18@example.edu",
+        "avatar_url": "https://example.edu/avatar/1018.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1018/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "student",
+                "course_id": 370696
+            }
+        ]
+    },
+    {
+        "id": 1019,
+        "name": "Alex Smith",
+        "sortable_name": "Smith, Alex",
+        "short_name": "A. Smith",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "alex.smith19@example.edu",
+        "uuid": "e73d2faf745a445887ac1d7c38d35f9c",
+        "email": "alex.smith19@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Alex Smith is a student in the institution.",
+        "title": "Researcher",
+        "primary_email": "alex.smith19@example.edu",
+        "avatar_url": "https://example.edu/avatar/1019.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1019/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "student",
+                "course_id": 370710
+            }
+        ]
+    },
+    {
+        "id": 1020,
+        "name": "Reese Lopez",
+        "sortable_name": "Lopez, Reese",
+        "short_name": "R. Lopez",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "reese.lopez20@example.edu",
+        "uuid": "22597d9a9ffc43af9995b1e4dc0888d8",
+        "email": "reese.lopez20@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Reese Lopez is a observer in the institution.",
+        "title": "Researcher",
+        "primary_email": "reese.lopez20@example.edu",
+        "avatar_url": "https://example.edu/avatar/1020.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1020/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "student",
+                "course_id": 370707
+            }
+        ]
+    },
+    {
+        "id": 1021,
+        "name": "Drew Miller",
+        "sortable_name": "Miller, Drew",
+        "short_name": "D. Miller",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "drew.miller21@example.edu",
+        "uuid": "516c6c90e38e4fb492e745f16e93b6f6",
+        "email": "drew.miller21@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Drew Miller is a ta in the institution.",
+        "title": "TA",
+        "primary_email": "drew.miller21@example.edu",
+        "avatar_url": "https://example.edu/avatar/1021.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1021/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "teacher",
+                "course_id": 370683
+            }
+        ]
+    },
+    {
+        "id": 1022,
+        "name": "Taylor Miller",
+        "sortable_name": "Miller, Taylor",
+        "short_name": "T. Miller",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "taylor.miller22@example.edu",
+        "uuid": "70708cbea6904f7bb7324926757d854f",
+        "email": "taylor.miller22@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Taylor Miller is a student in the institution.",
+        "title": "Researcher",
+        "primary_email": "taylor.miller22@example.edu",
+        "avatar_url": "https://example.edu/avatar/1022.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1022/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "student",
+                "course_id": 370678
+            }
+        ]
+    },
+    {
+        "id": 1023,
+        "name": "Avery Lee",
+        "sortable_name": "Lee, Avery",
+        "short_name": "A. Lee",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "avery.lee23@example.edu",
+        "uuid": "b54f63b057ab461b96a7bdc39ee8c2d4",
+        "email": "avery.lee23@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Avery Lee is a observer in the institution.",
+        "title": "TA",
+        "primary_email": "avery.lee23@example.edu",
+        "avatar_url": "https://example.edu/avatar/1023.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1023/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "student",
+                "course_id": 370687
+            }
+        ]
+    },
+    {
+        "id": 1024,
+        "name": "Taylor Miller",
+        "sortable_name": "Miller, Taylor",
+        "short_name": "T. Miller",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "taylor.miller24@example.edu",
+        "uuid": "2d21cd933bb943e49824fe5ab0674774",
+        "email": "taylor.miller24@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Taylor Miller is a ta in the institution.",
+        "title": "Professor",
+        "primary_email": "taylor.miller24@example.edu",
+        "avatar_url": "https://example.edu/avatar/1024.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1024/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "observer",
+                "course_id": 370683
+            }
+        ]
+    },
+    {
+        "id": 1025,
+        "name": "Jamie Davis",
+        "sortable_name": "Davis, Jamie",
+        "short_name": "J. Davis",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "jamie.davis25@example.edu",
+        "uuid": "c4dc1a26daeb457cb38d010a1c7b26aa",
+        "email": "jamie.davis25@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Jamie Davis is a ta in the institution.",
+        "title": "Student",
+        "primary_email": "jamie.davis25@example.edu",
+        "avatar_url": "https://example.edu/avatar/1025.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1025/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "teacher",
+                "course_id": 370709
+            }
+        ]
+    },
+    {
+        "id": 1026,
+        "name": "Alex Miller",
+        "sortable_name": "Miller, Alex",
+        "short_name": "A. Miller",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "alex.miller26@example.edu",
+        "uuid": "ec3228d06b2d4bfb900f4608e902e3c3",
+        "email": "alex.miller26@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Alex Miller is a teacher in the institution.",
+        "title": "TA",
+        "primary_email": "alex.miller26@example.edu",
+        "avatar_url": "https://example.edu/avatar/1026.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1026/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "observer",
+                "course_id": 370669
+            }
+        ]
+    },
+    {
+        "id": 1027,
+        "name": "Jordan Miller",
+        "sortable_name": "Miller, Jordan",
+        "short_name": "J. Miller",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "jordan.miller27@example.edu",
+        "uuid": "a15fa0000eba41499f37e905f8b98b7d",
+        "email": "jordan.miller27@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Jordan Miller is a ta in the institution.",
+        "title": "Researcher",
+        "primary_email": "jordan.miller27@example.edu",
+        "avatar_url": "https://example.edu/avatar/1027.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1027/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "observer",
+                "course_id": 370686
+            }
+        ]
+    },
+    {
+        "id": 1028,
+        "name": "Morgan Garcia",
+        "sortable_name": "Garcia, Morgan",
+        "short_name": "M. Garcia",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "morgan.garcia28@example.edu",
+        "uuid": "d7d561d2978d4cbb9a55679ab9e459dc",
+        "email": "morgan.garcia28@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Morgan Garcia is a ta in the institution.",
+        "title": "Researcher",
+        "primary_email": "morgan.garcia28@example.edu",
+        "avatar_url": "https://example.edu/avatar/1028.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1028/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "ta",
+                "course_id": 370679
+            }
+        ]
+    },
+    {
+        "id": 1029,
+        "name": "Avery Clark",
+        "sortable_name": "Clark, Avery",
+        "short_name": "A. Clark",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "avery.clark29@example.edu",
+        "uuid": "7f97aa0ba0a64695972d21755592d17f",
+        "email": "avery.clark29@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Avery Clark is a student in the institution.",
+        "title": "TA",
+        "primary_email": "avery.clark29@example.edu",
+        "avatar_url": "https://example.edu/avatar/1029.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1029/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "ta",
+                "course_id": 370669
+            }
+        ]
+    },
+    {
+        "id": 1030,
+        "name": "Jamie Smith",
+        "sortable_name": "Smith, Jamie",
+        "short_name": "J. Smith",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "jamie.smith30@example.edu",
+        "uuid": "c755d9014c3342c09225db344215cd72",
+        "email": "jamie.smith30@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Jamie Smith is a teacher in the institution.",
+        "title": "Professor",
+        "primary_email": "jamie.smith30@example.edu",
+        "avatar_url": "https://example.edu/avatar/1030.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1030/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "ta",
+                "course_id": 370677
+            }
+        ]
+    },
+    {
+        "id": 1031,
+        "name": "Drew Lee",
+        "sortable_name": "Lee, Drew",
+        "short_name": "D. Lee",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "drew.lee31@example.edu",
+        "uuid": "7441e9f6fed34fb995fd499ede9e24ab",
+        "email": "drew.lee31@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Drew Lee is a ta in the institution.",
+        "title": "Student",
+        "primary_email": "drew.lee31@example.edu",
+        "avatar_url": "https://example.edu/avatar/1031.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1031/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "ta",
+                "course_id": 370711
+            }
+        ]
+    },
+    {
+        "id": 1032,
+        "name": "Reese Miller",
+        "sortable_name": "Miller, Reese",
+        "short_name": "R. Miller",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "reese.miller32@example.edu",
+        "uuid": "dcb75e5065224b76b4eac1c6c175a028",
+        "email": "reese.miller32@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Reese Miller is a student in the institution.",
+        "title": "Student",
+        "primary_email": "reese.miller32@example.edu",
+        "avatar_url": "https://example.edu/avatar/1032.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1032/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "teacher",
+                "course_id": 370664
+            }
+        ]
+    },
+    {
+        "id": 1033,
+        "name": "Drew Lee",
+        "sortable_name": "Lee, Drew",
+        "short_name": "D. Lee",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "drew.lee33@example.edu",
+        "uuid": "099c06883c94439abd58c4c901c6ea4a",
+        "email": "drew.lee33@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Drew Lee is a ta in the institution.",
+        "title": "TA",
+        "primary_email": "drew.lee33@example.edu",
+        "avatar_url": "https://example.edu/avatar/1033.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1033/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "student",
+                "course_id": 370711
+            }
+        ]
+    },
+    {
+        "id": 1034,
+        "name": "Peyton Johnson",
+        "sortable_name": "Johnson, Peyton",
+        "short_name": "P. Johnson",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "peyton.johnson34@example.edu",
+        "uuid": "933562fe7c5a46bc91bfcd85a41403b7",
+        "email": "peyton.johnson34@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Peyton Johnson is a student in the institution.",
+        "title": "Professor",
+        "primary_email": "peyton.johnson34@example.edu",
+        "avatar_url": "https://example.edu/avatar/1034.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1034/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "observer",
+                "course_id": 370669
+            }
+        ]
+    },
+    {
+        "id": 1035,
+        "name": "Morgan Johnson",
+        "sortable_name": "Johnson, Morgan",
+        "short_name": "M. Johnson",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "morgan.johnson35@example.edu",
+        "uuid": "66aca08b51ed457384b5cf8ef208d786",
+        "email": "morgan.johnson35@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Morgan Johnson is a ta in the institution.",
+        "title": "TA",
+        "primary_email": "morgan.johnson35@example.edu",
+        "avatar_url": "https://example.edu/avatar/1035.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1035/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "student",
+                "course_id": 370708
+            }
+        ]
+    },
+    {
+        "id": 1036,
+        "name": "Jamie Garcia",
+        "sortable_name": "Garcia, Jamie",
+        "short_name": "J. Garcia",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "jamie.garcia36@example.edu",
+        "uuid": "d676f2dd20e640d58c2a60a1a87ecc45",
+        "email": "jamie.garcia36@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Jamie Garcia is a teacher in the institution.",
+        "title": "TA",
+        "primary_email": "jamie.garcia36@example.edu",
+        "avatar_url": "https://example.edu/avatar/1036.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1036/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "teacher",
+                "course_id": 370667
+            }
+        ]
+    },
+    {
+        "id": 1037,
+        "name": "Peyton Garcia",
+        "sortable_name": "Garcia, Peyton",
+        "short_name": "P. Garcia",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "peyton.garcia37@example.edu",
+        "uuid": "4280f8d073894205a58c9138f7870e2a",
+        "email": "peyton.garcia37@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Peyton Garcia is a teacher in the institution.",
+        "title": "TA",
+        "primary_email": "peyton.garcia37@example.edu",
+        "avatar_url": "https://example.edu/avatar/1037.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1037/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "observer",
+                "course_id": 370671
+            }
+        ]
+    },
+    {
+        "id": 1038,
+        "name": "Alex Johnson",
+        "sortable_name": "Johnson, Alex",
+        "short_name": "A. Johnson",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "alex.johnson38@example.edu",
+        "uuid": "3c27c29c94264fed91d0dd7007252c4f",
+        "email": "alex.johnson38@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Alex Johnson is a ta in the institution.",
+        "title": "Researcher",
+        "primary_email": "alex.johnson38@example.edu",
+        "avatar_url": "https://example.edu/avatar/1038.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1038/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "teacher",
+                "course_id": 370677
+            }
+        ]
+    },
+    {
+        "id": 1039,
+        "name": "Casey Miller",
+        "sortable_name": "Miller, Casey",
+        "short_name": "C. Miller",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "casey.miller39@example.edu",
+        "uuid": "85e822a6aa3f45bc9360dfc8ab4a4698",
+        "email": "casey.miller39@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Casey Miller is a teacher in the institution.",
+        "title": "Professor",
+        "primary_email": "casey.miller39@example.edu",
+        "avatar_url": "https://example.edu/avatar/1039.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1039/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "teacher",
+                "course_id": 370699
+            }
+        ]
+    },
+    {
+        "id": 1040,
+        "name": "Taylor Lee",
+        "sortable_name": "Lee, Taylor",
+        "short_name": "T. Lee",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "taylor.lee40@example.edu",
+        "uuid": "90226b1a3ba64e64bf4ec81354c8c705",
+        "email": "taylor.lee40@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Taylor Lee is a student in the institution.",
+        "title": "Student",
+        "primary_email": "taylor.lee40@example.edu",
+        "avatar_url": "https://example.edu/avatar/1040.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1040/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "teacher",
+                "course_id": 370709
+            }
+        ]
+    },
+    {
+        "id": 1041,
+        "name": "Morgan Jones",
+        "sortable_name": "Jones, Morgan",
+        "short_name": "M. Jones",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "morgan.jones41@example.edu",
+        "uuid": "be3bc87b685a469a95f56865d90f4e06",
+        "email": "morgan.jones41@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Morgan Jones is a observer in the institution.",
+        "title": "Researcher",
+        "primary_email": "morgan.jones41@example.edu",
+        "avatar_url": "https://example.edu/avatar/1041.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1041/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "teacher",
+                "course_id": 370709
+            }
+        ]
+    },
+    {
+        "id": 1042,
+        "name": "Taylor Davis",
+        "sortable_name": "Davis, Taylor",
+        "short_name": "T. Davis",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "taylor.davis42@example.edu",
+        "uuid": "48c7ce29f8344af8aa4666d984eb8879",
+        "email": "taylor.davis42@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Taylor Davis is a teacher in the institution.",
+        "title": "TA",
+        "primary_email": "taylor.davis42@example.edu",
+        "avatar_url": "https://example.edu/avatar/1042.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1042/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "observer",
+                "course_id": 370690
+            }
+        ]
+    },
+    {
+        "id": 1043,
+        "name": "Drew Lopez",
+        "sortable_name": "Lopez, Drew",
+        "short_name": "D. Lopez",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "drew.lopez43@example.edu",
+        "uuid": "99adbd03eee64e10a9e6b32746f71280",
+        "email": "drew.lopez43@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Drew Lopez is a ta in the institution.",
+        "title": "Professor",
+        "primary_email": "drew.lopez43@example.edu",
+        "avatar_url": "https://example.edu/avatar/1043.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1043/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "student",
+                "course_id": 370671
+            }
+        ]
+    },
+    {
+        "id": 1044,
+        "name": "Alex Garcia",
+        "sortable_name": "Garcia, Alex",
+        "short_name": "A. Garcia",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "alex.garcia44@example.edu",
+        "uuid": "1f25aa07c02e4f4492536bc38b6f54f6",
+        "email": "alex.garcia44@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Alex Garcia is a teacher in the institution.",
+        "title": "TA",
+        "primary_email": "alex.garcia44@example.edu",
+        "avatar_url": "https://example.edu/avatar/1044.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1044/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "observer",
+                "course_id": 370682
+            }
+        ]
+    },
+    {
+        "id": 1045,
+        "name": "Jamie Davis",
+        "sortable_name": "Davis, Jamie",
+        "short_name": "J. Davis",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "jamie.davis45@example.edu",
+        "uuid": "d2b47f746474456cb9a2fa577ba8caf0",
+        "email": "jamie.davis45@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Jamie Davis is a teacher in the institution.",
+        "title": "Professor",
+        "primary_email": "jamie.davis45@example.edu",
+        "avatar_url": "https://example.edu/avatar/1045.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1045/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "ta",
+                "course_id": 370693
+            }
+        ]
+    },
+    {
+        "id": 1046,
+        "name": "Jordan Lopez",
+        "sortable_name": "Lopez, Jordan",
+        "short_name": "J. Lopez",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "jordan.lopez46@example.edu",
+        "uuid": "365ff5b843924e66979023f05481dcb1",
+        "email": "jordan.lopez46@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Jordan Lopez is a teacher in the institution.",
+        "title": "Student",
+        "primary_email": "jordan.lopez46@example.edu",
+        "avatar_url": "https://example.edu/avatar/1046.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1046/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "observer",
+                "course_id": 370668
+            }
+        ]
+    },
+    {
+        "id": 1047,
+        "name": "Morgan Miller",
+        "sortable_name": "Miller, Morgan",
+        "short_name": "M. Miller",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "morgan.miller47@example.edu",
+        "uuid": "6d371b90ae2a4e7d838ea15d38989a69",
+        "email": "morgan.miller47@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Morgan Miller is a observer in the institution.",
+        "title": "Student",
+        "primary_email": "morgan.miller47@example.edu",
+        "avatar_url": "https://example.edu/avatar/1047.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1047/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "observer",
+                "course_id": 370699
+            }
+        ]
+    },
+    {
+        "id": 1048,
+        "name": "Alex Brown",
+        "sortable_name": "Brown, Alex",
+        "short_name": "A. Brown",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "alex.brown48@example.edu",
+        "uuid": "1c438f3ffb9f4f22b5651331ddc50d89",
+        "email": "alex.brown48@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Alex Brown is a teacher in the institution.",
+        "title": "TA",
+        "primary_email": "alex.brown48@example.edu",
+        "avatar_url": "https://example.edu/avatar/1048.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1048/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "teacher",
+                "course_id": 370700
+            }
+        ]
+    },
+    {
+        "id": 1049,
+        "name": "Jamie Jones",
+        "sortable_name": "Jones, Jamie",
+        "short_name": "J. Jones",
+        "sis_user_id": null,
+        "integration_id": null,
+        "sis_import_id": 34,
+        "login_id": "jamie.jones49@example.edu",
+        "uuid": "67c280c9a0174aec8cca47136cb7371f",
+        "email": "jamie.jones49@example.edu",
+        "locale": "en",
+        "last_login": "2024-03-10T12:34:56Z",
+        "time_zone": "America/Denver",
+        "bio": "Jamie Jones is a observer in the institution.",
+        "title": "TA",
+        "primary_email": "jamie.jones49@example.edu",
+        "avatar_url": "https://example.edu/avatar/1049.png",
+        "calendar": {
+            "ics": "https://example.edu/users/1049/calendar.ics"
+        },
+        "enrollments": [
+            {
+                "type": "ta",
+                "course_id": 370666
+            }
+        ]
+    }
+]

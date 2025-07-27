@@ -1,0 +1,191 @@
+/*
+ * Page Layout Styles
+ * Hierarchical page structure with headers, sections, and modules
+ */
+
+/* ===== HORIZONTAL RULE STYLES ===== */
+
+hr {
+    border: none;
+    border-top: 1px solid var(--color-line-stroke);
+    margin: 0;
+}
+
+/* HR within page sections - uses section element spacing */
+.page-section hr {
+    margin: var(--spacing-24) 0;
+}
+
+/* HR within page modules - uses module element spacing */
+.page-module hr {
+    margin-top: var(--spacing-16);
+    margin-bottom: var(--spacing-16);
+}
+
+/* HR between page sections - uses section spacing */
+.page-section + hr {
+    margin: var(--spacing-36) 0;
+}
+
+/* ===== PAGE LAYOUT STYLES ===== */
+
+/* Page Header - Single H1 with optional description and action buttons */
+.page-header {
+    margin-bottom: var(--spacing-36);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--spacing-24);
+    flex-wrap: wrap;
+}
+
+.page-header-content {
+    flex: 1;
+    min-width: 500px;
+    width: 100%;
+}
+
+.page-header h1 {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-h1);
+    line-height: var(--line-height-h1);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.page-header-description {
+    margin-top: var(--spacing-4);
+    margin-bottom: 0px;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-page-description);
+    line-height: var(--line-height-page-description);
+}
+
+.page-header-actions {
+    display: flex;
+    gap: var(--spacing-12);
+    flex-shrink: 0;
+    margin-top: 0;
+}
+
+/* When actions wrap due to content width, align them to the right */
+@media (max-width: 768px) {
+    .page-header {
+        flex-direction: column;
+    }
+    
+    .page-header-content {
+        min-width: unset;
+    }
+    
+    .page-header-actions {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+}
+
+/* Page Sections - H2 with optional description and section elements */
+.page-section {
+    margin-bottom: var(--spacing-36);
+}
+
+.page-section h2 {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.page-section-description {
+    margin-top: var(--spacing-4);
+    margin-bottom: 0;
+    color: var(--color-text-secondary);
+}
+
+.page-section-content {
+    margin-top: var(--spacing-24);
+}
+
+.page-section-content > * + * {
+    margin-top: var(--spacing-24);
+}
+
+/* Page Modules - H3 with optional description and module elements */
+.page-module {
+    margin-bottom: var(--spacing-24);
+}
+
+.page-module h3 {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.page-module-description {
+    margin-top: var(--spacing-4);
+    margin-bottom: 0;
+    color: var(--color-text-secondary);
+}
+
+.page-module-content {
+    margin-top: var(--spacing-16);
+}
+
+.page-module-content > * + * {
+    margin-top: var(--spacing-16);
+}
+
+/* ===== FORM INTEGRATION OVERRIDES ===== */
+/* Prevent double margins when form components are used within layout containers */
+
+/* Reset top margins for first form elements in layout containers */
+.page-section-content > .form-field:first-child,
+.page-module-content > .form-field:first-child,
+.page-section-content > form:first-child,
+.page-module-content > form:first-child,
+.page-section-content > fieldset:first-child,
+.page-module-content > fieldset:first-child {
+    margin-top: 0;
+}
+
+/* Consistent spacing between form fields within layout containers */
+.page-section-content > .form-field + .form-field,
+.page-module-content > .form-field + .form-field {
+    margin-top: var(--spacing-16);
+}
+
+/* Grid layout spacing adjustments within layout containers */
+.page-section-content [style*="grid-template-columns"],
+.page-module-content [style*="grid-template-columns"],
+.page-section-content [style*="display: grid"],
+.page-module-content [style*="display: grid"] {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* Fieldset integration - prevent extra margins */
+.page-section-content .form-fieldset,
+.page-module-content .form-fieldset {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* Form wrapper integration */
+.page-section-content .form-input-wrapper,
+.page-module-content .form-input-wrapper {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* Menu container integration */
+.page-section-content .menu-container,
+.page-module-content .menu-container {
+    margin-top: 0;
+    margin-bottom: 0;
+}

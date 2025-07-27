@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitchen Sink - Component Showcase</title>
+    <link rel="stylesheet" href="css/main.css">
+
+    <style>
+        /* Kitchen Sink Specific Styles */
+        .kitchen-sink-section {
+            margin-bottom: var(--spacing-48);
+            padding: var(--spacing-24);
+            border: 1px solid var(--color-line-stroke);
+            border-radius: var(--spacing-radius-large);
+        }
+
+        .kitchen-sink-section h2 {
+            margin: 0 0 var(--spacing-16) 0;
+            padding-bottom: var(--spacing-8);
+            border-bottom: 2px solid var(--color-line-stroke);
+            color: var(--color-text-primary);
+        }
+
+        .component-showcase {
+            display: grid;
+            gap: var(--spacing-24);
+            margin-top: var(--spacing-24);
+        }
+
+        .component-row {
+            display: flex;
+            gap: var(--spacing-16);
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+
+        .component-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-12);
+            min-width: 200px;
+        }
+
+        .component-label {
+            font-size: var(--font-size-body-small);
+            font-weight: var(--font-weight-medium);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-4);
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-24);
+            margin-top: var(--spacing-16);
+        }
+
+        .icon-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: var(--spacing-16);
+            margin-top: var(--spacing-16);
+        }
+
+        .icon-demo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-8);
+            padding: var(--spacing-8);
+            border-radius: var(--spacing-radius-default);
+            background: var(--color-background-secondary);
+        }
+
+        .icon-demo span:last-child {
+            font-size: var(--font-size-body-small);
+            color: var(--color-text-secondary);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Desktop Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="logo">
+            <span class="icon icon-40" style="mask-image: var(--icon-canvas-logo-outline);"
+                aria-label="App Logo"></span>
+        </div>
+        <div class="nav-items">
+            <a href="#" class="nav-item">
+                <span class="icon icon-28" style="mask-image: var(--icon-user-outline);" aria-hidden="true"></span>
+                Account
+            </a>
+            <a href="#" class="nav-item nav-item--active">
+                <span class="icon icon-28" style="mask-image: var(--icon-admin-outline);" aria-hidden="true"></span>
+                Admin
+            </a>
+            <a href="#" class="nav-item">
+                <span class="icon icon-28" style="mask-image: var(--icon-dashboard-outline);" aria-hidden="true"></span>
+                Dashboard
+            </a>
+            <a href="#" class="nav-item">
+                <span class="icon icon-28" style="mask-image: var(--icon-courses-outline);" aria-hidden="true"></span>
+                Courses
+            </a>
+            <a href="#" class="nav-item">
+                <span class="icon icon-28" style="mask-image: var(--icon-calendar-month-outline);"
+                    aria-hidden="true"></span>
+                Calendar
+            </a>
+            <a href="#" class="nav-item">
+                <span class="icon icon-28" style="mask-image: var(--icon-inbox-outline);" aria-hidden="true"></span>
+                Inbox
+            </a>
+            <a href="#" class="nav-item">
+                <span class="icon icon-28" style="mask-image: var(--icon-clock-outline);" aria-hidden="true"></span>
+                History
+            </a>
+            <a href="#" class="nav-item">
+                <span class="icon icon-28" style="mask-image: var(--icon-question-outline);" aria-hidden="true"></span>
+                Help
+            </a>
+        </div>
+    </nav>
+
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <div class="mobile-logo">
+            <span class="icon icon-24" style="mask-image: var(--icon-canvas-logo-outline);"
+                aria-label="App Logo"></span>
+        </div>
+        <button class="btn btn--inverse btn--icon-only-minimal btn--medium" id="hamburgerBtn" aria-label="Menu">
+            <span class="btn-icon" style="mask-image: var(--icon-hamburger-outline);" aria-hidden="true"></span>
+        </button>
+    </header>
+
+    <!-- Mobile Drawer -->
+    <nav class="mobile-drawer" id="mobileDrawer">
+        <div class="mobile-drawer-header">
+            <div class="mobile-logo">
+                <span class="icon icon-24" style="mask-image: var(--icon-canvas-logo-outline);"
+                    aria-label="App Logo"></span>
+            </div>
+            <button class="btn btn--inverse btn--icon-only-minimal btn--medium" id="closeBtn" aria-label="Close">
+                <span class="btn-icon" style="mask-image: var(--icon-close-outline);" aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="mobile-nav-items">
+            <a href="#" class="mobile-nav-item">
+                <div class="item-content">
+                    <span class="icon icon-24" style="mask-image: var(--icon-user-outline);" aria-hidden="true"></span>
+                    <span>Account</span>
+                </div>
+                <span class="icon icon-24 chevron" style="mask-image: var(--icon-chevron-right-outline);"
+                    aria-hidden="true"></span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <div class="item-content">
+                    <span class="icon icon-24" style="mask-image: var(--icon-admin-outline);" aria-hidden="true"></span>
+                    <span>Admin</span>
+                </div>
+                <span class="icon icon-24 chevron" style="mask-image: var(--icon-chevron-right-outline);"
+                    aria-hidden="true"></span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <div class="item-content">
+                    <span class="icon icon-24" style="mask-image: var(--icon-dashboard-outline);"
+                        aria-hidden="true"></span>
+                    <span>Dashboard</span>
+                </div>
+                <span class="icon icon-24 chevron" style="mask-image: var(--icon-chevron-right-outline);"
+                    aria-hidden="true"></span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <div class="item-content">
+                    <span class="icon icon-24" style="mask-image: var(--icon-courses-outline);"
+                        aria-hidden="true"></span>
+                    <span>Courses</span>
+                </div>
+                <span class="icon icon-24 chevron" style="mask-image: var(--icon-chevron-right-outline);"
+                    aria-hidden="true"></span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <div class="item-content">
+                    <span class="icon icon-24" style="mask-image: var(--icon-calendar-month-outline);"
+                        aria-hidden="true"></span>
+                    <span>Calendar</span>
+                </div>
+                <span class="icon icon-24 chevron" style="mask-image: var(--icon-chevron-right-outline);"
+                    aria-hidden="true"></span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <div class="item-content">
+                    <span class="icon icon-24" style="mask-image: var(--icon-inbox-outline);" aria-hidden="true"></span>
+                    <span>Inbox</span>
+                </div>
+                <span class="icon icon-24 chevron" style="mask-image: var(--icon-chevron-right-outline);"
+                    aria-hidden="true"></span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <div class="item-content">
+                    <span class="icon icon-24" style="mask-image: var(--icon-clock-outline);" aria-hidden="true"></span>
+                    <span>History</span>
+                </div>
+                <span class="icon icon-24 chevron" style="mask-image: var(--icon-chevron-right-outline);"
+                    aria-hidden="true"></span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <div class="item-content">
+                    <span class="icon icon-24" style="mask-image: var(--icon-question-outline);"
+                        aria-hidden="true"></span>
+                    <span>Help</span>
+                </div>
+                <span class="icon icon-24 chevron" style="mask-image: var(--icon-chevron-right-outline);"
+                    aria-hidden="true"></span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Overlay for mobile drawer -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Modal Containers -->
+    <div id="demoModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Demo Modal</h3>
+                <button class="btn btn--icon-only-minimal btn--small" id="closeModalBtn" aria-label="Close modal">
+                    <span class="btn-icon" style="mask-image: var(--icon-close-outline);" aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>This is a demonstration modal showcasing the modal component functionality.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--ghost btn--medium" id="cancelModalBtn">Cancel</button>
+                <button class="btn btn--primary btn--medium">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tray Containers -->
+    <div id="demoTray" class="tray-overlay">
+        <div class="tray tray--medium">
+            <div class="tray-header">
+                <h3>Demo Tray</h3>
+                <button class="btn btn--icon-only-minimal btn--small" id="closeTrayBtn" aria-label="Close tray">
+                    <span class="btn-icon" style="mask-image: var(--icon-close-outline);" aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="tray-body">
+                <p>This is a demonstration tray component that slides in from the right side of the screen.</p>
+            </div>
+            <div class="tray-footer">
+                <button class="btn btn--ghost btn--medium">Cancel</button>
+                <button class="btn btn--primary btn--medium">Apply</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Desktop Header -->
+    <header class="desktop-header">
+        <button class="btn btn--icon-only-minimal btn--medium" id="desktopHamburgerBtn" aria-label="Menu">
+            <span class="btn-icon" style="mask-image: var(--icon-hamburger-outline);" aria-hidden="true"></span>
+        </button>
+        <nav class="breadcrumb">
+            <a href="#">Design System</a>
+            <span class="icon chevron" style="mask-image: var(--icon-chevron-right-outline);" aria-hidden="true"></span>
+            Kitchen Sink
+        </nav>
+    </header>
+
+    <!-- Secondary Navigation Drawer -->
+    <nav class="secondary-nav" id="secondaryNav">
+        <ul class="secondary-nav-list">
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link secondary-nav-link--active">Components</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Patterns</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Templates</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Guidelines</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content" id="mainContent">
+
+        <!-- Page Header -->
+        <header class="page-header">
+            <div class="page-header-content">
+                <h1>Kitchen Sink</h1>
+                <p class="page-header-description">Comprehensive showcase of all InstUI 10 components and patterns</p>
+            </div>
+            <div class="page-header-actions">
+                <button class="btn btn--primary btn--medium">
+                    <span class="btn-icon" style="mask-image: var(--icon-add-outline);" aria-hidden="true"></span>
+                    Add Component
+                </button>
+            </div>
+        </header>
+
+        <!-- Button Components -->
+        <section class="kitchen-sink-section">
+            <h2>Buttons</h2>
+            <div class="component-showcase">
+                
+                <div class="component-group">
+                    <div class="component-label">Standard Buttons</div>
+                    <div class="component-row">
+                        <button class="btn btn--primary btn--small">Primary Small</button>
+                        <button class="btn btn--primary btn--medium">Primary Medium</button>
+                        <button class="btn btn--primary btn--large">Primary Large</button>
+                    </div>
+                    <div class="component-row">
+                        <button class="btn btn--secondary btn--medium">Secondary</button>
+                        <button class="btn btn--success btn--medium">Success</button>
+                        <button class="btn btn--danger btn--medium">Danger</button>
+                        <button class="btn btn--ghost btn--medium">Ghost</button>
+                        <button class="btn btn--link btn--medium">Link</button>
+                    </div>
+                </div>
+
+                <div class="component-group">
+                    <div class="component-label">Icon Buttons</div>
+                    <div class="component-row">
+                        <button class="btn btn--primary btn--medium">
+                            <span class="btn-icon" style="mask-image: var(--icon-add-outline);" aria-hidden="true"></span>
+                            Add Item
+                        </button>
+                        <button class="btn btn--secondary btn--medium">
+                            Download
+                            <span class="btn-icon" style="mask-image: var(--icon-download-outline);" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <div class="component-row">
+                        <button class="btn btn--secondary btn--icon-only btn--medium" aria-label="Settings">
+                            <span class="btn-icon" style="mask-image: var(--icon-settings-outline);" aria-hidden="true"></span>
+                        </button>
+                        <button class="btn btn--icon-only-minimal btn--medium" aria-label="Close">
+                            <span class="btn-icon" style="mask-image: var(--icon-close-outline);" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="component-group">
+                    <div class="component-label">Menu Trigger Buttons</div>
+                    <div class="component-row">
+                        <div class="menu-container">
+                            <button class="btn btn--primary btn--medium btn--with-chevron menu-trigger" 
+                                    data-menu="demo-menu" 
+                                    aria-haspopup="true" 
+                                    aria-expanded="false">
+                                Create
+                                <span class="menu-trigger-chevron" style="mask-image: var(--icon-chevron-down-outline);" aria-hidden="true"></span>
+                            </button>
+                            
+                            <div class="menu" id="demo-menu" role="menu" aria-hidden="true">
+                                <div class="menu-item" role="menuitem" tabindex="-1">
+                                    <span class="menu-item-icon" style="mask-image: var(--icon-add-outline);" aria-hidden="true"></span>
+                                    <span class="menu-item-text">New Course</span>
+                                </div>
+                                <div class="menu-item" role="menuitem" tabindex="-1">
+                                    <span class="menu-item-icon" style="mask-image: var(--icon-document-outline);" aria-hidden="true"></span>
+                                    <span class="menu-item-text">New Assignment</span>
+                                </div>
+                                <div class="menu-separator" role="separator"></div>
+                                <div class="menu-item" role="menuitem" tabindex="-1">
+                                    <span class="menu-item-icon" style="mask-image: var(--icon-import-outline);" aria-hidden="true"></span>
+                                    <span class="menu-item-text">Import Content</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Card Components -->
+        <section class="kitchen-sink-section">
+            <h2>Cards</h2>
+            <div class="demo-grid">
+                
+                <div class="card card--primary">
+                    <div class="card-content">
+                        <h3>Basic Card</h3>
+                        <p>Simple card with primary styling and content wrapper for proper spacing.</p>
+                    </div>
+                </div>
+
+                <div class="card card--primary card--shadow">
+                    <div class="card-header card-header--h4">
+                        <div class="card-header-content">
+                            <h4>Course Information</h4>
+                            <p>Web development fundamentals course</p>
+                        </div>
+                        <div class="card-header-actions">
+                            <button class="btn btn--icon-only-minimal btn--medium" aria-label="Course settings">
+                                <span class="btn-icon" style="mask-image: var(--icon-settings-outline);" aria-hidden="true"></span>
+                            </button>
+                            <button class="btn btn--icon-only-minimal btn--medium" aria-label="More options">
+                                <span class="btn-icon" style="mask-image: var(--icon-more-outline);" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p>Card with header section containing title, description, and action buttons.</p>
+                    </div>
+                </div>
+
+                <div class="card card--secondary">
+                    <div class="card-content">
+                        <h3>Secondary Card</h3>
+                        <p>Secondary card variant with muted styling for less emphasis.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Icon Components -->
+        <section class="kitchen-sink-section">
+            <h2>Icons</h2>
+            <div class="icon-showcase">
+                <div class="icon-demo">
+                    <span class="icon icon-24" style="mask-image: var(--icon-add-outline);" aria-hidden="true"></span>
+                    <span>Add</span>
+                </div>
+                <div class="icon-demo">
+                    <span class="icon icon-24" style="mask-image: var(--icon-edit-outline);" aria-hidden="true"></span>
+                    <span>Edit</span>
+                </div>
+                <div class="icon-demo">
+                    <span class="icon icon-24" style="mask-image: var(--icon-delete-outline);" aria-hidden="true"></span>
+                    <span>Delete</span>
+                </div>
+                <div class="icon-demo">
+                    <span class="icon icon-24" style="mask-image: var(--icon-settings-outline);" aria-hidden="true"></span>
+                    <span>Settings</span>
+                </div>
+                <div class="icon-demo">
+                    <span class="icon icon-24" style="mask-image: var(--icon-search-outline);" aria-hidden="true"></span>
+                    <span>Search</span>
+                </div>
+                <div class="icon-demo">
+                    <span class="icon icon-24" style="mask-image: var(--icon-download-outline);" aria-hidden="true"></span>
+                    <span>Download</span>
+                </div>
+                <div class="icon-demo">
+                    <span class="icon icon-24" style="mask-image: var(--icon-upload-outline);" aria-hidden="true"></span>
+                    <span>Upload</span>
+                </div>
+                <div class="icon-demo">
+                    <span class="icon icon-24" style="mask-image: var(--icon-info-outline);" aria-hidden="true"></span>
+                    <span>Info</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Form Input Components -->
+        <section class="kitchen-sink-section">
+            <h2>Form Inputs</h2>
+            <div class="demo-grid">
+                
+                <div>
+                    <div class="component-label">Text Inputs</div>
+                    <div class="form-field">
+                        <label for="basic-text" class="form-label">Basic Text Input</label>
+                        <input type="text" id="basic-text" class="form-input" placeholder="Enter text here">
+                    </div>
+                    
+                    <div class="form-field">
+                        <label for="required-input" class="form-label">
+                            Required Field <span class="form-label-required">*</span>
+                        </label>
+                        <input type="text" id="required-input" class="form-input" placeholder="This field is required" required>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="component-label">Input with Icons</div>
+                    <div class="form-field">
+                        <label for="search-input" class="form-label">Search</label>
+                        <div class="form-input-wrapper form-input-wrapper--icon-left">
+                            <span class="icon icon-18 form-input-icon" 
+                                  style="mask-image: var(--icon-search-outline);" 
+                                  aria-hidden="true"></span>
+                            <input type="text" id="search-input" class="form-input form-input--icon-left" 
+                                   placeholder="Search courses...">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="component-label">Textarea</div>
+                    <div class="form-field">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea id="description" class="form-input" rows="4" 
+                                  placeholder="Enter a detailed description..."></textarea>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="component-label">Checkboxes</div>
+                    <div class="form-field">
+                        <div class="form-checkbox-group">
+                            <label class="form-checkbox-label">
+                                <input type="checkbox" class="form-checkbox">
+                                <span class="form-checkbox-custom"></span>
+                                Option 1
+                            </label>
+                            <label class="form-checkbox-label">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="form-checkbox-custom"></span>
+                                Option 2 (checked)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab Components -->
+        <section class="kitchen-sink-section">
+            <h2>Tabs</h2>
+            
+            <div class="component-group">
+                <div class="component-label">Primary Tabs</div>
+                <nav class="tabs tabs--primary" role="tablist" aria-label="Main Navigation">
+                    <button class="tab tab--active" role="tab" aria-selected="true" aria-controls="overview-panel" id="overview-tab">
+                        Overview
+                    </button>
+                    <button class="tab" role="tab" aria-selected="false" aria-controls="courses-panel" id="courses-tab">
+                        Courses
+                    </button>
+                    <button class="tab" role="tab" aria-selected="false" aria-controls="analytics-panel" id="analytics-tab">
+                        Analytics
+                    </button>
+                </nav>
+
+                <div class="tab-content-container">
+                    <div class="tab-content tab-content--active" role="tabpanel" id="overview-panel" aria-labelledby="overview-tab">
+                        <div class="card card--primary" style="margin-top: var(--spacing-16);">
+                            <div class="card-content">
+                                <h3>Overview Content</h3>
+                                <p>This is the overview tab content panel.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" role="tabpanel" id="courses-panel" aria-labelledby="courses-tab">
+                        <div class="card card--primary" style="margin-top: var(--spacing-16);">
+                            <div class="card-content">
+                                <h3>Courses Content</h3>
+                                <p>This is the courses tab content panel.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" role="tabpanel" id="analytics-panel" aria-labelledby="analytics-tab">
+                        <div class="card card--primary" style="margin-top: var(--spacing-16);">
+                            <div class="card-content">
+                                <h3>Analytics Content</h3>
+                                <p>This is the analytics tab content panel.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-group" style="margin-top: var(--spacing-32);">
+                <div class="component-label">Secondary Tabs</div>
+                <div class="tab-demo">
+                    <nav class="tabs tabs--secondary" role="tablist" aria-label="Content Filters">
+                        <button class="tab tab--active" role="tab" aria-selected="true" aria-controls="active-panel" id="active-tab">
+                            Active
+                        </button>
+                        <button class="tab" role="tab" aria-selected="false" aria-controls="archived-panel" id="archived-tab">
+                            Archived
+                        </button>
+                        <button class="tab" role="tab" aria-selected="false" aria-controls="draft-panel" id="draft-tab">
+                            Draft
+                        </button>
+                        <div class="tab-spacer"></div>
+                    </nav>
+
+                    <div class="tab-content tab-content--active" role="tabpanel" id="active-panel" aria-labelledby="active-tab">
+                        <div class="card card--secondary" style="margin-top: var(--spacing-16);">
+                            <div class="card-content">
+                                <p>Active items content</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" role="tabpanel" id="archived-panel" aria-labelledby="archived-tab">
+                        <div class="card card--secondary" style="margin-top: var(--spacing-16);">
+                            <div class="card-content">
+                                <p>Archived items content</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" role="tabpanel" id="draft-panel" aria-labelledby="draft-tab">
+                        <div class="card card--secondary" style="margin-top: var(--spacing-16);">
+                            <div class="card-content">
+                                <p>Draft items content</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tag Components -->
+        <section class="kitchen-sink-section">
+            <h2>Tags</h2>
+            <div class="component-showcase">
+                
+                <div class="component-group">
+                    <div class="component-label">Tag Sizes</div>
+                    <div class="component-row">
+                        <span class="tag tag--small">
+                            <span class="tag__text">Small Tag</span>
+                        </span>
+                        <span class="tag tag--medium">
+                            <span class="tag__text">Medium Tag</span>
+                        </span>
+                        <span class="tag tag--large">
+                            <span class="tag__text">Large Tag</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="component-group">
+                    <div class="component-label">Dismissable Tags</div>
+                    <div class="component-row">
+                        <span class="tag tag--medium tag--dismissable">
+                            <span class="tag__text">Applied Filter</span>
+                            <button class="tag__close" aria-label="Remove Applied Filter">
+                                <span class="tag__close-icon"></span>
+                            </button>
+                        </span>
+                        <span class="tag tag--medium tag--dismissable">
+                            <span class="tag__text">Category: Engineering</span>
+                            <button class="tag__close" aria-label="Remove Category: Engineering">
+                                <span class="tag__close-icon"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="component-group">
+                    <div class="component-label">Disabled Tags</div>
+                    <div class="component-row">
+                        <span class="tag tag--medium tag--disabled">
+                            <span class="tag__text">Disabled Tag</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Menu Components -->
+        <section class="kitchen-sink-section">
+            <h2>Menu Components</h2>
+            <div class="component-showcase">
+                
+                <div class="component-group">
+                    <div class="component-label">Menu with Headers</div>
+                    <div class="component-row">
+                        <div class="menu-container">
+                            <button class="btn btn--secondary btn--medium btn--with-chevron menu-trigger" 
+                                    data-menu="header-menu" 
+                                    aria-haspopup="true" 
+                                    aria-expanded="false">
+                                More Options
+                                <span class="menu-trigger-chevron" style="mask-image: var(--icon-chevron-down-outline);" aria-hidden="true"></span>
+                            </button>
+                            
+                            <div class="menu" id="header-menu" role="menu" aria-hidden="true">
+                                <div class="menu-header">File Actions</div>
+                                <div class="menu-item" role="menuitem" tabindex="-1">
+                                    <span class="menu-item-icon" style="mask-image: var(--icon-upload-outline);" aria-hidden="true"></span>
+                                    <span class="menu-item-text">Upload</span>
+                                </div>
+                                <div class="menu-item" role="menuitem" tabindex="-1">
+                                    <span class="menu-item-icon" style="mask-image: var(--icon-download-outline);" aria-hidden="true"></span>
+                                    <span class="menu-item-text">Download</span>
+                                </div>
+                                <div class="menu-separator" role="separator"></div>
+                                <div class="menu-header">View Options</div>
+                                <div class="menu-item" role="menuitem" tabindex="-1">
+                                    <span class="menu-item-icon" style="mask-image: var(--icon-grid-view-outline);" aria-hidden="true"></span>
+                                    <span class="menu-item-text">Grid View</span>
+                                </div>
+                                <div class="menu-item" role="menuitem" tabindex="-1">
+                                    <span class="menu-item-icon" style="mask-image: var(--icon-list-view-outline);" aria-hidden="true"></span>
+                                    <span class="menu-item-text">List View</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="component-group">
+                    <div class="component-label">Custom Select Menu</div>
+                    <div class="component-row">
+                        <div class="form-field" style="min-width: 200px;">
+                            <label for="custom-select" class="form-label">Choose Status</label>
+                            <div class="menu-container">
+                                <button class="form-select-custom menu-trigger" 
+                                        data-menu="select-menu" 
+                                        aria-haspopup="listbox" 
+                                        aria-expanded="false" 
+                                        id="custom-select">
+                                    <span class="form-select-value">Select an option...</span>
+                                    <span class="form-select-icon" style="mask-image: var(--icon-chevron-down-outline);" aria-hidden="true"></span>
+                                </button>
+                                
+                                <div class="menu menu--select" id="select-menu" role="listbox" aria-hidden="true">
+                                    <div class="menu-header">Status Options</div>
+                                    <div class="menu-item menu-item--selectable" role="option" tabindex="-1" data-value="active">
+                                        <span class="menu-item-icon" style="mask-image: var(--icon-check-outline);" aria-hidden="true"></span>
+                                        <span class="menu-item-text">Active</span>
+                                        <span class="menu-item-check" style="mask-image: var(--icon-check-solid);" aria-hidden="true"></span>
+                                    </div>
+                                    <div class="menu-item menu-item--selectable" role="option" tabindex="-1" data-value="pending">
+                                        <span class="menu-item-icon" style="mask-image: var(--icon-clock-outline);" aria-hidden="true"></span>
+                                        <span class="menu-item-text">Pending</span>
+                                        <span class="menu-item-check" style="mask-image: var(--icon-check-solid);" aria-hidden="true"></span>
+                                    </div>
+                                    <div class="menu-item menu-item--selectable" role="option" tabindex="-1" data-value="concluded">
+                                        <span class="menu-item-icon" style="mask-image: var(--icon-complete-outline);" aria-hidden="true"></span>
+                                        <span class="menu-item-text">Concluded</span>
+                                        <span class="menu-item-check" style="mask-image: var(--icon-check-solid);" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="component-group">
+                    <div class="component-label">Searchable Input Menu</div>
+                    <div class="component-row">
+                        <div class="form-field" style="min-width: 250px;">
+                            <label for="searchable-input" class="form-label">Select User</label>
+                            <div class="menu-container">
+                                <div class="form-input-wrapper form-input-wrapper--icon-left">
+                                    <span class="icon icon-18 form-input-icon" style="mask-image: var(--icon-search-outline);" aria-hidden="true"></span>
+                                    <input type="text" 
+                                           id="searchable-input" 
+                                           class="form-input form-input--icon-left searchable-text-input" 
+                                           placeholder="Search users..." 
+                                           data-menu="search-menu" 
+                                           autocomplete="off">
+                                </div>
+                                
+                                <div class="menu menu--searchable menu--select" id="search-menu" role="listbox" aria-hidden="true">
+                                    <div class="menu-items">
+                                        <div class="menu-item menu-item--selectable" role="option" tabindex="-1" data-value="john" data-search="john doe instructor">
+                                            <span class="menu-item-icon" style="mask-image: var(--icon-user-outline);" aria-hidden="true"></span>
+                                            <span class="menu-item-text">John Doe</span>
+                                        </div>
+                                        <div class="menu-item menu-item--selectable" role="option" tabindex="-1" data-value="jane" data-search="jane smith teacher">
+                                            <span class="menu-item-icon" style="mask-image: var(--icon-user-outline);" aria-hidden="true"></span>
+                                            <span class="menu-item-text">Jane Smith</span>
+                                        </div>
+                                        <div class="menu-item menu-item--selectable" role="option" tabindex="-1" data-value="mike" data-search="mike johnson admin">
+                                            <span class="menu-item-icon" style="mask-image: var(--icon-admin-outline);" aria-hidden="true"></span>
+                                            <span class="menu-item-text">Mike Johnson</span>
+                                        </div>
+                                        <div class="menu-item menu-item--selectable" role="option" tabindex="-1" data-value="sarah" data-search="sarah wilson student">
+                                            <span class="menu-item-icon" style="mask-image: var(--icon-user-outline);" aria-hidden="true"></span>
+                                            <span class="menu-item-text">Sarah Wilson</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="component-group">
+                    <div class="component-label">Icon-Only Menu Triggers</div>
+                    <div class="component-row">
+                        <div class="menu-container">
+                            <button class="btn btn--icon-only-minimal btn--medium menu-trigger" 
+                                    data-menu="icon-menu" 
+                                    aria-haspopup="true" 
+                                    aria-expanded="false" 
+                                    aria-label="More actions">
+                                <span class="btn-icon" style="mask-image: var(--icon-more-outline);" aria-hidden="true"></span>
+                            </button>
+                            
+                            <div class="menu menu--right" id="icon-menu" role="menu" aria-hidden="true">
+                                <div class="menu-item" role="menuitem" tabindex="-1">
+                                    <span class="menu-item-text">Share</span>
+                                </div>
+                                <div class="menu-item" role="menuitem" tabindex="-1">
+                                    <span class="menu-item-text">Duplicate</span>
+                                </div>
+                                <div class="menu-separator" role="separator"></div>
+                                <div class="menu-item menu-item--danger" role="menuitem" tabindex="-1">
+                                    <span class="menu-item-text">Remove</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-container">
+                            <button class="btn btn--icon-only-minimal btn--medium btn--with-chevron menu-trigger" 
+                                    data-menu="chevron-menu" 
+                                    aria-haspopup="true" 
+                                    aria-expanded="false" 
+                                    aria-label="Settings menu">
+                                <span class="btn-icon" style="mask-image: var(--icon-settings-outline);" aria-hidden="true"></span>
+                                <span class="menu-trigger-chevron" style="mask-image: var(--icon-chevron-down-outline);" aria-hidden="true"></span>
+                            </button>
+                            
+                            <div class="menu menu--right" id="chevron-menu" role="menu" aria-hidden="true">
+                                <div class="menu-item" role="menuitem" tabindex="-1">
+                                    <span class="menu-item-icon" style="mask-image: var(--icon-edit-outline);" aria-hidden="true"></span>
+                                    <span class="menu-item-text">Edit Settings</span>
+                                </div>
+                                <div class="menu-item" role="menuitem" tabindex="-1">
+                                    <span class="menu-item-icon" style="mask-image: var(--icon-copy-outline);" aria-hidden="true"></span>
+                                    <span class="menu-item-text">Copy Configuration</span>
+                                </div>
+                                <div class="menu-separator" role="separator"></div>
+                                <div class="menu-item menu-item--danger" role="menuitem" tabindex="-1">
+                                    <span class="menu-item-icon" style="mask-image: var(--icon-delete-outline);" aria-hidden="true"></span>
+                                    <span class="menu-item-text">Reset to Default</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Components -->
+        <section class="kitchen-sink-section">
+            <h2>Interactive Components</h2>
+            <div class="component-showcase">
+                
+                <div class="component-group">
+                    <div class="component-label">Modals & Trays</div>
+                    <div class="component-row">
+                        <button class="btn btn--primary btn--medium" id="openModalBtn">
+                            Open Modal
+                        </button>
+                        <button class="btn btn--secondary btn--medium" id="openTrayBtn">
+                            Open Tray
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Mobile drawer functionality
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const mobileDrawer = document.getElementById('mobileDrawer');
+        const overlay = document.getElementById('overlay');
+
+        function toggleDrawer() {
+            mobileDrawer.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
+
+        function closeDrawer() {
+            mobileDrawer.classList.remove('open');
+            overlay.classList.remove('active');
+        }
+
+        hamburgerBtn.addEventListener('click', toggleDrawer);
+        closeBtn.addEventListener('click', closeDrawer);
+        overlay.addEventListener('click', closeDrawer);
+
+        // Close drawer when clicking on nav items (mobile)
+        document.querySelectorAll('.mobile-nav-item').forEach(item => {
+            item.addEventListener('click', closeDrawer);
+        });
+
+        // Desktop secondary navigation functionality
+        const desktopHamburgerBtn = document.getElementById('desktopHamburgerBtn');
+        const secondaryNav = document.getElementById('secondaryNav');
+        const mainContent = document.getElementById('mainContent');
+
+        function toggleSecondaryNav() {
+            secondaryNav.classList.toggle('closed');
+            mainContent.classList.toggle('expanded');
+        }
+
+        desktopHamburgerBtn.addEventListener('click', toggleSecondaryNav);
+
+        // MenuManager - Comprehensive menu management system
+        class MenuManager {
+            constructor(options = {}) {
+                this.options = {
+                    menuSelector: '.menu',
+                    triggerSelector: '.menu-trigger',
+                    itemSelector: '.menu-item',
+                    activeClass: 'open',
+                    ...options
+                };
+
+                this.activeMenu = null;
+                this.activeTrigger = null;
+                this.outsideClickHandlers = new Map();
+                this.init();
+            }
+
+            init() {
+                this.bindEvents();
+            }
+
+            bindEvents() {
+                document.addEventListener('click', this.handleDocumentClick.bind(this));
+                document.addEventListener('keydown', this.handleDocumentKeydown.bind(this));
+            }
+
+            handleDocumentClick(e) {
+                const trigger = e.target.closest(this.options.triggerSelector);
+                const menuItem = e.target.closest(this.options.itemSelector);
+
+                if (trigger) {
+                    e.preventDefault();
+                    this.toggleMenu(trigger);
+                } else if (menuItem && !menuItem.classList.contains('menu-item--submenu')) {
+                    this.handleMenuItemClick(menuItem);
+                }
+            }
+
+            handleDocumentKeydown(e) {
+                if (e.key === 'Escape') {
+                    this.closeAllMenus();
+                    return;
+                }
+
+                if (!this.activeMenu) return;
+
+                const menuItems = this.getVisibleMenuItems(this.activeMenu);
+                const currentIndex = menuItems.findIndex(item => item === document.activeElement);
+
+                switch (e.key) {
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        this.focusMenuItem(menuItems, this.getNextIndex(currentIndex, menuItems.length));
+                        break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        this.focusMenuItem(menuItems, this.getPreviousIndex(currentIndex, menuItems.length));
+                        break;
+                    case 'Enter':
+                    case ' ':
+                        e.preventDefault();
+                        if (document.activeElement.classList.contains(this.options.itemSelector.replace('.', ''))) {
+                            this.handleMenuItemClick(document.activeElement);
+                        }
+                        break;
+                }
+            }
+
+            handleMenuItemClick(menuItem) {
+                this.closeAllMenus();
+            }
+
+            toggleMenu(trigger) {
+                const menuId = trigger.getAttribute('data-menu');
+                const menu = document.getElementById(menuId);
+                if (!menu) return;
+
+                const isOpen = menu.classList.contains(this.options.activeClass);
+                this.closeAllMenus();
+
+                if (!isOpen) {
+                    this.openMenu(trigger, menu);
+                }
+            }
+
+            openMenu(trigger, menu) {
+                menu.classList.add(this.options.activeClass);
+                this.setAriaStates(trigger, menu, true);
+                
+                this.activeMenu = menu;
+                this.activeTrigger = trigger;
+                this.setupOutsideClickHandler(trigger, menu);
+                this.focusFirstMenuItem(menu);
+            }
+
+            closeMenu(trigger, menu) {
+                menu.classList.remove(this.options.activeClass);
+                this.setAriaStates(trigger, menu, false);
+                this.cleanupOutsideClickHandler(menu);
+
+                if (this.activeMenu === menu) {
+                    this.activeMenu = null;
+                    this.activeTrigger = null;
+                }
+            }
+
+            closeAllMenus() {
+                document.querySelectorAll(`${this.options.menuSelector}.${this.options.activeClass}`).forEach(menu => {
+                    const trigger = document.querySelector(`[data-menu="${menu.id}"]`);
+                    if (trigger) {
+                        this.closeMenu(trigger, menu);
+                    }
+                });
+            }
+
+            setAriaStates(trigger, menu, isOpen) {
+                trigger.setAttribute('aria-expanded', isOpen.toString());
+                menu.setAttribute('aria-hidden', (!isOpen).toString());
+            }
+
+            setupOutsideClickHandler(trigger, menu) {
+                const handler = (e) => {
+                    if (!trigger.contains(e.target) && !menu.contains(e.target)) {
+                        this.closeMenu(trigger, menu);
+                    }
+                };
+
+                setTimeout(() => {
+                    document.addEventListener('click', handler);
+                    this.outsideClickHandlers.set(menu, handler);
+                }, 100);
+            }
+
+            cleanupOutsideClickHandler(menu) {
+                const handler = this.outsideClickHandlers.get(menu);
+                if (handler) {
+                    document.removeEventListener('click', handler);
+                    this.outsideClickHandlers.delete(menu);
+                }
+            }
+
+            getVisibleMenuItems(menu) {
+                return Array.from(menu.querySelectorAll(this.options.itemSelector))
+                    .filter(item => !item.classList.contains('menu-header') &&
+                        !item.classList.contains('menu-separator'));
+            }
+
+            focusMenuItem(menuItems, index) {
+                if (menuItems[index]) {
+                    menuItems[index].focus();
+                }
+            }
+
+            getNextIndex(currentIndex, length) {
+                return currentIndex < length - 1 ? currentIndex + 1 : 0;
+            }
+
+            getPreviousIndex(currentIndex, length) {
+                return currentIndex > 0 ? currentIndex - 1 : length - 1;
+            }
+
+            focusFirstMenuItem(menu) {
+                setTimeout(() => {
+                    const firstItem = this.getVisibleMenuItems(menu)[0];
+                    if (firstItem) {
+                        firstItem.focus();
+                    }
+                }, 50);
+            }
+        }
+
+        // Modal Manager Class
+        class ModalManager {
+            constructor() {
+                this.activeModal = null;
+                this.init();
+            }
+
+            init() {
+                const modals = document.querySelectorAll('.modal-overlay');
+                modals.forEach(modal => this.setupModal(modal));
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.activeModal) {
+                        this.close();
+                    }
+                });
+            }
+
+            setupModal(modalOverlay) {
+                const modal = modalOverlay.querySelector('.modal');
+                const closeBtn = modal.querySelector('[id*="close"], [aria-label*="Close"]');
+                const cancelBtn = modal.querySelector('[id*="cancel"]');
+
+                modalOverlay.addEventListener('click', (e) => {
+                    if (e.target === modalOverlay) {
+                        this.close();
+                    }
+                });
+
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', () => this.close());
+                }
+                if (cancelBtn) {
+                    cancelBtn.addEventListener('click', () => this.close());
+                }
+            }
+
+            open(modalId) {
+                this.close();
+
+                const modalOverlay = document.getElementById(modalId);
+                if (!modalOverlay) return;
+
+                modalOverlay.classList.add('active');
+                this.activeModal = modalOverlay;
+
+                const closeBtn = modalOverlay.querySelector('[id*="close"], [aria-label*="Close"]');
+                if (closeBtn) {
+                    setTimeout(() => closeBtn.focus(), 100);
+                }
+
+                this.opener = document.activeElement;
+            }
+
+            close() {
+                if (!this.activeModal) return;
+
+                this.activeModal.classList.remove('active');
+
+                if (this.opener && this.opener.focus) {
+                    this.opener.focus();
+                }
+
+                this.activeModal = null;
+                this.opener = null;
+            }
+        }
+
+        // Tray Manager Class
+        class TrayManager {
+            constructor() {
+                this.activeTray = null;
+                this.init();
+            }
+
+            init() {
+                const trays = document.querySelectorAll('.tray-overlay');
+                trays.forEach(tray => this.setupTray(tray));
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.activeTray) {
+                        this.close();
+                    }
+                });
+            }
+
+            setupTray(trayOverlay) {
+                const tray = trayOverlay.querySelector('.tray');
+                const closeBtn = tray.querySelector('[id*="close"], [aria-label*="Close"]');
+                const cancelBtn = tray.querySelector('[id*="cancel"]');
+
+                trayOverlay.addEventListener('click', (e) => {
+                    if (e.target === trayOverlay) {
+                        this.close();
+                    }
+                });
+
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', () => this.close());
+                }
+                if (cancelBtn) {
+                    cancelBtn.addEventListener('click', () => this.close());
+                }
+            }
+
+            open(trayId) {
+                this.close();
+
+                const trayOverlay = document.getElementById(trayId);
+                if (!trayOverlay) return;
+
+                trayOverlay.classList.add('active');
+                this.activeTray = trayOverlay;
+
+                const closeBtn = trayOverlay.querySelector('[id*="close"], [aria-label*="Close"]');
+                if (closeBtn) {
+                    setTimeout(() => closeBtn.focus(), 100);
+                }
+
+                this.opener = document.activeElement;
+            }
+
+            close() {
+                if (!this.activeTray) return;
+
+                this.activeTray.classList.remove('active');
+
+                if (this.opener && this.opener.focus) {
+                    this.opener.focus();
+                }
+
+                this.activeTray = null;
+                this.opener = null;
+            }
+        }
+
+        // Tab Manager Class
+        class TabManager {
+            constructor() {
+                this.init();
+            }
+
+            init() {
+                this.initializeTabs();
+            }
+
+            initializeTabs() {
+                const tabContainers = document.querySelectorAll('.tabs');
+
+                tabContainers.forEach(container => {
+                    const tabs = container.querySelectorAll('.tab');
+                    const isSecondaryTabs = container.classList.contains('tabs--secondary');
+                    const isPrimaryTabs = container.classList.contains('tabs--primary');
+
+                    tabs.forEach(tab => {
+                        tab.addEventListener('click', () => this.handleTabClick(tab, container, isPrimaryTabs, isSecondaryTabs));
+                        tab.addEventListener('keydown', (e) => this.handleKeyNavigation(e, tab, tabs));
+                    });
+                });
+            }
+
+            handleTabClick(clickedTab, container, isPrimaryTabs, isSecondaryTabs) {
+                const tabs = container.querySelectorAll('.tab');
+
+                tabs.forEach(tab => {
+                    tab.classList.remove('tab--active');
+                    tab.setAttribute('aria-selected', 'false');
+                });
+
+                clickedTab.classList.add('tab--active');
+                clickedTab.setAttribute('aria-selected', 'true');
+
+                const targetPanelId = clickedTab.getAttribute('aria-controls');
+                if (targetPanelId) {
+                    this.switchTabPanels(targetPanelId, container, isPrimaryTabs, isSecondaryTabs);
+                }
+            }
+
+            switchTabPanels(targetPanelId, container, isPrimaryTabs, isSecondaryTabs) {
+                if (isPrimaryTabs) {
+                    const allPanels = document.querySelectorAll('.tab-content-container > .tab-content');
+
+                    allPanels.forEach(panel => {
+                        panel.classList.remove('tab-content--active');
+                    });
+
+                    const targetPanel = document.getElementById(targetPanelId);
+                    if (targetPanel) {
+                        targetPanel.classList.add('tab-content--active');
+                    }
+                } else if (isSecondaryTabs) {
+                    const parentContainer = container.closest('.tab-demo') || container.parentElement;
+                    const allPanels = parentContainer.querySelectorAll('.tab-content');
+
+                    allPanels.forEach(panel => {
+                        panel.classList.remove('tab-content--active');
+                    });
+
+                    const targetPanel = document.getElementById(targetPanelId);
+                    if (targetPanel) {
+                        targetPanel.classList.add('tab-content--active');
+                    }
+                }
+            }
+
+            handleKeyNavigation(e, currentTab, tabs) {
+                let targetTab = null;
+
+                switch (e.key) {
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        const prevTab = currentTab.previousElementSibling;
+                        targetTab = prevTab || tabs[tabs.length - 1];
+                        break;
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        const nextTab = currentTab.nextElementSibling;
+                        targetTab = nextTab || tabs[0];
+                        break;
+                    case 'Enter':
+                    case ' ':
+                        e.preventDefault();
+                        currentTab.click();
+                        break;
+                }
+
+                if (targetTab && targetTab.classList.contains('tab')) {
+                    targetTab.focus();
+                }
+            }
+        }
+
+        // Enhanced MenuManager with searchable input support
+        class EnhancedMenuManager extends MenuManager {
+            constructor(options = {}) {
+                super(options);
+                this.setupSearchableInputs();
+            }
+
+            setupSearchableInputs() {
+                document.querySelectorAll('.searchable-text-input').forEach(input => {
+                    const menuId = input.getAttribute('data-menu');
+                    const menu = document.getElementById(menuId);
+                    if (!menu) return;
+
+                    // Show menu on focus
+                    input.addEventListener('focus', () => {
+                        this.openMenu(input, menu);
+                        this.filterMenuItems(menu, '');
+                    });
+
+                    // Filter on input
+                    input.addEventListener('input', (e) => {
+                        this.filterMenuItems(menu, e.target.value);
+                        if (!menu.classList.contains(this.options.activeClass)) {
+                            this.openMenu(input, menu);
+                        }
+                    });
+
+                    // Handle selection
+                    menu.addEventListener('click', (e) => {
+                        const menuItem = e.target.closest('.menu-item--selectable');
+                        if (menuItem) {
+                            const value = menuItem.getAttribute('data-value');
+                            const text = menuItem.querySelector('.menu-item-text').textContent;
+                            input.value = text;
+                            this.closeAllMenus();
+                        }
+                    });
+
+                    // Close on escape or outside click
+                    input.addEventListener('keydown', (e) => {
+                        if (e.key === 'Escape') {
+                            this.closeAllMenus();
+                            input.blur();
+                        }
+                    });
+                });
+            }
+
+            filterMenuItems(menu, searchTerm) {
+                const items = menu.querySelectorAll('.menu-item--selectable');
+                const lowerSearchTerm = searchTerm.toLowerCase();
+
+                items.forEach(item => {
+                    const searchData = item.getAttribute('data-search') || '';
+                    const itemText = item.querySelector('.menu-item-text').textContent;
+                    const searchableText = (searchData + ' ' + itemText).toLowerCase();
+
+                    if (searchableText.includes(lowerSearchTerm)) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                // Show "no results" if all items are hidden
+                const visibleItems = Array.from(items).filter(item => item.style.display !== 'none');
+                this.toggleNoResultsMessage(menu, visibleItems.length === 0);
+            }
+
+            toggleNoResultsMessage(menu, show) {
+                let noResultsEl = menu.querySelector('.menu-no-results');
+                
+                if (show && !noResultsEl) {
+                    noResultsEl = document.createElement('div');
+                    noResultsEl.className = 'menu-no-results';
+                    noResultsEl.textContent = 'No results found';
+                    menu.appendChild(noResultsEl);
+                } else if (!show && noResultsEl) {
+                    noResultsEl.remove();
+                }
+            }
+
+            openMenu(trigger, menu) {
+                // For searchable inputs, we need to handle positioning differently
+                if (trigger.classList.contains('searchable-text-input')) {
+                    const inputWrapper = trigger.closest('.form-input-wrapper');
+                    const container = inputWrapper ? inputWrapper.parentElement : trigger.parentElement;
+                    
+                    menu.classList.add(this.options.activeClass);
+                    menu.setAttribute('aria-hidden', 'false');
+                    
+                    this.activeMenu = menu;
+                    this.activeTrigger = trigger;
+                    this.setupOutsideClickHandler(trigger, menu);
+                } else {
+                    super.openMenu(trigger, menu);
+                }
+            }
+        }
+
+        // Initialize managers
+        const menuManager = new EnhancedMenuManager();
+        const modalManager = new ModalManager();
+        const trayManager = new TrayManager();
+        const tabManager = new TabManager();
+
+        // Button event listeners
+        document.getElementById('openModalBtn')?.addEventListener('click', () => {
+            modalManager.open('demoModal');
+        });
+
+        document.getElementById('openTrayBtn')?.addEventListener('click', () => {
+            trayManager.open('demoTray');
+        });
+
+        // Tag close functionality
+        document.querySelectorAll('.tag__close').forEach(closeBtn => {
+            closeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const tag = closeBtn.closest('.tag');
+                if (tag) {
+                    tag.remove();
+                }
+            });
+        });
+
+        // Global escape key handler
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeDrawer();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

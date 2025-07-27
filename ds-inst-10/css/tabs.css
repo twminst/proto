@@ -1,0 +1,256 @@
+/* ==========================================================================
+   TABS
+   ========================================================================== 
+   
+   This file implements two types of tabs based on Instructure Design System:
+   
+   1. PRIMARY TABS (.tabs--primary)
+      - Used ONLY directly below page titles
+      - Transparent background with animated bottom stroke indicator
+      - Bottom stroke expands from center on active state
+      - Horizontal scrolling when overflow occurs
+   
+   2. SECONDARY TABS (.tabs--secondary)  
+      - Can be used anywhere in the interface
+      - Button-styled with white background and top rounded corners
+      - Floating design with stroke line underneath all tabs EXCEPT active tab
+      - Active tab appears to "cut through" the stroke line
+   
+   Both tab types support:
+   - Horizontal scrolling instead of wrapping
+   - Keyboard navigation (arrows, home, end, enter, space)
+   - Accessibility features (ARIA, focus management)
+   - Responsive design with mobile adjustments
+   
+   ========================================================================== */
+
+/* Shared tab styles */
+.tabs {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    scrollbar-width: none;
+
+}
+
+
+
+
+.tab {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-medium);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-fit);
+    cursor: pointer;
+    border: none;
+    background: none;
+    transition: all 0.1s ease-in-out;
+    position: relative;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.tab:focus {
+
+}
+
+.tab:focus-visible {
+    outline: 2px solid var(--color-primary) !important;
+    outline-offset: -2px !important;
+    outline-style: solid !important;
+    z-index: 10 !important;
+}
+
+/* Additional focus styles for specific tab types with higher specificity */
+.tabs--primary .tab:focus,
+.tabs--secondary .tab:focus,
+.tabs .tab:focus {
+
+}
+
+.tabs--primary .tab:focus-visible,
+.tabs--secondary .tab:focus-visible,
+.tabs .tab:focus-visible {
+    outline: 2px solid var(--color-primary) !important;
+    outline-offset: -2px !important;
+    outline-style: solid !important;
+    z-index: 10 !important;
+}
+
+/* ==========================================================================
+   PRIMARY TABS
+   Used directly below page title, transparent background with bottom stroke
+   ========================================================================== */
+
+.tabs--primary {
+    border-bottom: 1px solid var(--color-line-stroke);
+    height: 48px;
+    gap: 0;
+    margin-bottom: var(--spacing-24);
+}
+
+.tabs--primary .tab {
+    padding: var(--spacing-12) var(--spacing-16);
+    color: var(--color-text-secondary);
+    background: transparent;
+    border-bottom: var(--spacing-4) solid transparent;
+    margin-bottom: -4px; /* Overlap the container border */
+
+    position: relative;
+
+
+}
+
+.tabs--primary .tab::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    width: 0;
+    height: var(--spacing-4);
+    background-color: var(--color-primary);
+    transform: translateX(-50%);
+    transition: width 0.2s ease-in-out, opacity 0.2s ease-in-out;
+    opacity: 0;
+}
+
+
+.tabs--primary .tab--active {
+    color: var(--color-text-primary);
+    background: transparent;
+}
+
+.tabs--primary .tab--active::after {
+    width: 100%;
+    opacity: 1;
+}
+
+.tabs--primary .tab--active:hover {
+    background: transparent;
+}
+
+
+.tabs--primary .tab:first-child {
+    margin-left: 0;
+}
+
+
+
+/* ==========================================================================
+   SECONDARY TABS
+   Button-styled white tabs with top rounded corners, can be used anywhere
+   ========================================================================== */
+
+.tabs--secondary {
+    gap: var(--spacing-0);
+    background: transparent;
+    position: relative;
+}
+
+.tabs--secondary .tab-spacer {
+    flex: 1;
+    height: 1px;
+    background: var(--color-line-stroke);
+    align-self: flex-end;
+    margin-bottom: 0;
+}
+
+.tabs--secondary .tab {
+    padding: var(--spacing-8) var(--spacing-16);
+    color: var(--color-text-secondary);
+    background: transparent;
+    margin-bottom: 0;
+    border: 1px solid transparent;
+    border-bottom: 1px solid var(--color-line-stroke);
+    height: 48px;
+    border-radius: var(--spacing-radius-default) var(--spacing-radius-default) 0 0;
+
+}
+
+
+.tabs--secondary .tab:hover {
+    border: 1px solid var(--color-line-stroke);
+    border-bottom: 1px solid var(--color-line-stroke);
+}
+
+.tabs--secondary .tab--active {
+    border: 1px solid var(--color-line-stroke);
+    border-bottom: 1px solid transparent;
+    color: var(--color-text-primary);
+    background: transparent;
+    position: relative;
+    z-index: 2;
+}
+
+.tabs--secondary .tab--active:hover {
+    border-bottom: 1px solid transparent;
+}
+
+
+
+
+/* ==========================================================================
+   TAB CONTENT PANELS
+   ========================================================================== */
+
+.tab-content {
+    display: none;
+}
+
+.tab-content--active {
+    display: block;
+}
+
+.tab-panel {
+    padding: 0;
+}
+
+/* Secondary tabs content container - no border or padding */
+.tabs--secondary + .tab-content-container {
+    background: transparent;
+}
+
+
+
+/* ==========================================================================
+   ACCESSIBILITY ENHANCEMENTS
+   ========================================================================== */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .tabs--primary .tab--active {
+        border-bottom-width: 3px;
+    }
+    
+    .tabs--secondary .tab {
+        border-width: 2px;
+    }
+    
+    .tabs--secondary .tab--active {
+        border-width: 2px;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .tab {
+        transition: none;
+    }
+}
+
+/* Focus indicators for keyboard navigation */
+
+
+/* Disabled state */
+.tab:disabled,
+.tab[aria-disabled="true"] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}

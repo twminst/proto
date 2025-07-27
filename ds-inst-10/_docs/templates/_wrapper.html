@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playground</title>
+    <link rel="stylesheet" href="css/main.css">
+
+
+</head>
+
+<body>
+    <!-- Desktop Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="logo">
+            <span class="icon icon-40" style="mask-image: var(--icon-canvas-logo-outline);"
+                aria-label="App Logo"></span>
+        </div>
+        <div class="nav-items">
+            <a href="#" class="nav-item">
+                <span class="icon icon-28" style="mask-image: var(--icon-user-outline);" aria-hidden="true"></span>
+                Account
+            </a>
+            <a href="#" class="nav-item nav-item--active">
+                <span class="icon icon-28" style="mask-image: var(--icon-admin-outline);" aria-hidden="true"></span>
+                Admin
+            </a>
+            <a href="#" class="nav-item">
+                <span class="icon icon-28" style="mask-image: var(--icon-dashboard-outline);" aria-hidden="true"></span>
+                Dashboard
+            </a>
+            <a href="#" class="nav-item">
+                <span class="icon icon-28" style="mask-image: var(--icon-courses-outline);" aria-hidden="true"></span>
+                Courses
+            </a>
+            <a href="#" class="nav-item">
+                <span class="icon icon-28" style="mask-image: var(--icon-calendar-month-outline);"
+                    aria-hidden="true"></span>
+                Calendar
+            </a>
+            <a href="#" class="nav-item">
+                <span class="icon icon-28" style="mask-image: var(--icon-inbox-outline);" aria-hidden="true"></span>
+                Inbox
+            </a>
+            <a href="#" class="nav-item">
+                <span class="icon icon-28" style="mask-image: var(--icon-clock-outline);" aria-hidden="true"></span>
+                History
+            </a>
+            <a href="#" class="nav-item">
+                <span class="icon icon-28" style="mask-image: var(--icon-question-outline);" aria-hidden="true"></span>
+                Help
+            </a>
+        </div>
+    </nav>
+
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <div class="mobile-logo">
+            <span class="icon icon-24" style="mask-image: var(--icon-canvas-logo-outline);"
+                aria-label="App Logo"></span>
+        </div>
+        <button class="btn btn--inverse btn--icon-only-minimal btn--medium" id="hamburgerBtn" aria-label="Menu">
+            <span class="btn-icon" style="mask-image: var(--icon-hamburger-outline);" aria-hidden="true"></span>
+        </button>
+    </header>
+
+    <!-- Mobile Drawer -->
+    <nav class="mobile-drawer" id="mobileDrawer">
+        <div class="mobile-drawer-header">
+            <div class="mobile-logo">
+                <span class="icon icon-24" style="mask-image: var(--icon-canvas-logo-outline);"
+                    aria-label="App Logo"></span>
+            </div>
+            <button class="btn btn--inverse btn--icon-only-minimal btn--medium" id="closeBtn" aria-label="Close">
+                <span class="btn-icon" style="mask-image: var(--icon-close-outline);" aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="mobile-nav-items">
+            <a href="#" class="mobile-nav-item">
+                <div class="item-content">
+                    <span class="icon icon-24" style="mask-image: var(--icon-user-outline);" aria-hidden="true"></span>
+                    <span>Account</span>
+                </div>
+                <span class="icon icon-24 chevron" style="mask-image: var(--icon-chevron-right-outline);"
+                    aria-hidden="true"></span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <div class="item-content">
+                    <span class="icon icon-24" style="mask-image: var(--icon-admin-outline);" aria-hidden="true"></span>
+                    <span>Admin</span>
+                </div>
+                <span class="icon icon-24 chevron" style="mask-image: var(--icon-chevron-right-outline);"
+                    aria-hidden="true"></span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <div class="item-content">
+                    <span class="icon icon-24" style="mask-image: var(--icon-dashboard-outline);"
+                        aria-hidden="true"></span>
+                    <span>Dashboard</span>
+                </div>
+                <span class="icon icon-24 chevron" style="mask-image: var(--icon-chevron-right-outline);"
+                    aria-hidden="true"></span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <div class="item-content">
+                    <span class="icon icon-24" style="mask-image: var(--icon-courses-outline);"
+                        aria-hidden="true"></span>
+                    <span>Courses</span>
+                </div>
+                <span class="icon icon-24 chevron" style="mask-image: var(--icon-chevron-right-outline);"
+                    aria-hidden="true"></span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <div class="item-content">
+                    <span class="icon icon-24" style="mask-image: var(--icon-calendar-month-outline);"
+                        aria-hidden="true"></span>
+                    <span>Calendar</span>
+                </div>
+                <span class="icon icon-24 chevron" style="mask-image: var(--icon-chevron-right-outline);"
+                    aria-hidden="true"></span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <div class="item-content">
+                    <span class="icon icon-24" style="mask-image: var(--icon-inbox-outline);" aria-hidden="true"></span>
+                    <span>Inbox</span>
+                </div>
+                <span class="icon icon-24 chevron" style="mask-image: var(--icon-chevron-right-outline);"
+                    aria-hidden="true"></span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <div class="item-content">
+                    <span class="icon icon-24" style="mask-image: var(--icon-clock-outline);" aria-hidden="true"></span>
+                    <span>History</span>
+                </div>
+                <span class="icon icon-24 chevron" style="mask-image: var(--icon-chevron-right-outline);"
+                    aria-hidden="true"></span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <div class="item-content">
+                    <span class="icon icon-24" style="mask-image: var(--icon-question-outline);"
+                        aria-hidden="true"></span>
+                    <span>Help</span>
+                </div>
+                <span class="icon icon-24 chevron" style="mask-image: var(--icon-chevron-right-outline);"
+                    aria-hidden="true"></span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Overlay for mobile drawer -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Modal Containers -->
+
+    <!-- Default Modal - CSS classes for Small, Large, and Xlarge-->
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Modal</h3>
+                <button class="btn btn--icon-only-minimal btn--small" id="closeModalBtn" aria-label="Close modal">
+                    <span class="btn-icon" style="mask-image: var(--icon-close-outline);" aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--ghost btn--medium" id="cancelModalBtn">Cancel</button>
+                <button class="btn btn--primary btn--medium">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tray Containers -->
+    <!-- Small Tray (Cover Mode) - CSS classes for Small, Large, and Xlarge -->
+    <div id="trayOverlaySmall" class="tray-overlay">
+        <div class="tray tray--small">
+            <div class="tray-header">
+                <h3>Tray</h3>
+                <button class="btn btn--icon-only-minimal btn--small" id="closeTraySmallBtn" aria-label="Close tray">
+                    <span class="btn-icon" style="mask-image: var(--icon-close-outline);" aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="tray-body">
+
+            </div>
+            <div class="tray-footer">
+                <button class="btn btn--ghost btn--medium">Cancel</button>
+                <button class="btn btn--primary btn--medium">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Desktop Header -->
+    <header class="desktop-header">
+        <button class="btn btn--icon-only-minimal btn--medium" id="desktopHamburgerBtn" aria-label="Menu">
+            <span class="btn-icon" style="mask-image: var(--icon-hamburger-outline);" aria-hidden="true"></span>
+        </button>
+        <nav class="breadcrumb">
+            <a href="#">Level 1</a>
+            <span class="icon chevron" style="mask-image: var(--icon-chevron-right-outline);" aria-hidden="true"></span>
+            Current Level
+        </nav>
+    </header>
+
+    <!-- Secondary Navigation Drawer -->
+    <nav class="secondary-nav" id="secondaryNav">
+        <ul class="secondary-nav-list">
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link secondary-nav-link--active">Courses</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">People</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Statistics</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Permissions</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Outcomes</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Rubrics</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Grading</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Question Banks</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Sub-Accounts</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Account Calendars</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Terms</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Authentication</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">SIS Import</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Themes</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Developer Keys</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Item Banks</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Data Services</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">SIS Integrations</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Admin Analytics</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Admin Tools</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">ePortfolio Moderation</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Analytics</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Settings</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">SFTP User</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Domain Lookups</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content main-content--centered" id="mainContent">
+
+        <!-- Page Header -->
+        <header class="page-header">
+            <div class="page-header-content">
+                <h1>Component Testing</h1>
+                <p class="page-header-description">Test modals, trays, and other interactive components</p>
+            </div>
+            <div class="page-header-actions">
+                <button class="btn btn--primary btn--medium">
+                    <span class="btn-icon" style="mask-image: var(--icon-add-outline);" aria-hidden="true"></span>
+                    Button
+                </button>
+            </div>
+        </header>
+
+        <!-- Modal Testing Section -->
+        <section style="margin-bottom: var(--spacing-32);">
+            <h2>Modal Components</h2>
+            <p>Test different modal sizes and interactions:</p>
+            <div style="display: flex; gap: var(--spacing-16); flex-wrap: wrap; margin-top: var(--spacing-16);">
+
+                <button class="btn btn--primary btn--medium" id="openModalBtn">
+                    Default Modal
+                </button>
+
+            </div>
+        </section>
+
+        <!-- Tray Testing Section -->
+        <section style="margin-bottom: var(--spacing-32);">
+            <h2>Tray Components</h2>
+            <p>Test different tray sizes that slide in from the right:</p>
+            <div style="display: flex; gap: var(--spacing-16); flex-wrap: wrap; margin-top: var(--spacing-16);">
+                <button class="btn btn--secondary btn--medium" id="openTraySmallBtn">
+                    Small Tray
+                </button>
+
+            </div>
+        </section>
+
+
+
+
+
+
+    </main>
+
+    <script>
+        // Mobile drawer functionality
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const mobileDrawer = document.getElementById('mobileDrawer');
+        const overlay = document.getElementById('overlay');
+
+        function toggleDrawer() {
+            mobileDrawer.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
+
+        function closeDrawer() {
+            mobileDrawer.classList.remove('open');
+            overlay.classList.remove('active');
+        }
+
+        hamburgerBtn.addEventListener('click', toggleDrawer);
+        closeBtn.addEventListener('click', closeDrawer);
+        overlay.addEventListener('click', closeDrawer);
+
+        // Close drawer when clicking on nav items (mobile)
+        document.querySelectorAll('.mobile-nav-item').forEach(item => {
+            item.addEventListener('click', closeDrawer);
+        });
+
+        // Close drawer on escape key (handled by global escape handler below)
+
+        // Desktop secondary navigation functionality
+        const desktopHamburgerBtn = document.getElementById('desktopHamburgerBtn');
+        const secondaryNav = document.getElementById('secondaryNav');
+        const mainContent = document.getElementById('mainContent');
+
+        function toggleSecondaryNav() {
+            secondaryNav.classList.toggle('closed');
+            mainContent.classList.toggle('expanded');
+        }
+
+        desktopHamburgerBtn.addEventListener('click', toggleSecondaryNav);
+
+        // Modal Manager Class
+        class ModalManager {
+            constructor() {
+                this.activeModal = null;
+                this.init();
+            }
+
+            init() {
+                // Auto-discover all modals on the page
+                const modals = document.querySelectorAll('.modal-overlay');
+                modals.forEach(modal => this.setupModal(modal));
+
+                // Global escape key handler
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.activeModal) {
+                        this.close();
+                    }
+                });
+            }
+
+            setupModal(modalOverlay) {
+                const modalId = modalOverlay.id;
+                const modal = modalOverlay.querySelector('.modal');
+                const closeBtn = modal.querySelector('[id*="close"], [aria-label*="Close"]');
+                const cancelBtn = modal.querySelector('[id*="cancel"]');
+
+                // Close on overlay click
+                modalOverlay.addEventListener('click', (e) => {
+                    if (e.target === modalOverlay) {
+                        this.close();
+                    }
+                });
+
+                // Close button handlers
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', () => this.close());
+                }
+                if (cancelBtn) {
+                    cancelBtn.addEventListener('click', () => this.close());
+                }
+
+                // Focus trap
+                modalOverlay.addEventListener('keydown', (e) => {
+                    if (!modalOverlay.classList.contains('active')) return;
+                    this.handleFocusTrap(e, modal);
+                });
+            }
+
+            open(modalId, options = {}) {
+                // Close any currently open modal
+                this.close();
+
+                const modalOverlay = document.getElementById(modalId);
+                if (!modalOverlay) {
+                    console.error(`Modal with id "${modalId}" not found`);
+                    return;
+                }
+
+                const modal = modalOverlay.querySelector('.modal');
+
+                // Apply size class if specified
+                if (options.size) {
+                    modal.className = modal.className.replace(/modal--\w+/g, '');
+                    if (options.size !== 'default') {
+                        modal.classList.add(`modal--${options.size}`);
+                    }
+                }
+
+                // Set content if provided
+                if (options.title) {
+                    const titleEl = modal.querySelector('.modal-header h3');
+                    if (titleEl) titleEl.textContent = options.title;
+                }
+
+                if (options.body) {
+                    const bodyEl = modal.querySelector('.modal-body');
+                    if (bodyEl) bodyEl.innerHTML = options.body;
+                }
+
+                // Show modal
+                modalOverlay.classList.add('active');
+                document.body.classList.add('modal-open');
+                this.activeModal = modalOverlay;
+
+                // Focus management
+                const closeBtn = modal.querySelector('[id*="close"], [aria-label*="Close"]');
+                if (closeBtn) {
+                    setTimeout(() => closeBtn.focus(), 100);
+                }
+
+                // Store opener for focus return
+                this.opener = document.activeElement;
+            }
+
+            close() {
+                if (!this.activeModal) return;
+
+                this.activeModal.classList.remove('active');
+                document.body.classList.remove('modal-open');
+
+                // Return focus to opener
+                if (this.opener && this.opener.focus) {
+                    this.opener.focus();
+                }
+
+                this.activeModal = null;
+                this.opener = null;
+            }
+
+            handleFocusTrap(e, modal) {
+                if (e.key !== 'Tab') return;
+
+                const focusableElements = modal.querySelectorAll(
+                    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+                );
+
+                if (focusableElements.length === 0) return;
+
+                const firstElement = focusableElements[0];
+                const lastElement = focusableElements[focusableElements.length - 1];
+
+                if (e.shiftKey && document.activeElement === firstElement) {
+                    e.preventDefault();
+                    lastElement.focus();
+                } else if (!e.shiftKey && document.activeElement === lastElement) {
+                    e.preventDefault();
+                    firstElement.focus();
+                }
+            }
+        }
+
+        // Initialize modal manager
+        const modalManager = new ModalManager();
+
+        // Simple API for opening modals
+        function openModal(modalId, options = {}) {
+            modalManager.open(modalId, options);
+        }
+
+        function closeModal() {
+            modalManager.close();
+        }
+
+        // Tray Manager Class
+        class TrayManager {
+            constructor() {
+                this.activeTray = null;
+                this.init();
+            }
+
+            init() {
+                // Auto-discover all trays on the page
+                const trays = document.querySelectorAll('.tray-overlay');
+                trays.forEach(tray => this.setupTray(tray));
+
+                // Global escape key handler
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.activeTray) {
+                        this.close();
+                    }
+                });
+            }
+
+            setupTray(trayOverlay) {
+                const trayId = trayOverlay.id;
+                const tray = trayOverlay.querySelector('.tray');
+                const closeBtn = tray.querySelector('[id*="close"], [aria-label*="Close"]');
+                const cancelBtn = tray.querySelector('[id*="cancel"]');
+
+                // Close on overlay click (optional - trays might not want this)
+                trayOverlay.addEventListener('click', (e) => {
+                    if (e.target === trayOverlay) {
+                        this.close();
+                    }
+                });
+
+                // Close button handlers
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', () => this.close());
+                }
+                if (cancelBtn) {
+                    cancelBtn.addEventListener('click', () => this.close());
+                }
+
+                // Focus trap
+                trayOverlay.addEventListener('keydown', (e) => {
+                    if (!trayOverlay.classList.contains('active')) return;
+                    this.handleFocusTrap(e, tray);
+                });
+            }
+
+            open(trayId, options = {}) {
+                // Close any currently open tray
+                this.close();
+
+                const trayOverlay = document.getElementById(trayId);
+                if (!trayOverlay) {
+                    console.error(`Tray with id "${trayId}" not found`);
+                    return;
+                }
+
+                const tray = trayOverlay.querySelector('.tray');
+
+                // Apply size class if specified
+                if (options.size) {
+                    tray.className = tray.className.replace(/tray--\w+/g, '');
+                    if (options.size !== 'default') {
+                        tray.classList.add(`tray--${options.size}`);
+                    }
+                }
+
+                // Set content if provided
+                if (options.title) {
+                    const titleEl = tray.querySelector('.tray-header h3');
+                    if (titleEl) titleEl.textContent = options.title;
+                }
+
+                if (options.body) {
+                    const bodyEl = tray.querySelector('.tray-body');
+                    if (bodyEl) bodyEl.innerHTML = options.body;
+                }
+
+                // Show tray
+                trayOverlay.classList.add('active');
+                this.activeTray = trayOverlay;
+
+                // Focus management
+                const closeBtn = tray.querySelector('[id*="close"], [aria-label*="Close"]');
+                if (closeBtn) {
+                    setTimeout(() => closeBtn.focus(), 100);
+                }
+
+                // Store opener for focus return
+                this.opener = document.activeElement;
+            }
+
+            close() {
+                if (!this.activeTray) return;
+
+                this.activeTray.classList.remove('active');
+
+                // Return focus to opener
+                if (this.opener && this.opener.focus) {
+                    this.opener.focus();
+                }
+
+                this.activeTray = null;
+                this.opener = null;
+            }
+
+            handleFocusTrap(e, tray) {
+                if (e.key !== 'Tab') return;
+
+                const focusableElements = tray.querySelectorAll(
+                    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+                );
+
+                if (focusableElements.length === 0) return;
+
+                const firstElement = focusableElements[0];
+                const lastElement = focusableElements[focusableElements.length - 1];
+
+                if (e.shiftKey && document.activeElement === firstElement) {
+                    e.preventDefault();
+                    lastElement.focus();
+                } else if (!e.shiftKey && document.activeElement === lastElement) {
+                    e.preventDefault();
+                    firstElement.focus();
+                }
+            }
+        }
+
+        // Initialize tray manager
+        const trayManager = new TrayManager();
+
+        // Simple API for opening trays
+        function openTray(trayId, options = {}) {
+            trayManager.open(trayId, options);
+        }
+
+        function closeTray() {
+            trayManager.close();
+        }
+
+        // Tab functionality
+        function initializeTabs() {
+            // Get all tab containers
+            const tabContainers = document.querySelectorAll('.tabs');
+
+            tabContainers.forEach(container => {
+                const tabs = container.querySelectorAll('.tab');
+                const isSecondaryTabs = container.classList.contains('tabs--secondary');
+                const isPrimaryTabs = container.classList.contains('tabs--primary');
+
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        // Remove active state from all tabs in this container
+                        tabs.forEach(t => {
+                            t.classList.remove('tab--active');
+                            t.setAttribute('aria-selected', 'false');
+                        });
+
+                        // Add active state to clicked tab
+                        tab.classList.add('tab--active');
+                        tab.setAttribute('aria-selected', 'true');
+
+                        // Handle tab panels
+                        if (tab.getAttribute('aria-controls')) {
+                            const targetPanelId = tab.getAttribute('aria-controls');
+
+                            if (isPrimaryTabs) {
+                                // For primary tabs, find all primary tab content panels
+                                const allPanels = document.querySelectorAll('.tab-content-container > .tab-content');
+
+                                // Hide all panels
+                                allPanels.forEach(panel => {
+                                    panel.classList.remove('tab-content--active');
+                                });
+
+                                // Show target panel
+                                const targetPanel = document.getElementById(targetPanelId);
+                                if (targetPanel) {
+                                    targetPanel.classList.add('tab-content--active');
+                                }
+                            } else if (isSecondaryTabs) {
+                                // For secondary tabs, scope to the nearest container
+                                const parentContainer = container.closest('.tab-demo') || container.parentElement;
+                                const allPanels = parentContainer.querySelectorAll('.tab-content');
+
+                                // Hide all panels
+                                allPanels.forEach(panel => {
+                                    panel.classList.remove('tab-content--active');
+                                });
+
+                                // Show target panel
+                                const targetPanel = document.getElementById(targetPanelId);
+                                if (targetPanel) {
+                                    targetPanel.classList.add('tab-content--active');
+                                }
+                            }
+                        }
+                    });
+
+                    // Keyboard navigation
+                    tab.addEventListener('keydown', (e) => {
+                        const currentIndex = Array.from(tabs).indexOf(tab);
+                        let targetIndex;
+
+                        switch (e.key) {
+                            case 'ArrowLeft':
+                                e.preventDefault();
+                                targetIndex = currentIndex > 0 ? currentIndex - 1 : tabs.length - 1;
+                                tabs[targetIndex].focus();
+                                break;
+                            case 'ArrowRight':
+                                e.preventDefault();
+                                targetIndex = currentIndex < tabs.length - 1 ? currentIndex + 1 : 0;
+                                tabs[targetIndex].focus();
+                                break;
+                            case 'Home':
+                                e.preventDefault();
+                                tabs[0].focus();
+                                break;
+                            case 'End':
+                                e.preventDefault();
+                                tabs[tabs.length - 1].focus();
+                                break;
+                            case 'Enter':
+                            case ' ':
+                                e.preventDefault();
+                                tab.click();
+                                break;
+                        }
+                    });
+                });
+            });
+        }
+
+        // Initialize tabs when DOM is loaded
+        initializeTabs();
+
+        // Set up modal trigger buttons
+        document.getElementById('openModalBtn')?.addEventListener('click', () => {
+            openModal('modalOverlay', {
+                title: 'Default Modal Example',
+                body: '<p>This is a default modal opened with the new ModalManager class.</p><p>It automatically handles focus management, escape key, and click-outside-to-close.</p>'
+            });
+        });
+
+        // Set up tray trigger buttons
+        document.getElementById('openTraySmallBtn')?.addEventListener('click', () => {
+            openTray('trayOverlaySmall', {
+                title: 'Small Tray Example',
+                body: '<p>This is a small tray opened with the new TrayManager class.</p><p>It slides in from the right and handles all accessibility features automatically.</p>',
+                size: 'small'
+            });
+        });
+
+        // Update the existing escape key handler to close all components
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeDrawer();
+                // Modal and Tray escape handling is now in their respective managers
+            }
+        });
+    </script>
+
+</body>
+
+</html>

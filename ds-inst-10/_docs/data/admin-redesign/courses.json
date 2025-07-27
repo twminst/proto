@@ -1,0 +1,1202 @@
+[
+    {
+        "Name": "Intro to History",
+        "SIS ID": "SIS-1000",
+        "Terms": [
+            "Fall 2025"
+        ],
+        "Sub-Accounts": [
+            "Sciences"
+        ],
+        "Teachers": [
+            {
+                "Name": "Avery Miller",
+                "Initials": "AM"
+            },
+            {
+                "Name": "Alex Jones",
+                "Initials": "AJ"
+            }
+        ],
+        "Status": "Unpublished",
+        "Visibility": "Private",
+        "Students": 77,
+        "Type": "Blueprint",
+        "Start Date": "2025-09-26"
+    },
+    {
+        "Name": "Advanced Economics",
+        "SIS ID": "SIS-1001",
+        "Terms": [
+            "Fall 2025",
+            "Summer 2025"
+        ],
+        "Sub-Accounts": [
+            "Engineering"
+        ],
+        "Teachers": [
+            {
+                "Name": "Avery Martinez",
+                "Initials": "AM"
+            }
+        ],
+        "Status": "Concluded",
+        "Visibility": "Private",
+        "Students": 90,
+        "Type": "Template",
+        "Start Date": "2025-12-23"
+    },
+    {
+        "Name": "Topics in Literature",
+        "SIS ID": "SIS-1002",
+        "Terms": [
+            "Spring 2025"
+        ],
+        "Sub-Accounts": [
+            "Arts"
+        ],
+        "Teachers": [
+            {
+                "Name": "Taylor Davis",
+                "Initials": "TD"
+            },
+            {
+                "Name": "Avery Johnson",
+                "Initials": "AJ"
+            }
+        ],
+        "Status": "Unpublished",
+        "Visibility": "Public",
+        "Students": 40,
+        "Type": "Blueprint",
+        "Start Date": "2025-12-09"
+    },
+    {
+        "Name": "Advanced Chemistry",
+        "SIS ID": "SIS-1003",
+        "Terms": [
+            "Spring 2025"
+        ],
+        "Sub-Accounts": [
+            "Business",
+            "Humanities"
+        ],
+        "Teachers": [
+            {
+                "Name": "Alex Smith",
+                "Initials": "AS"
+            }
+        ],
+        "Status": "Published",
+        "Visibility": "Public",
+        "Students": 32,
+        "Type": "Blueprint",
+        "Start Date": "2025-05-26"
+    },
+    {
+        "Name": "Foundations of Literature",
+        "SIS ID": "SIS-1004",
+        "Terms": [
+            "Summer 2025"
+        ],
+        "Sub-Accounts": [
+            "Sciences",
+            "Engineering"
+        ],
+        "Teachers": [
+            {
+                "Name": "Skyler Lee",
+                "Initials": "SL"
+            }
+        ],
+        "Status": "Published",
+        "Visibility": "Public",
+        "Students": 39,
+        "Type": "Template",
+        "Start Date": "2025-05-27"
+    },
+    {
+        "Name": "Intro to Biology",
+        "SIS ID": "SIS-1005",
+        "Terms": [
+            "Summer 2025",
+            "Spring 2025"
+        ],
+        "Sub-Accounts": [
+            "Business"
+        ],
+        "Teachers": [
+            {
+                "Name": "Alex Garcia",
+                "Initials": "AG"
+            }
+        ],
+        "Status": "Concluded",
+        "Visibility": "Private",
+        "Students": 60,
+        "Type": "Template",
+        "Start Date": "2025-12-13"
+    },
+    {
+        "Name": "Advanced Philosophy",
+        "SIS ID": "SIS-1006",
+        "Terms": [
+            "Fall 2025",
+            "Spring 2025"
+        ],
+        "Sub-Accounts": [
+            "Humanities"
+        ],
+        "Teachers": [
+            {
+                "Name": "Morgan Johnson",
+                "Initials": "MJ"
+            },
+            {
+                "Name": "Morgan Johnson",
+                "Initials": "MJ"
+            }
+        ],
+        "Status": "Published",
+        "Visibility": "Public",
+        "Students": 91,
+        "Type": "Blueprint",
+        "Start Date": "2025-03-15"
+    },
+    {
+        "Name": "Advanced Physics",
+        "SIS ID": "SIS-1007",
+        "Terms": [
+            "Spring 2025",
+            "Fall 2025"
+        ],
+        "Sub-Accounts": [
+            "Business"
+        ],
+        "Teachers": [
+            {
+                "Name": "Skyler Jones",
+                "Initials": "SJ"
+            }
+        ],
+        "Status": "Published",
+        "Visibility": "Public",
+        "Students": 39,
+        "Type": "Blueprint",
+        "Start Date": "2025-04-29"
+    },
+    {
+        "Name": "Principles of Biology",
+        "SIS ID": "SIS-1008",
+        "Terms": [
+            "Summer 2025"
+        ],
+        "Sub-Accounts": [
+            "Arts",
+            "Business"
+        ],
+        "Teachers": [
+            {
+                "Name": "Morgan Rodriguez",
+                "Initials": "MR"
+            }
+        ],
+        "Status": "Concluded",
+        "Visibility": "Private",
+        "Students": 15,
+        "Type": "Template",
+        "Start Date": "2025-01-28"
+    },
+    {
+        "Name": "Intro to Chemistry",
+        "SIS ID": "SIS-1009",
+        "Terms": [
+            "Spring 2025"
+        ],
+        "Sub-Accounts": [
+            "Arts",
+            "Engineering"
+        ],
+        "Teachers": [
+            {
+                "Name": "Morgan Jones",
+                "Initials": "MJ"
+            },
+            {
+                "Name": "Skyler Lee",
+                "Initials": "SL"
+            }
+        ],
+        "Status": "Concluded",
+        "Visibility": "Private",
+        "Students": 26,
+        "Type": "Template",
+        "Start Date": "2025-07-25"
+    },
+    {
+        "Name": "Topics in Philosophy",
+        "SIS ID": "SIS-1010",
+        "Terms": [
+            "Fall 2025",
+            "Summer 2025"
+        ],
+        "Sub-Accounts": [
+            "Arts"
+        ],
+        "Teachers": [
+            {
+                "Name": "Peyton Smith",
+                "Initials": "PS"
+            },
+            {
+                "Name": "Morgan Martinez",
+                "Initials": "MM"
+            }
+        ],
+        "Status": "Published",
+        "Visibility": "Public",
+        "Students": 46,
+        "Type": "Template",
+        "Start Date": "2025-06-30"
+    },
+    {
+        "Name": "Intro to Literature",
+        "SIS ID": "SIS-1011",
+        "Terms": [
+            "Summer 2025",
+            "Fall 2025"
+        ],
+        "Sub-Accounts": [
+            "Humanities"
+        ],
+        "Teachers": [
+            {
+                "Name": "Taylor Johnson",
+                "Initials": "TJ"
+            }
+        ],
+        "Status": "Concluded",
+        "Visibility": "Public",
+        "Students": 104,
+        "Type": "Blueprint",
+        "Start Date": "2025-06-03"
+    },
+    {
+        "Name": "Topics in History",
+        "SIS ID": "SIS-1012",
+        "Terms": [
+            "Summer 2025",
+            "Spring 2025"
+        ],
+        "Sub-Accounts": [
+            "Humanities"
+        ],
+        "Teachers": [
+            {
+                "Name": "Avery Davis",
+                "Initials": "AD"
+            }
+        ],
+        "Status": "Published",
+        "Visibility": "Private",
+        "Students": 35,
+        "Type": "Template",
+        "Start Date": "2025-07-28"
+    },
+    {
+        "Name": "Advanced Art",
+        "SIS ID": "SIS-1013",
+        "Terms": [
+            "Spring 2025",
+            "Fall 2025"
+        ],
+        "Sub-Accounts": [
+            "Engineering",
+            "Business"
+        ],
+        "Teachers": [
+            {
+                "Name": "Peyton Johnson",
+                "Initials": "PJ"
+            },
+            {
+                "Name": "Jordan Davis",
+                "Initials": "JD"
+            }
+        ],
+        "Status": "Unpublished",
+        "Visibility": "Public",
+        "Students": 109,
+        "Type": "Blueprint",
+        "Start Date": "2025-05-18"
+    },
+    {
+        "Name": "Topics in Economics",
+        "SIS ID": "SIS-1014",
+        "Terms": [
+            "Summer 2025"
+        ],
+        "Sub-Accounts": [
+            "Humanities",
+            "Engineering"
+        ],
+        "Teachers": [
+            {
+                "Name": "Peyton Garcia",
+                "Initials": "PG"
+            }
+        ],
+        "Status": "Published",
+        "Visibility": "Public",
+        "Students": 23,
+        "Type": "Template",
+        "Start Date": "2025-02-01"
+    },
+    {
+        "Name": "Advanced Economics",
+        "SIS ID": "SIS-1015",
+        "Terms": [
+            "Summer 2025",
+            "Fall 2025"
+        ],
+        "Sub-Accounts": [
+            "Humanities",
+            "Business"
+        ],
+        "Teachers": [
+            {
+                "Name": "Alex Johnson",
+                "Initials": "AJ"
+            },
+            {
+                "Name": "Peyton Garcia",
+                "Initials": "PG"
+            }
+        ],
+        "Status": "Unpublished",
+        "Visibility": "Private",
+        "Students": 88,
+        "Type": "Blueprint",
+        "Start Date": "2025-03-22"
+    },
+    {
+        "Name": "Foundations of Computer Science",
+        "SIS ID": "SIS-1016",
+        "Terms": [
+            "Summer 2025",
+            "Spring 2025"
+        ],
+        "Sub-Accounts": [
+            "Engineering"
+        ],
+        "Teachers": [
+            {
+                "Name": "Morgan Johnson",
+                "Initials": "MJ"
+            },
+            {
+                "Name": "Jamie Jones",
+                "Initials": "JJ"
+            }
+        ],
+        "Status": "Concluded",
+        "Visibility": "Public",
+        "Students": 83,
+        "Type": "Template",
+        "Start Date": "2025-10-19"
+    },
+    {
+        "Name": "Foundations of Computer Science",
+        "SIS ID": "SIS-1017",
+        "Terms": [
+            "Summer 2025"
+        ],
+        "Sub-Accounts": [
+            "Engineering"
+        ],
+        "Teachers": [
+            {
+                "Name": "Avery Miller",
+                "Initials": "AM"
+            }
+        ],
+        "Status": "Unpublished",
+        "Visibility": "Public",
+        "Students": 48,
+        "Type": "Blueprint",
+        "Start Date": "2025-05-23"
+    },
+    {
+        "Name": "Advanced Physics",
+        "SIS ID": "SIS-1018",
+        "Terms": [
+            "Summer 2025",
+            "Spring 2025"
+        ],
+        "Sub-Accounts": [
+            "Engineering"
+        ],
+        "Teachers": [
+            {
+                "Name": "Avery Lee",
+                "Initials": "AL"
+            }
+        ],
+        "Status": "Published",
+        "Visibility": "Private",
+        "Students": 23,
+        "Type": "Template",
+        "Start Date": "2025-02-20"
+    },
+    {
+        "Name": "Advanced History",
+        "SIS ID": "SIS-1019",
+        "Terms": [
+            "Summer 2025"
+        ],
+        "Sub-Accounts": [
+            "Engineering"
+        ],
+        "Teachers": [
+            {
+                "Name": "Jordan Johnson",
+                "Initials": "JJ"
+            }
+        ],
+        "Status": "Concluded",
+        "Visibility": "Private",
+        "Students": 107,
+        "Type": "Template",
+        "Start Date": "2025-04-14"
+    },
+    {
+        "Name": "Foundations of Biology",
+        "SIS ID": "SIS-1020",
+        "Terms": [
+            "Spring 2025"
+        ],
+        "Sub-Accounts": [
+            "Arts",
+            "Humanities"
+        ],
+        "Teachers": [
+            {
+                "Name": "Alex Martinez",
+                "Initials": "AM"
+            },
+            {
+                "Name": "Jordan Johnson",
+                "Initials": "JJ"
+            }
+        ],
+        "Status": "Published",
+        "Visibility": "Public",
+        "Students": 102,
+        "Type": "Blueprint",
+        "Start Date": "2025-03-17"
+    },
+    {
+        "Name": "Advanced Art",
+        "SIS ID": "SIS-1021",
+        "Terms": [
+            "Summer 2025"
+        ],
+        "Sub-Accounts": [
+            "Humanities",
+            "Engineering"
+        ],
+        "Teachers": [
+            {
+                "Name": "Alex Jones",
+                "Initials": "AJ"
+            },
+            {
+                "Name": "Taylor Garcia",
+                "Initials": "TG"
+            }
+        ],
+        "Status": "Unpublished",
+        "Visibility": "Public",
+        "Students": 69,
+        "Type": "Blueprint",
+        "Start Date": "2025-07-22"
+    },
+    {
+        "Name": "Topics in Chemistry",
+        "SIS ID": "SIS-1022",
+        "Terms": [
+            "Spring 2025"
+        ],
+        "Sub-Accounts": [
+            "Humanities"
+        ],
+        "Teachers": [
+            {
+                "Name": "Peyton Brown",
+                "Initials": "PB"
+            },
+            {
+                "Name": "Morgan Smith",
+                "Initials": "MS"
+            }
+        ],
+        "Status": "Unpublished",
+        "Visibility": "Private",
+        "Students": 84,
+        "Type": "Blueprint",
+        "Start Date": "2025-02-09"
+    },
+    {
+        "Name": "Advanced Mathematics",
+        "SIS ID": "SIS-1023",
+        "Terms": [
+            "Fall 2025"
+        ],
+        "Sub-Accounts": [
+            "Business",
+            "Arts"
+        ],
+        "Teachers": [
+            {
+                "Name": "Taylor Jones",
+                "Initials": "TJ"
+            },
+            {
+                "Name": "Avery Rodriguez",
+                "Initials": "AR"
+            }
+        ],
+        "Status": "Unpublished",
+        "Visibility": "Public",
+        "Students": 43,
+        "Type": "Blueprint",
+        "Start Date": "2025-12-24"
+    },
+    {
+        "Name": "Intro to Literature",
+        "SIS ID": "SIS-1024",
+        "Terms": [
+            "Fall 2025",
+            "Spring 2025"
+        ],
+        "Sub-Accounts": [
+            "Arts",
+            "Sciences"
+        ],
+        "Teachers": [
+            {
+                "Name": "Skyler Brown",
+                "Initials": "SB"
+            }
+        ],
+        "Status": "Published",
+        "Visibility": "Public",
+        "Students": 91,
+        "Type": "Blueprint",
+        "Start Date": "2025-05-06"
+    },
+    {
+        "Name": "Foundations of Biology",
+        "SIS ID": "SIS-1025",
+        "Terms": [
+            "Fall 2025",
+            "Spring 2025"
+        ],
+        "Sub-Accounts": [
+            "Sciences"
+        ],
+        "Teachers": [
+            {
+                "Name": "Jamie Garcia",
+                "Initials": "JG"
+            },
+            {
+                "Name": "Morgan Martinez",
+                "Initials": "MM"
+            }
+        ],
+        "Status": "Concluded",
+        "Visibility": "Public",
+        "Students": 20,
+        "Type": "Blueprint",
+        "Start Date": "2025-10-26"
+    },
+    {
+        "Name": "Foundations of Chemistry",
+        "SIS ID": "SIS-1026",
+        "Terms": [
+            "Summer 2025",
+            "Spring 2025"
+        ],
+        "Sub-Accounts": [
+            "Business"
+        ],
+        "Teachers": [
+            {
+                "Name": "Jamie Davis",
+                "Initials": "JD"
+            },
+            {
+                "Name": "Peyton Davis",
+                "Initials": "PD"
+            }
+        ],
+        "Status": "Unpublished",
+        "Visibility": "Private",
+        "Students": 40,
+        "Type": "Template",
+        "Start Date": "2025-10-31"
+    },
+    {
+        "Name": "Advanced Computer Science",
+        "SIS ID": "SIS-1027",
+        "Terms": [
+            "Summer 2025"
+        ],
+        "Sub-Accounts": [
+            "Engineering",
+            "Business"
+        ],
+        "Teachers": [
+            {
+                "Name": "Casey Lee",
+                "Initials": "CL"
+            }
+        ],
+        "Status": "Concluded",
+        "Visibility": "Private",
+        "Students": 42,
+        "Type": "Template",
+        "Start Date": "2025-05-06"
+    },
+    {
+        "Name": "Intro to Art",
+        "SIS ID": "SIS-1028",
+        "Terms": [
+            "Summer 2025"
+        ],
+        "Sub-Accounts": [
+            "Sciences"
+        ],
+        "Teachers": [
+            {
+                "Name": "Riley Jones",
+                "Initials": "RJ"
+            }
+        ],
+        "Status": "Published",
+        "Visibility": "Private",
+        "Students": 38,
+        "Type": "Blueprint",
+        "Start Date": "2025-07-20"
+    },
+    {
+        "Name": "Foundations of Philosophy",
+        "SIS ID": "SIS-1029",
+        "Terms": [
+            "Spring 2025",
+            "Summer 2025"
+        ],
+        "Sub-Accounts": [
+            "Arts",
+            "Engineering"
+        ],
+        "Teachers": [
+            {
+                "Name": "Taylor Jones",
+                "Initials": "TJ"
+            },
+            {
+                "Name": "Avery Davis",
+                "Initials": "AD"
+            }
+        ],
+        "Status": "Published",
+        "Visibility": "Private",
+        "Students": 114,
+        "Type": "Template",
+        "Start Date": "2025-01-23"
+    },
+    {
+        "Name": "Intro to Biology",
+        "SIS ID": "SIS-1030",
+        "Terms": [
+            "Summer 2025",
+            "Spring 2025"
+        ],
+        "Sub-Accounts": [
+            "Engineering"
+        ],
+        "Teachers": [
+            {
+                "Name": "Skyler Miller",
+                "Initials": "SM"
+            }
+        ],
+        "Status": "Concluded",
+        "Visibility": "Public",
+        "Students": 93,
+        "Type": "Blueprint",
+        "Start Date": "2025-01-31"
+    },
+    {
+        "Name": "Topics in History",
+        "SIS ID": "SIS-1031",
+        "Terms": [
+            "Fall 2025",
+            "Spring 2025"
+        ],
+        "Sub-Accounts": [
+            "Sciences"
+        ],
+        "Teachers": [
+            {
+                "Name": "Casey Lee",
+                "Initials": "CL"
+            }
+        ],
+        "Status": "Concluded",
+        "Visibility": "Private",
+        "Students": 102,
+        "Type": "Template",
+        "Start Date": "2025-06-01"
+    },
+    {
+        "Name": "Intro to Computer Science",
+        "SIS ID": "SIS-1032",
+        "Terms": [
+            "Fall 2025",
+            "Summer 2025"
+        ],
+        "Sub-Accounts": [
+            "Humanities"
+        ],
+        "Teachers": [
+            {
+                "Name": "Jamie Brown",
+                "Initials": "JB"
+            },
+            {
+                "Name": "Avery Johnson",
+                "Initials": "AJ"
+            }
+        ],
+        "Status": "Published",
+        "Visibility": "Private",
+        "Students": 47,
+        "Type": "Blueprint",
+        "Start Date": "2025-05-08"
+    },
+    {
+        "Name": "Advanced Economics",
+        "SIS ID": "SIS-1033",
+        "Terms": [
+            "Fall 2025",
+            "Spring 2025"
+        ],
+        "Sub-Accounts": [
+            "Humanities"
+        ],
+        "Teachers": [
+            {
+                "Name": "Casey Brown",
+                "Initials": "CB"
+            }
+        ],
+        "Status": "Published",
+        "Visibility": "Public",
+        "Students": 48,
+        "Type": "Blueprint",
+        "Start Date": "2025-03-15"
+    },
+    {
+        "Name": "Principles of Chemistry",
+        "SIS ID": "SIS-1034",
+        "Terms": [
+            "Summer 2025",
+            "Fall 2025"
+        ],
+        "Sub-Accounts": [
+            "Arts",
+            "Engineering"
+        ],
+        "Teachers": [
+            {
+                "Name": "Taylor Lee",
+                "Initials": "TL"
+            },
+            {
+                "Name": "Skyler Garcia",
+                "Initials": "SG"
+            }
+        ],
+        "Status": "Unpublished",
+        "Visibility": "Private",
+        "Students": 44,
+        "Type": "Blueprint",
+        "Start Date": "2025-09-17"
+    },
+    {
+        "Name": "Topics in Literature",
+        "SIS ID": "SIS-1035",
+        "Terms": [
+            "Spring 2025"
+        ],
+        "Sub-Accounts": [
+            "Sciences",
+            "Business"
+        ],
+        "Teachers": [
+            {
+                "Name": "Jordan Brown",
+                "Initials": "JB"
+            }
+        ],
+        "Status": "Published",
+        "Visibility": "Public",
+        "Students": 115,
+        "Type": "Template",
+        "Start Date": "2025-08-16"
+    },
+    {
+        "Name": "Foundations of Computer Science",
+        "SIS ID": "SIS-1036",
+        "Terms": [
+            "Summer 2025"
+        ],
+        "Sub-Accounts": [
+            "Engineering",
+            "Humanities"
+        ],
+        "Teachers": [
+            {
+                "Name": "Taylor Martinez",
+                "Initials": "TM"
+            },
+            {
+                "Name": "Peyton Brown",
+                "Initials": "PB"
+            }
+        ],
+        "Status": "Unpublished",
+        "Visibility": "Private",
+        "Students": 34,
+        "Type": "Template",
+        "Start Date": "2025-04-30"
+    },
+    {
+        "Name": "Advanced Chemistry",
+        "SIS ID": "SIS-1037",
+        "Terms": [
+            "Fall 2025",
+            "Spring 2025"
+        ],
+        "Sub-Accounts": [
+            "Arts"
+        ],
+        "Teachers": [
+            {
+                "Name": "Skyler Jones",
+                "Initials": "SJ"
+            }
+        ],
+        "Status": "Published",
+        "Visibility": "Private",
+        "Students": 92,
+        "Type": "Blueprint",
+        "Start Date": "2025-04-07"
+    },
+    {
+        "Name": "Advanced Computer Science",
+        "SIS ID": "SIS-1038",
+        "Terms": [
+            "Spring 2025",
+            "Fall 2025"
+        ],
+        "Sub-Accounts": [
+            "Engineering",
+            "Arts"
+        ],
+        "Teachers": [
+            {
+                "Name": "Alex Johnson",
+                "Initials": "AJ"
+            },
+            {
+                "Name": "Casey Brown",
+                "Initials": "CB"
+            }
+        ],
+        "Status": "Published",
+        "Visibility": "Public",
+        "Students": 89,
+        "Type": "Blueprint",
+        "Start Date": "2025-08-01"
+    },
+    {
+        "Name": "Advanced Philosophy",
+        "SIS ID": "SIS-1039",
+        "Terms": [
+            "Fall 2025",
+            "Summer 2025"
+        ],
+        "Sub-Accounts": [
+            "Sciences"
+        ],
+        "Teachers": [
+            {
+                "Name": "Skyler Garcia",
+                "Initials": "SG"
+            },
+            {
+                "Name": "Jamie Smith",
+                "Initials": "JS"
+            }
+        ],
+        "Status": "Unpublished",
+        "Visibility": "Private",
+        "Students": 82,
+        "Type": "Template",
+        "Start Date": "2025-09-09"
+    },
+    {
+        "Name": "Foundations of Biology",
+        "SIS ID": "SIS-1040",
+        "Terms": [
+            "Summer 2025",
+            "Spring 2025"
+        ],
+        "Sub-Accounts": [
+            "Engineering"
+        ],
+        "Teachers": [
+            {
+                "Name": "Alex Miller",
+                "Initials": "AM"
+            }
+        ],
+        "Status": "Concluded",
+        "Visibility": "Private",
+        "Students": 83,
+        "Type": "Template",
+        "Start Date": "2025-07-20"
+    },
+    {
+        "Name": "Principles of Economics",
+        "SIS ID": "SIS-1041",
+        "Terms": [
+            "Summer 2025"
+        ],
+        "Sub-Accounts": [
+            "Business"
+        ],
+        "Teachers": [
+            {
+                "Name": "Taylor Miller",
+                "Initials": "TM"
+            },
+            {
+                "Name": "Jordan Martinez",
+                "Initials": "JM"
+            }
+        ],
+        "Status": "Unpublished",
+        "Visibility": "Public",
+        "Students": 109,
+        "Type": "Blueprint",
+        "Start Date": "2025-10-12"
+    },
+    {
+        "Name": "Topics in Art",
+        "SIS ID": "SIS-1042",
+        "Terms": [
+            "Spring 2025"
+        ],
+        "Sub-Accounts": [
+            "Business",
+            "Sciences"
+        ],
+        "Teachers": [
+            {
+                "Name": "Taylor Johnson",
+                "Initials": "TJ"
+            },
+            {
+                "Name": "Casey Johnson",
+                "Initials": "CJ"
+            }
+        ],
+        "Status": "Concluded",
+        "Visibility": "Private",
+        "Students": 118,
+        "Type": "Blueprint",
+        "Start Date": "2025-05-27"
+    },
+    {
+        "Name": "Foundations of Computer Science",
+        "SIS ID": "SIS-1043",
+        "Terms": [
+            "Spring 2025"
+        ],
+        "Sub-Accounts": [
+            "Humanities",
+            "Engineering"
+        ],
+        "Teachers": [
+            {
+                "Name": "Casey Johnson",
+                "Initials": "CJ"
+            },
+            {
+                "Name": "Casey Davis",
+                "Initials": "CD"
+            }
+        ],
+        "Status": "Published",
+        "Visibility": "Public",
+        "Students": 114,
+        "Type": "Blueprint",
+        "Start Date": "2025-12-23"
+    },
+    {
+        "Name": "Foundations of Physics",
+        "SIS ID": "SIS-1044",
+        "Terms": [
+            "Fall 2025"
+        ],
+        "Sub-Accounts": [
+            "Arts",
+            "Humanities"
+        ],
+        "Teachers": [
+            {
+                "Name": "Peyton Smith",
+                "Initials": "PS"
+            }
+        ],
+        "Status": "Unpublished",
+        "Visibility": "Private",
+        "Students": 50,
+        "Type": "Blueprint",
+        "Start Date": "2025-07-26"
+    },
+    {
+        "Name": "Advanced Economics",
+        "SIS ID": "SIS-1045",
+        "Terms": [
+            "Summer 2025"
+        ],
+        "Sub-Accounts": [
+            "Engineering"
+        ],
+        "Teachers": [
+            {
+                "Name": "Casey Rodriguez",
+                "Initials": "CR"
+            }
+        ],
+        "Status": "Concluded",
+        "Visibility": "Public",
+        "Students": 80,
+        "Type": "Template",
+        "Start Date": "2025-08-24"
+    },
+    {
+        "Name": "Advanced Chemistry",
+        "SIS ID": "SIS-1046",
+        "Terms": [
+            "Spring 2025",
+            "Fall 2025"
+        ],
+        "Sub-Accounts": [
+            "Engineering",
+            "Arts"
+        ],
+        "Teachers": [
+            {
+                "Name": "Alex Brown",
+                "Initials": "AB"
+            }
+        ],
+        "Status": "Concluded",
+        "Visibility": "Public",
+        "Students": 97,
+        "Type": "Blueprint",
+        "Start Date": "2025-08-12"
+    },
+    {
+        "Name": "Intro to History",
+        "SIS ID": "SIS-1047",
+        "Terms": [
+            "Fall 2025",
+            "Spring 2025"
+        ],
+        "Sub-Accounts": [
+            "Sciences",
+            "Business"
+        ],
+        "Teachers": [
+            {
+                "Name": "Peyton Lee",
+                "Initials": "PL"
+            }
+        ],
+        "Status": "Published",
+        "Visibility": "Private",
+        "Students": 36,
+        "Type": "Blueprint",
+        "Start Date": "2025-11-05"
+    },
+    {
+        "Name": "Foundations of Art",
+        "SIS ID": "SIS-1048",
+        "Terms": [
+            "Spring 2025"
+        ],
+        "Sub-Accounts": [
+            "Engineering",
+            "Sciences"
+        ],
+        "Teachers": [
+            {
+                "Name": "Jordan Martinez",
+                "Initials": "JM"
+            },
+            {
+                "Name": "Jordan Garcia",
+                "Initials": "JG"
+            }
+        ],
+        "Status": "Published",
+        "Visibility": "Private",
+        "Students": 44,
+        "Type": "Blueprint",
+        "Start Date": "2025-09-10"
+    },
+    {
+        "Name": "Principles of Physics",
+        "SIS ID": "SIS-1049",
+        "Terms": [
+            "Fall 2025"
+        ],
+        "Sub-Accounts": [
+            "Arts",
+            "Business"
+        ],
+        "Teachers": [
+            {
+                "Name": "Riley Martinez",
+                "Initials": "RM"
+            },
+            {
+                "Name": "Casey Lee",
+                "Initials": "CL"
+            }
+        ],
+        "Status": "Published",
+        "Visibility": "Public",
+        "Students": 47,
+        "Type": "Blueprint",
+        "Start Date": "2025-10-20"
+    }
+]
