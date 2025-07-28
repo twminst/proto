@@ -209,6 +209,7 @@
   justify-content: space-between;
   padding: 0 var(--spacing-16);
   z-index: 1000;
+  width: 100dvw;
 }
 
 .hamburger {
