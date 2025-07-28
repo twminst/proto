@@ -86,7 +86,7 @@
     .modal {
         max-width: 100%;
         margin: var(--spacing-16);
-        max-height: calc(100vh - var(--spacing-32));
+        max-height: calc(calc(var(--vh, 1vh) * 100) - var(--spacing-32));
     }
 
     /* Make large and xlarge modals fullscreen on mobile */
@@ -98,7 +98,7 @@
         right: 0;
         bottom: 0;
         width: 100vw;
-        height: 100vh;
+        height: calc(var(--vh, 1vh) * 100);
         max-width: none;
         max-height: none;
         margin: 0;

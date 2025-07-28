@@ -240,6 +240,74 @@
         </div>
     </div>
 
+    <!-- Large Modal Container -->
+    <div id="demoLargeModal" class="modal-overlay">
+        <div class="modal modal--large">
+            <div class="modal-header">
+                <h3>Large Modal Example</h3>
+                <button class="btn btn--icon-only-minimal btn--small" id="closeLargeModalBtn" aria-label="Close modal">
+                    <span class="btn-icon" style="mask-image: var(--icon-close-outline);" aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-24); margin-bottom: var(--spacing-24);">
+                    <div class="form-field">
+                        <label for="large-first-name" class="form-label">First Name</label>
+                        <input type="text" id="large-first-name" class="form-input" placeholder="Enter first name">
+                    </div>
+                    <div class="form-field">
+                        <label for="large-last-name" class="form-label">Last Name</label>
+                        <input type="text" id="large-last-name" class="form-input" placeholder="Enter last name">
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-24); margin-bottom: var(--spacing-24);">
+                    <div class="form-field">
+                        <label for="large-email" class="form-label">Email Address</label>
+                        <input type="email" id="large-email" class="form-input" placeholder="Enter email">
+                    </div>
+                    <div class="form-field">
+                        <label for="large-phone" class="form-label">Phone Number</label>
+                        <input type="tel" id="large-phone" class="form-input" placeholder="Enter phone number">
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label for="large-description" class="form-label">Description</label>
+                    <textarea id="large-description" class="form-input" rows="4" placeholder="Enter a detailed description..."></textarea>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-24); margin-top: var(--spacing-24);">
+                    <div class="form-field">
+                        <div class="form-checkbox-group">
+                            <label class="form-checkbox-label">
+                                <input type="checkbox" class="form-checkbox">
+                                <span class="form-checkbox-custom"></span>
+                                Send welcome email
+                            </label>
+                            <label class="form-checkbox-label">
+                                <input type="checkbox" class="form-checkbox" checked>
+                                <span class="form-checkbox-custom"></span>
+                                Enable notifications
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="large-role" class="form-label">User Role</label>
+                        <select id="large-role" class="form-input">
+                            <option>Select a role...</option>
+                            <option>Student</option>
+                            <option>Instructor</option>
+                            <option>Administrator</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--ghost btn--medium" id="cancelLargeModalBtn">Cancel</button>
+                <button class="btn btn--secondary btn--medium">Save Draft</button>
+                <button class="btn btn--primary btn--medium">Create User</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Tray Containers -->
     <div id="demoTray" class="tray-overlay">
         <div class="tray tray--medium">
@@ -850,6 +918,9 @@
                         <button class="btn btn--primary btn--medium" id="openModalBtn">
                             Open Modal
                         </button>
+                        <button class="btn btn--primary btn--medium" id="openLargeModalBtn">
+                            Open Large Modal
+                        </button>
                         <button class="btn btn--secondary btn--medium" id="openTrayBtn">
                             Open Tray
                         </button>
@@ -1412,6 +1483,10 @@
             modalManager.open('demoModal');
         });
 
+        document.getElementById('openLargeModalBtn')?.addEventListener('click', () => {
+            modalManager.open('demoLargeModal');
+        });
+
         document.getElementById('openTrayBtn')?.addEventListener('click', () => {
             trayManager.open('demoTray');
         });
@@ -1433,6 +1508,16 @@
                 closeDrawer();
             }
         });
+
+        // Dynamic viewport height for mobile browsers
+        function setFullHeight() {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+
+        window.addEventListener('resize', setFullHeight);
+        window.addEventListener('load', setFullHeight);
+        setFullHeight(); // Call immediately
     </script>
 
 </body>

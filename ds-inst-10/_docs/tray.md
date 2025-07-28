@@ -401,4 +401,58 @@ document.getElementById('openTrayBtn')?.addEventListener('click', () => {
 - Manages multiple trays (only one open at a time)
 - Smooth slide-in animation from the right
 - Optional overlay click to close (configurable per use case)
+- Mobile-optimized with dynamic viewport height handling
+- Prevents background scrolling on mobile devices
+
+---
+
+### 📱 Mobile Optimizations
+
+**Dynamic Viewport Height:**
+The tray system includes mobile browser compatibility for devices with dynamic browser UI (address bars that hide/show). This ensures trays always fit the actual screen height:
+
+```css
+/* Mobile responsive with dynamic height */
+@media (max-width: 768px) {
+    .tray {
+        width: 100vw !important;
+        max-height: calc(var(--vh, 1vh) * 100);
+        overflow-y: auto;
+    }
+}
+```
+
+**JavaScript Integration:**
+Include this JavaScript to handle dynamic viewport height calculation:
+
+```javascript
+// Dynamic viewport height for mobile browsers
+function setFullHeight() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+window.addEventListener('resize', setFullHeight);
+window.addEventListener('load', setFullHeight);
+setFullHeight(); // Call immediately
+```
+
+**Background Scroll Prevention:**
+On mobile devices, background scrolling is automatically prevented when a tray is open to improve the user experience:
+
+```css
+/* Prevent body scroll when tray is open - mobile only */
+@media (max-width: 768px) {
+    body:has(.tray-overlay.active) {
+        overflow: hidden;
+    }
+}
+```
+
+**Mobile Behavior:**
+- Trays expand to full width (100vw) on screens 768px and smaller
+- Height automatically adjusts to actual viewport (excluding browser UI)
+- Background content is prevented from scrolling
+- Touch interactions work seamlessly with slide gestures
+- Maintains accessibility features on touch devices
 

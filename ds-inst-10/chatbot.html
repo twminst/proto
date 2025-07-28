@@ -900,6 +900,16 @@
                 // Modal and Tray escape handling is now in their respective managers
             }
         });
+
+        // Dynamic viewport height for mobile browsers
+        function setFullHeight() {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+
+        window.addEventListener('resize', setFullHeight);
+        window.addEventListener('load', setFullHeight);
+        setFullHeight(); // Call immediately
     </script>
 
 </body>
