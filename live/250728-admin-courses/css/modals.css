@@ -1,0 +1,118 @@
+/* 
+ * Modal Component Styles
+ * Consolidated from wrapper.html
+ */
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-backdrop);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    padding: var(--spacing-16);
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Base Modal */
+.modal {
+    background-color: var(--color-background-primary);
+    border-radius: var(--spacing-radius-default);
+    box-shadow: 0 6px 3px rgba(0,0,0,0.25), 0 3px 6px rgba(0,0,0,0.1);
+    width: 600px;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Modal Size Variants */
+.modal--small {
+    width: 400px;
+}
+
+.modal--large {
+    width: 840px;
+}
+
+.modal--xlarge {
+    width: 90vw;
+}
+
+/* Modal Header */
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-24);
+    border-bottom: 1px solid var(--color-line-divider);
+}
+
+.modal-header h3 {
+    margin: 0;
+}
+
+/* Modal Body */
+.modal-body {
+    padding: var(--spacing-24);
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* Modal Footer */
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-12);
+    padding: var(--spacing-12);
+    border-top: 1px solid var(--color-line-divider);
+    background-color: var(--color-background-secondary);
+}
+
+/* Prevent body scroll when modal is open - mobile only */
+@media (max-width: 768px) {
+    body:has(.modal-overlay.active) {
+        overflow: hidden;
+    }
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .modal {
+        max-width: 100%;
+        margin: var(--spacing-16);
+        max-height: calc(calc(var(--vh, 1vh) * 100) - var(--spacing-32));
+    }
+
+    /* Make large and xlarge modals fullscreen on mobile */
+    .modal--large,
+    .modal--xlarge {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: calc(var(--vh, 1vh) * 100);
+        max-width: none;
+        max-height: none;
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .modal-overlay {
+        padding: 0;
+    }
+}

@@ -1,0 +1,364 @@
+/* Button Base Styles */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-8);
+    border: 1px solid transparent;
+    border-radius: var(--spacing-radius-default);
+    cursor: pointer;
+    font-family: var(--font-family-primary);
+    font-weight: var(--font-weight-normal);
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:focus {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 2px;
+}
+
+.btn:disabled,
+.btn.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Button Sizes */
+.btn--small {
+    padding: var(--spacing-4) var(--spacing-8);
+    font-size: var(--font-size-body-small);
+    line-height: var(--line-height-body-small);
+    height: 32px;
+
+}
+
+.btn--medium {
+    padding: var(--spacing-8) var(--spacing-12) var(--spacing-8) var(--spacing-12);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    height: 40px;
+}
+
+.btn--large {
+    padding: var(--spacing-12) var(--spacing-16);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    height: 48px;
+}
+
+/* Primary Button */
+.btn--primary {
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+    border-color: var(--color-primary-dark);
+}
+
+.btn--primary:hover {
+    background-color: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+}
+
+/* Secondary Button */
+.btn--secondary {
+    background-color: var(--color-grey-50);
+    color: var(--color-text-primary);
+    border-color: var(--color-grey-200);
+}
+
+.btn--secondary:hover {
+    background-color: var(--color-grey-100);
+    border-color: var(--color-border-primary);
+    border-color: var(--color-grey-200);
+}
+
+/* Success Button */
+.btn--success {
+    background-color: var(--color-success);
+    color: var(--color-text-inverse);
+    border-color: var(--color-success-dark);
+}
+
+.btn--success:hover {
+    background-color: var(--color-success-dark);
+    border-color: var(--color-success-dark);
+}
+
+/* Danger Button */
+.btn--danger {
+    background-color: var(--color-error);
+    color: var(--color-text-inverse);
+    border-color: var(--color-error-dark);
+}
+
+.btn--danger:hover {
+    background-color: var(--color-error-dark);
+    border-color: var(--color-error-dark);
+}
+
+/* Ghost/Outline Button */
+.btn--ghost {
+    background-color: var(--color-white);
+    color: var(--color-text-primary);
+    border-color: var(--color-neutral-300);
+}
+
+.btn--ghost:hover {
+    background-color: var(--color-neutral-100);
+    color: var(--color-text-primary);
+}
+
+.btn--ghost:active {
+    background-color: var(--color-active-primary);
+    color: var(--color-text-inverse);
+}
+
+/* Link Button */
+.btn--link {
+    background-color: transparent;
+    color: var(--color-text-link);
+    border-color: transparent;
+    text-decoration: none;
+    min-height: auto;
+    padding: var(--spacing-4) var(--spacing-8);
+}
+
+.btn--link:hover {
+    color: var(--color-text-link-hover);
+    text-decoration: none;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Inverse Button - for use on dark backgrounds */
+.btn--inverse {
+    background-color: transparent;
+    color: var(--color-text-inverse);
+    border-color: var(--color-text-inverse);
+}
+
+.btn--inverse:hover {
+    background-color: var(--color-hover-inverse);
+    color: var(--color-text-inverse);
+    border-color: var(--color-text-inverse);
+}
+
+.btn--inverse:focus {
+    outline-color: var(--color-focus-ring-inverse);
+}
+
+/* Inverse Icon-Only Button - override icon-only styles for inverse */
+.btn--inverse.btn--icon-only {
+    color: var(--color-text-inverse);
+    border-color: var(--color-text-inverse);
+}
+
+.btn--inverse.btn--icon-only:hover {
+    background-color: var(--color-hover-inverse);
+    color: var(--color-text-inverse);
+    border-color: var(--color-text-inverse);
+}
+
+.btn--inverse.btn--icon-only:focus {
+    background-color: var(--color-hover-inverse);
+    color: var(--color-text-inverse);
+    outline-color: var(--color-focus-ring-inverse);
+}
+
+/* Inverse Icon-Only Minimal Button - override minimal styles for inverse */
+.btn--inverse.btn--icon-only-minimal {
+    color: var(--color-text-inverse);
+}
+
+.btn--inverse.btn--icon-only-minimal:hover {
+    background-color: var(--color-hover-inverse);
+    color: var(--color-text-inverse);
+}
+
+.btn--inverse.btn--icon-only-minimal:focus {
+    background-color: var(--color-hover-inverse);
+    color: var(--color-text-inverse);
+}
+
+/* Icon Buttons */
+.btn--icon-only {
+    padding: var(--spacing-8);
+    width: 40px;
+    /* Default to medium size */
+    height: 40px;
+
+    /* Force square shape */
+    box-sizing: border-box;
+    /* Include padding in width/height calculation */
+    min-width: 40px;
+    /* Prevent width from collapsing */
+    min-height: 40px;
+    /* Prevent height from collapsing */
+    max-width: 40px;
+    /* Prevent width from expanding */
+    max-height: 40px;
+    /* Prevent height from expanding */
+}
+
+.btn--icon-only.btn--small {
+    width: 32px;
+    height: 32px;
+    padding: var(--spacing-4);
+    min-width: 32px;
+    min-height: 32px;
+    max-width: 32px;
+    max-height: 32px;
+}
+
+.btn--icon-only.btn--large {
+    width: 48px;
+    height: 48px;
+    padding: var(--spacing-12);
+    min-width: 48px;
+    min-height: 48px;
+    max-width: 48px;
+    max-height: 48px;
+}
+
+/* Icon-only button without background */
+.btn--icon-only-minimal {
+    background-color: transparent;
+    border-color: transparent;
+    padding: var(--spacing-8);
+    color: var(--color-text-primary);
+    width: 40px;
+    /* Default to medium size */
+    height: 40px;
+    /* Force square shape */
+    box-sizing: border-box;
+    /* Include padding in width/height calculation */
+    min-width: 40px;
+    /* Prevent width from collapsing */
+    min-height: 40px;
+    /* Prevent height from collapsing */
+    max-width: 40px;
+    /* Prevent width from expanding */
+    max-height: 40px;
+    /* Prevent height from expanding */
+}
+
+.btn--icon-only-minimal:hover {
+    background-color: var(--color-hover-overlay);
+    border-color: transparent;
+}
+
+.btn--icon-only-minimal:focus {
+    background-color: var(--color-hover-overlay);
+}
+
+.btn--icon-only-minimal.btn--small {
+    width: 32px;
+    height: 32px;
+    padding: var(--spacing-4);
+    min-width: 32px;
+    min-height: 32px;
+    max-width: 32px;
+    max-height: 32px;
+}
+
+.btn--icon-only-minimal.btn--medium {
+    width: 40px;
+    height: 40px;
+    padding: var(--spacing-8);
+    min-width: 40px;
+    min-height: 40px;
+    max-width: 40px;
+    max-height: 40px;
+}
+
+.btn--icon-only-minimal.btn--large {
+    width: 48px;
+    height: 48px;
+    padding: var(--spacing-12);
+    min-width: 48px;
+    min-height: 48px;
+    max-width: 48px;
+    max-height: 48px;
+}
+
+/* Full Width Button */
+.btn--full-width {
+    width: 100%;
+}
+
+/* Button Icons */
+.btn-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    background-color: currentColor;
+    mask-size: contain;
+}
+
+.btn--small .btn-icon {
+    width: 14px;
+    height: 14px;
+}
+
+.btn--large .btn-icon {
+    width: 18px;
+    height: 18px;
+}
+
+/* Disabled state */
+.btn:disabled .btn-icon,
+.btn.disabled .btn-icon {
+    opacity: 0.5;
+}
+
+/* ===== MENU TRIGGER CHEVRON BUTTONS ===== */
+
+/* Chevron styling for menu trigger buttons */
+.menu-trigger-chevron {
+    width: 18px;
+    height: 18px;
+    background-color: currentColor;
+    flex-shrink: 0;
+    margin-left: var(--spacing-0);
+    transition: none; /* Prevent CSS animation - JavaScript handles icon swapping */
+}
+
+/* Button with chevron layout */
+.btn--with-chevron {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-4);
+}
+
+/* Icon-only button with chevron (e.g., settings + chevron) */
+.btn--icon-only-minimal.btn--with-chevron {
+    gap: var(--spacing-4);
+    width: auto !important; /* Override fixed width for chevron */
+    min-width: auto !important;
+    max-width: none !important;
+    padding: var(--spacing-8) var(--spacing-8);
+}
+
+/* Primary/secondary buttons with text and chevron */
+.btn--primary.btn--with-chevron,
+.btn--secondary.btn--with-chevron {
+    padding-right: var(--spacing-8);
+}
+
+/* Size-specific chevron styling */
+.btn--small .menu-trigger-chevron {
+    width: 14px;
+    height: 14px;
+    margin-left: var(--spacing-0);
+}
+
+.btn--large .menu-trigger-chevron {
+    width: 20px;
+    height: 20px;
+    margin-left: var(--spacing-0);
+}
