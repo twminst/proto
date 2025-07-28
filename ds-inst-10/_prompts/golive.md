@@ -3,3 +3,4 @@
 - Copy the file here and name it index.html
 - Also copy the CSS folder and any other asset if specified
 - The goal here is to create a standalone version of the prototype for user testing that won't change with future update
+- After creating, share the prototype link: https://twminst.github.io/proto/live/(directoryname)/index.html

@@ -311,9 +311,10 @@
 
 /* ===== RESPONSIVE STYLES ===== */
 
-/* Prevent body scroll when mobile drawer is open - mobile only */
+/* Prevent body scroll when mobile drawer or trays are open - mobile only */
 @media (max-width: 768px) {
-  body:has(.mobile-drawer.open) {
+  body:has(.mobile-drawer.open),
+  body:has(.tray-overlay.active) {
     overflow: hidden;
   }
 }
