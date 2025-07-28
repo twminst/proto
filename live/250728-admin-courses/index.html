@@ -1422,7 +1422,8 @@
             }
 
             .results-per-page {
-                justify-content: space-between;
+                justify-content: left;
+                width: 100%;
             }
 
             .bulk-actions button {
@@ -7069,15 +7070,7 @@
             }
         });
 
-        // Dynamic viewport height for mobile browsers
-        function setFullHeight() {
-            const vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-        }
-
-        window.addEventListener('resize', setFullHeight);
-        window.addEventListener('load', setFullHeight);
-        setFullHeight(); // Call immediately
+        
     </script>
 
 </body>
