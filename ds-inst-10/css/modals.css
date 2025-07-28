@@ -81,6 +81,13 @@
     background-color: var(--color-background-secondary);
 }
 
+/* Prevent body scroll when modal is open - mobile only */
+@media (max-width: 768px) {
+    body:has(.modal-overlay.active) {
+        overflow: hidden;
+    }
+}
+
 /* Mobile Responsive Styles */
 @media (max-width: 768px) {
     .modal {

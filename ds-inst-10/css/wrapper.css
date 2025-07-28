@@ -311,6 +311,13 @@
 
 /* ===== RESPONSIVE STYLES ===== */
 
+/* Prevent body scroll when mobile drawer is open - mobile only */
+@media (max-width: 768px) {
+  body:has(.mobile-drawer.open) {
+    overflow: hidden;
+  }
+}
+
 /* Mobile Styles */
 @media (max-width: 768px) {
   .sidebar,
