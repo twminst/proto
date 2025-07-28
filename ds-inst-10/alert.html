@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alert Component</title>
+    <link rel="stylesheet" href="css/main.css">
+
+    <style>
+        /* Alert base styling to match Figma design */
+        .alert {
+            position: relative;
+            border-radius: 4px;
+            display: flex;
+            align-items: stretch;
+            margin: 16px 0;
+            overflow: hidden;
+            max-width: 800px;
+            min-width: 250px;
+        }
+
+        /* Alert color variants - border colors */
+        .alert--info {
+            border: 2px solid #2b7abc; /* Blue 4570 */
+        }
+
+        .alert--success {
+            border: 2px solid #3c8d5f; /* Icon Success */
+        }
+
+        .alert--warning {
+            border: 2px solid #f5a623; /* Warning color */
+        }
+
+        .alert--error {
+            border: 2px solid #d73502; /* Error color */
+        }
+
+        /* Icon section */
+        .alert__icon-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 14px;
+            flex-shrink: 0;
+        }
+
+        .alert--info .alert__icon-section {
+            background-color: #2b7abc;
+        }
+
+        .alert--success .alert__icon-section {
+            background-color: #3c8d5f;
+        }
+
+        .alert--warning .alert__icon-section {
+            background-color: #f5a623;
+        }
+
+        .alert--error .alert__icon-section {
+            background-color: #d73502;
+        }
+
+        .alert__icon {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            aspect-ratio: 1 / 1;
+            flex-shrink: 0;
+            mask-size: contain;
+            mask-repeat: no-repeat;
+            mask-position: center;
+            background-color: white;
+        }
+
+        .alert__icon--info {
+            mask-image: var(--icon-info-borderless-solid);
+        }
+
+        .alert__icon--success {
+            mask-image: var(--icon-check-solid);
+        }
+
+        .alert__icon--warning {
+            mask-image: var(--icon-warning-solid);
+        }
+
+        .alert__icon--error {
+            mask-image: var(--icon-unpublish-solid);
+        }
+
+        /* Content section */
+        .alert__content {
+            background-color: #ffffff; /* White 1010 */
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px;
+            flex: 1;
+            min-height: 48px;
+        }
+
+        .alert__text {
+            flex: 1;
+            font-family: "Lato", sans-serif;
+            font-size: 16px; /* Medium/Normal */
+            font-weight: 400;
+            line-height: 24px;
+            color: #273540; /* Grey 125125 */
+            margin: 0;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            min-width: 0;
+        }
+
+        /* Alert close button - using design system button */
+        .alert__content .btn {
+            flex-shrink: 0;
+        }
+
+        /* Animations */
+        .alert--dismissible {
+            animation: slideInDown 0.3s ease-out;
+        }
+
+        .alert--dismissing {
+            animation: slideOutUp 0.3s ease-in forwards;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideOutUp {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Floating alerts for dynamic notifications */
+        .alert--floating {
+            position: relative;
+            width: calc(100vw - 40px);
+            max-width: 800px;
+            min-width: 250px;
+            margin: 0 auto 12px auto;
+            pointer-events: auto;
+            box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.1), 0px 3px 6px 0px rgba(0,0,0,0.16);
+        }
+
+        /* Mobile adjustments for floating alerts */
+        @media (max-width: 768px) {
+            .alert--floating {
+                width: calc(100vw - 40px);
+                max-width: none;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Desktop Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="logo">
+            <span class="icon icon-40" style="mask-image: var(--icon-canvas-logo-outline);"
+                aria-label="App Logo"></span>
+        </div>
+        <div class="nav-items">
+            <a href="#" class="nav-item">
+                <span class="icon icon-28" style="mask-image: var(--icon-user-outline);" aria-hidden="true"></span>
+                Account
+            </a>
+            <a href="#" class="nav-item nav-item--active">
+                <span class="icon icon-28" style="mask-image: var(--icon-admin-outline);" aria-hidden="true"></span>
+                Admin
+            </a>
+            <a href="#" class="nav-item">
+                <span class="icon icon-28" style="mask-image: var(--icon-dashboard-outline);" aria-hidden="true"></span>
+                Dashboard
+            </a>
+            <a href="#" class="nav-item">
+                <span class="icon icon-28" style="mask-image: var(--icon-courses-outline);" aria-hidden="true"></span>
+                Courses
+            </a>
+            <a href="#" class="nav-item">
+                <span class="icon icon-28" style="mask-image: var(--icon-calendar-month-outline);"
+                    aria-hidden="true"></span>
+                Calendar
+            </a>
+            <a href="#" class="nav-item">
+                <span class="icon icon-28" style="mask-image: var(--icon-inbox-outline);" aria-hidden="true"></span>
+                Inbox
+            </a>
+            <a href="#" class="nav-item">
+                <span class="icon icon-28" style="mask-image: var(--icon-clock-outline);" aria-hidden="true"></span>
+                History
+            </a>
+            <a href="#" class="nav-item">
+                <span class="icon icon-28" style="mask-image: var(--icon-question-outline);" aria-hidden="true"></span>
+                Help
+            </a>
+        </div>
+    </nav>
+
+    <!-- Mobile Header -->
+    <header class="mobile-header" style="max-width: 100vw; width: 100vw; box-sizing: border-box;">
+        <div class="mobile-logo">
+            <span class="icon icon-24" style="mask-image: var(--icon-canvas-logo-outline);"
+                aria-label="App Logo"></span>
+        </div>
+        <button class="btn btn--inverse btn--icon-only-minimal btn--medium" id="hamburgerBtn" aria-label="Menu">
+            <span class="btn-icon" style="mask-image: var(--icon-hamburger-outline);" aria-hidden="true"></span>
+        </button>
+    </header>
+
+    <!-- Mobile Drawer -->
+    <nav class="mobile-drawer" id="mobileDrawer">
+        <div class="mobile-drawer-header">
+            <div class="mobile-logo">
+                <span class="icon icon-24" style="mask-image: var(--icon-canvas-logo-outline);"
+                    aria-label="App Logo"></span>
+            </div>
+            <button class="btn btn--inverse btn--icon-only-minimal btn--medium" id="closeBtn" aria-label="Close">
+                <span class="btn-icon" style="mask-image: var(--icon-close-outline);" aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="mobile-nav-items">
+            <a href="#" class="mobile-nav-item">
+                <div class="item-content">
+                    <span class="icon icon-24" style="mask-image: var(--icon-user-outline);" aria-hidden="true"></span>
+                    <span>Account</span>
+                </div>
+                <span class="icon icon-24 chevron" style="mask-image: var(--icon-chevron-right-outline);"
+                    aria-hidden="true"></span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <div class="item-content">
+                    <span class="icon icon-24" style="mask-image: var(--icon-admin-outline);" aria-hidden="true"></span>
+                    <span>Admin</span>
+                </div>
+                <span class="icon icon-24 chevron" style="mask-image: var(--icon-chevron-right-outline);"
+                    aria-hidden="true"></span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <div class="item-content">
+                    <span class="icon icon-24" style="mask-image: var(--icon-dashboard-outline);"
+                        aria-hidden="true"></span>
+                    <span>Dashboard</span>
+                </div>
+                <span class="icon icon-24 chevron" style="mask-image: var(--icon-chevron-right-outline);"
+                    aria-hidden="true"></span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <div class="item-content">
+                    <span class="icon icon-24" style="mask-image: var(--icon-courses-outline);"
+                        aria-hidden="true"></span>
+                    <span>Courses</span>
+                </div>
+                <span class="icon icon-24 chevron" style="mask-image: var(--icon-chevron-right-outline);"
+                    aria-hidden="true"></span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <div class="item-content">
+                    <span class="icon icon-24" style="mask-image: var(--icon-calendar-month-outline);"
+                        aria-hidden="true"></span>
+                    <span>Calendar</span>
+                </div>
+                <span class="icon icon-24 chevron" style="mask-image: var(--icon-chevron-right-outline);"
+                    aria-hidden="true"></span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <div class="item-content">
+                    <span class="icon icon-24" style="mask-image: var(--icon-inbox-outline);" aria-hidden="true"></span>
+                    <span>Inbox</span>
+                </div>
+                <span class="icon icon-24 chevron" style="mask-image: var(--icon-chevron-right-outline);"
+                    aria-hidden="true"></span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <div class="item-content">
+                    <span class="icon icon-24" style="mask-image: var(--icon-clock-outline);" aria-hidden="true"></span>
+                    <span>History</span>
+                </div>
+                <span class="icon icon-24 chevron" style="mask-image: var(--icon-chevron-right-outline);"
+                    aria-hidden="true"></span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <div class="item-content">
+                    <span class="icon icon-24" style="mask-image: var(--icon-question-outline);"
+                        aria-hidden="true"></span>
+                    <span>Help</span>
+                </div>
+                <span class="icon icon-24 chevron" style="mask-image: var(--icon-chevron-right-outline);"
+                    aria-hidden="true"></span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Overlay for mobile drawer -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Modal Containers -->
+
+    <!-- Default Modal - CSS classes for Small, Large, and Xlarge-->
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Modal</h3>
+                <button class="btn btn--icon-only-minimal btn--small" id="closeModalBtn" aria-label="Close modal">
+                    <span class="btn-icon" style="mask-image: var(--icon-close-outline);" aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--ghost btn--medium" id="cancelModalBtn">Cancel</button>
+                <button class="btn btn--primary btn--medium">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tray Containers -->
+    <!-- Small Tray (Cover Mode) - CSS classes for Small, Large, and Xlarge -->
+    <div id="trayOverlaySmall" class="tray-overlay">
+        <div class="tray tray--small">
+            <div class="tray-header">
+                <h3>Tray</h3>
+                <button class="btn btn--icon-only-minimal btn--small" id="closeTraySmallBtn" aria-label="Close tray">
+                    <span class="btn-icon" style="mask-image: var(--icon-close-outline);" aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="tray-body">
+
+            </div>
+            <div class="tray-footer">
+                <button class="btn btn--ghost btn--medium">Cancel</button>
+                <button class="btn btn--primary btn--medium">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Desktop Header -->
+    <header class="desktop-header">
+        <button class="btn btn--icon-only-minimal btn--medium" id="desktopHamburgerBtn" aria-label="Menu">
+            <span class="btn-icon" style="mask-image: var(--icon-hamburger-outline);" aria-hidden="true"></span>
+        </button>
+        <nav class="breadcrumb">
+            <a href="#">Level 1</a>
+            <span class="icon chevron" style="mask-image: var(--icon-chevron-right-outline);" aria-hidden="true"></span>
+            Current Level
+        </nav>
+    </header>
+
+    <!-- Secondary Navigation Drawer -->
+    <nav class="secondary-nav" id="secondaryNav">
+        <ul class="secondary-nav-list">
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link secondary-nav-link--active">Courses</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">People</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Statistics</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Permissions</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Outcomes</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Rubrics</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Grading</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Question Banks</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Sub-Accounts</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Account Calendars</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Terms</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Authentication</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">SIS Import</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Themes</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Developer Keys</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Item Banks</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Data Services</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">SIS Integrations</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Admin Analytics</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Admin Tools</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">ePortfolio Moderation</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Analytics</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Settings</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">SFTP User</a>
+            </li>
+            <li class="secondary-nav-item">
+                <a href="#" class="secondary-nav-link">Domain Lookups</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content main-content--centered" id="mainContent">
+
+        <!-- Page Header -->
+        <header class="page-header">
+            <div class="page-header-content">
+                <h1>Alert Component</h1>
+                <p class="page-header-description">Flexible alert component with different variants and dismissible functionality</p>
+            </div>
+            <div class="page-header-actions">
+                <button class="btn btn--primary btn--medium" onclick="showAlert('info', 'Buying the right telescope to take your love of astronomy to the next level is a big next step in the development of your passion for the stars.')">
+                    <span class="btn-icon" style="mask-image: var(--icon-add-outline);" aria-hidden="true"></span>
+                    Show Sample Alert
+                </button>
+            </div>
+        </header>
+
+        <!-- Alert Examples Section -->
+        <section style="margin-bottom: var(--spacing-32);">
+            <h2>Alert Examples</h2>
+            <p>Different alert variants and their use cases:</p>
+            
+            <!-- Info Alert (Default from Figma) -->
+            <div class="alert alert--info">
+                <div class="alert__icon-section">
+                    <div class="alert__icon alert__icon--info"></div>
+                </div>
+                <div class="alert__content">
+                    <div class="alert__text">Buying the right telescope to take your love of astronomy to the next level is a big next step in the development of your passion for the stars.</div>
+                </div>
+            </div>
+
+            <!-- Success Alert -->
+            <div class="alert alert--success">
+                <div class="alert__icon-section">
+                    <div class="alert__icon alert__icon--success"></div>
+                </div>
+                <div class="alert__content">
+                    <div class="alert__text">Your action has been completed successfully. All changes have been saved.</div>
+                </div>
+            </div>
+
+            <!-- Warning Alert -->
+            <div class="alert alert--warning">
+                <div class="alert__icon-section">
+                    <div class="alert__icon alert__icon--warning"></div>
+                </div>
+                <div class="alert__content">
+                    <div class="alert__text">Please review your input before proceeding. Some fields may need attention.</div>
+                </div>
+            </div>
+
+            <!-- Error Alert -->
+            <div class="alert alert--error">
+                <div class="alert__icon-section">
+                    <div class="alert__icon alert__icon--error"></div>
+                </div>
+                <div class="alert__content">
+                    <div class="alert__text">There was an error processing your request. Please try again or contact support.</div>
+                </div>
+            </div>
+
+            <!-- Dismissible Alert -->
+            <div class="alert alert--info alert--dismissible" id="dismissibleAlert">
+                <div class="alert__icon-section">
+                    <div class="alert__icon alert__icon--info"></div>
+                </div>
+                <div class="alert__content">
+                    <div class="alert__text">This alert can be dismissed by clicking the close button on the right side.</div>
+                    <button class="btn btn--icon-only-minimal btn--small" aria-label="Close alert" onclick="dismissAlert('dismissibleAlert')">
+                        <span class="btn-icon" style="mask-image: var(--icon-close-outline);" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Alert Testing Section -->
+        <section style="margin-bottom: var(--spacing-32);">
+            <h2>Interactive Alert Testing</h2>
+            <p>Test different alert types dynamically:</p>
+            <div style="display: flex; gap: var(--spacing-16); flex-wrap: wrap; margin-top: var(--spacing-16);">
+                <button class="btn btn--primary btn--medium" onclick="showAlert('success', 'Operation completed successfully. All changes have been saved.')">
+                    Show Success
+                </button>
+                <button class="btn btn--secondary btn--medium" onclick="showAlert('warning', 'Please check your input. Some fields may need attention.')">
+                    Show Warning
+                </button>
+                <button class="btn btn--danger btn--medium" onclick="showAlert('error', 'Something went wrong. Please try again or contact support.')">
+                    Show Error
+                </button>
+                <button class="btn btn--ghost btn--medium" onclick="showAlert('info', 'Here is some important information you should know about.')">
+                    Show Info
+                </button>
+            </div>
+        </section>
+
+        <!-- Dynamic Alerts Container -->
+        <div id="alertContainer" style="position: fixed; top: 20px; left: 0; right: 0; z-index: 1000; pointer-events: none; display: flex; flex-direction: column; align-items: center;"></div>
+
+    </main>
+
+    <script>
+        // Mobile drawer functionality
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const mobileDrawer = document.getElementById('mobileDrawer');
+        const overlay = document.getElementById('overlay');
+
+        function toggleDrawer() {
+            mobileDrawer.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
+
+        function closeDrawer() {
+            mobileDrawer.classList.remove('open');
+            overlay.classList.remove('active');
+        }
+
+        hamburgerBtn.addEventListener('click', toggleDrawer);
+        closeBtn.addEventListener('click', closeDrawer);
+        overlay.addEventListener('click', closeDrawer);
+
+        // Close drawer when clicking on nav items (mobile)
+        document.querySelectorAll('.mobile-nav-item').forEach(item => {
+            item.addEventListener('click', closeDrawer);
+        });
+
+        // Desktop secondary navigation functionality
+        const desktopHamburgerBtn = document.getElementById('desktopHamburgerBtn');
+        const secondaryNav = document.getElementById('secondaryNav');
+        const mainContent = document.getElementById('mainContent');
+
+        function toggleSecondaryNav() {
+            secondaryNav.classList.toggle('closed');
+            mainContent.classList.toggle('expanded');
+        }
+
+        desktopHamburgerBtn.addEventListener('click', toggleSecondaryNav);
+
+        // Alert functionality
+        function dismissAlert(alertId) {
+            const alert = document.getElementById(alertId);
+            if (alert) {
+                alert.classList.add('alert--dismissing');
+                setTimeout(() => {
+                    alert.remove();
+                }, 300);
+            }
+        }
+
+        function showAlert(type, message, dismissible = true) {
+            const alertContainer = document.getElementById('alertContainer');
+            const alertId = 'alert-' + Date.now();
+            
+            const alertHTML = `
+                <div class="alert alert--${type} alert--dismissible alert--floating" id="${alertId}">
+                    <div class="alert__icon-section">
+                        <span class="alert__icon alert__icon--${type}" aria-hidden="true"></span>
+                    </div>
+                    <div class="alert__content">
+                        <div class="alert__text">${message}</div>
+                        ${dismissible ? `
+                            <button class="btn btn--icon-only-minimal btn--small" aria-label="Close alert" onclick="dismissAlert('${alertId}')">
+                                <span class="btn-icon" style="mask-image: var(--icon-close-outline);" aria-hidden="true"></span>
+                            </button>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+            
+            alertContainer.insertAdjacentHTML('beforeend', alertHTML);
+            
+            // Auto-dismiss after 5 seconds if dismissible
+            if (dismissible) {
+                setTimeout(() => {
+                    dismissAlert(alertId);
+                }, 5000);
+            }
+        }
+
+        // Update the existing escape key handler to close all components
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeDrawer();
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>
