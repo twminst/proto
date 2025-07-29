@@ -4,173 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alert Component</title>
+    <title>Hello World</title>
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/tokens/colors.css">
 
-    <style>
-        /* Alert base styling to match Figma design */
-        .alert {
-            position: relative;
-            border-radius: 4px;
-            display: flex;
-            align-items: stretch;
-            margin: 16px 0;
-            overflow: hidden;
-            max-width: 800px;
-            min-width: 250px;
-        }
-
-        /* Alert color variants - border colors using semantic tokens */
-        .alert--info {
-            border: 2px solid var(--color-primary);
-        }
-
-        .alert--success {
-            border: 2px solid var(--color-success);
-        }
-
-        .alert--warning {
-            border: 2px solid var(--color-warning-light);
-        }
-
-        .alert--error {
-            border: 2px solid var(--color-error);
-        }
-
-        /* Icon section */
-        .alert__icon-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 0 14px;
-            flex-shrink: 0;
-        }
-
-        .alert--info .alert__icon-section {
-            background-color: var(--color-primary);
-        }
-
-        .alert--success .alert__icon-section {
-            background-color: var(--color-success);
-        }
-
-        .alert--warning .alert__icon-section {
-            background-color: var(--color-warning-light);
-        }
-
-        .alert--error .alert__icon-section {
-            background-color: var(--color-error);
-        }
-
-        .alert__icon {
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            aspect-ratio: 1 / 1;
-            flex-shrink: 0;
-            mask-size: contain;
-            mask-repeat: no-repeat;
-            mask-position: center;
-            background-color: var(--color-text-inverse);
-        }
-
-        .alert__icon--info {
-            mask-image: var(--icon-info-borderless-solid);
-        }
-
-        .alert__icon--success {
-            mask-image: var(--icon-check-solid);
-        }
-
-        .alert__icon--warning {
-            mask-image: var(--icon-warning-solid);
-        }
-
-        .alert__icon--error {
-            mask-image: var(--icon-unpublish-solid);
-        }
-
-        /* Content section */
-        .alert__content {
-            background-color: var(--color-background-primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px;
-            flex: 1;
-            min-height: 48px;
-        }
-
-        .alert__text {
-            flex: 1;
-            font-family: "Lato", sans-serif;
-            font-size: 16px; /* Medium/Normal */
-            font-weight: 400;
-            line-height: 24px;
-            color: var(--color-text-primary);
-            margin: 0;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            min-width: 0;
-        }
-
-        /* Alert close button - using design system button */
-        .alert__content .btn {
-            flex-shrink: 0;
-        }
-
-        /* Animations */
-        .alert--dismissible {
-            animation: slideInDown 0.3s ease-out;
-        }
-
-        .alert--dismissing {
-            animation: slideOutUp 0.3s ease-in forwards;
-        }
-
-        @keyframes slideInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideOutUp {
-            from {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            to {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-        }
-
-        /* Floating alerts for dynamic notifications */
-        .alert--floating {
-            position: relative;
-            width: calc(100vw - 40px);
-            max-width: 800px;
-            min-width: 250px;
-            margin: 0 auto 12px auto;
-            pointer-events: auto;
-            box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.1), 0px 3px 6px 0px rgba(0,0,0,0.16);
-        }
-
-        /* Mobile adjustments for floating alerts */
-        @media (max-width: 768px) {
-            .alert--floating {
-                width: calc(100vw - 40px);
-                max-width: none;
-            }
-        }
-    </style>
 
 </head>
 
@@ -315,47 +151,6 @@
     <!-- Overlay for mobile drawer -->
     <div class="overlay" id="overlay"></div>
 
-    <!-- Modal Containers -->
-
-    <!-- Default Modal - CSS classes for Small, Large, and Xlarge-->
-    <div id="modalOverlay" class="modal-overlay">
-        <div class="modal">
-            <div class="modal-header">
-                <h3>Modal</h3>
-                <button class="btn btn--icon-only-minimal btn--small" id="closeModalBtn" aria-label="Close modal">
-                    <span class="btn-icon" style="mask-image: var(--icon-close-outline);" aria-hidden="true"></span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn--ghost btn--medium" id="cancelModalBtn">Cancel</button>
-                <button class="btn btn--primary btn--medium">Submit</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tray Containers -->
-    <!-- Small Tray (Cover Mode) - CSS classes for Small, Large, and Xlarge -->
-    <div id="trayOverlaySmall" class="tray-overlay">
-        <div class="tray tray--small">
-            <div class="tray-header">
-                <h3>Tray</h3>
-                <button class="btn btn--icon-only-minimal btn--small" id="closeTraySmallBtn" aria-label="Close tray">
-                    <span class="btn-icon" style="mask-image: var(--icon-close-outline);" aria-hidden="true"></span>
-                </button>
-            </div>
-            <div class="tray-body">
-
-            </div>
-            <div class="tray-footer">
-                <button class="btn btn--ghost btn--medium">Cancel</button>
-                <button class="btn btn--primary btn--medium">Save</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Desktop Header -->
     <header class="desktop-header">
         <button class="btn btn--icon-only-minimal btn--medium" id="desktopHamburgerBtn" aria-label="Menu">
@@ -449,104 +244,42 @@
         </ul>
     </nav>
 
+    <!-- Alert Container for dynamic alerts -->
+    <div id="alertContainer" style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; max-width: 800px; width: calc(100vw - 40px);"></div>
+
     <!-- Main Content Area -->
     <main class="main-content main-content--centered" id="mainContent">
 
         <!-- Page Header -->
         <header class="page-header">
             <div class="page-header-content">
-                <h1>Alert Component</h1>
-                <p class="page-header-description">Flexible alert component with different variants and dismissible functionality</p>
+                <h1>Hello World</h1>
+                <p class="page-header-description">A simple greeting page demonstrating the design system components</p>
             </div>
             <div class="page-header-actions">
-                <button class="btn btn--primary btn--medium" onclick="showAlert('info', 'Buying the right telescope to take your love of astronomy to the next level is a big next step in the development of your passion for the stars.')">
-                    <span class="btn-icon" style="mask-image: var(--icon-add-outline);" aria-hidden="true"></span>
-                    Show Sample Alert
+                <button class="btn btn--primary btn--medium" id="sayGoodbyeBtn">
+                    <span class="btn-icon" style="mask-image: var(--icon-info-borderless-outline);" aria-hidden="true"></span>
+                    Say Goodbye
                 </button>
             </div>
         </header>
 
-        <!-- Alert Examples Section -->
-        <section style="margin-bottom: var(--spacing-32);">
-            <h2>Alert Examples</h2>
-            <p>Different alert variants and their use cases:</p>
+        <!-- Welcome Section -->
+        <section class="page-section">
+            <h2>Welcome</h2>
+            <p class="page-section-description">This page demonstrates how to create a simple hello world page using our design system</p>
             
-            <!-- Info Alert (Default from Figma) -->
-            <div class="alert alert--info">
-                <div class="alert__icon-section">
-                    <div class="alert__icon alert__icon--info"></div>
-                </div>
-                <div class="alert__content">
-                    <div class="alert__text">Buying the right telescope to take your love of astronomy to the next level is a big next step in the development of your passion for the stars.</div>
-                </div>
-            </div>
-
-            <!-- Success Alert -->
-            <div class="alert alert--success">
-                <div class="alert__icon-section">
-                    <div class="alert__icon alert__icon--success"></div>
-                </div>
-                <div class="alert__content">
-                    <div class="alert__text">Your action has been completed successfully. All changes have been saved.</div>
-                </div>
-            </div>
-
-            <!-- Warning Alert -->
-            <div class="alert alert--warning">
-                <div class="alert__icon-section">
-                    <div class="alert__icon alert__icon--warning"></div>
-                </div>
-                <div class="alert__content">
-                    <div class="alert__text">Please review your input before proceeding. Some fields may need attention.</div>
-                </div>
-            </div>
-
-            <!-- Error Alert -->
-            <div class="alert alert--error">
-                <div class="alert__icon-section">
-                    <div class="alert__icon alert__icon--error"></div>
-                </div>
-                <div class="alert__content">
-                    <div class="alert__text">There was an error processing your request. Please try again or contact support.</div>
-                </div>
-            </div>
-
-            <!-- Dismissible Alert -->
-            <div class="alert alert--info alert--dismissible" id="dismissibleAlert">
-                <div class="alert__icon-section">
-                    <div class="alert__icon alert__icon--info"></div>
-                </div>
-                <div class="alert__content">
-                    <div class="alert__text">This alert can be dismissed by clicking the close button on the right side.</div>
-                    <button class="btn btn--icon-only-minimal btn--small" aria-label="Close alert" onclick="dismissAlert('dismissibleAlert')">
-                        <span class="btn-icon" style="mask-image: var(--icon-close-outline);" aria-hidden="true"></span>
-                    </button>
+            <div class="page-section-content">
+                <div class="page-module">
+                    <h3>Getting Started</h3>
+                    <p class="page-module-description">Click the button above to trigger a goodbye alert notification</p>
+                    
+                    <div class="page-module-content">
+                        <p>This is a simple demonstration of how to integrate buttons and alerts within our page layout system. The button follows our design system guidelines and triggers an info alert with a custom message.</p>
+                    </div>
                 </div>
             </div>
         </section>
-
-        <!-- Interactive Alert Testing Section -->
-        <section style="margin-bottom: var(--spacing-32);">
-            <h2>Interactive Alert Testing</h2>
-            <p>Test different alert types dynamically:</p>
-            <div style="display: flex; gap: var(--spacing-16); flex-wrap: wrap; margin-top: var(--spacing-16);">
-                <button class="btn btn--primary btn--medium" onclick="showAlert('success', 'Operation completed successfully. All changes have been saved.')">
-                    Show Success
-                </button>
-                <button class="btn btn--secondary btn--medium" onclick="showAlert('warning', 'Please check your input. Some fields may need attention.')">
-                    Show Warning
-                </button>
-                <button class="btn btn--danger btn--medium" onclick="showAlert('error', 'Something went wrong. Please try again or contact support.')">
-                    Show Error
-                </button>
-                <button class="btn btn--ghost btn--medium" onclick="showAlert('info', 'Here is some important information you should know about.')">
-                    Show Info
-                </button>
-            </div>
-        </section>
-
-        <!-- Dynamic Alerts Container -->
-        <div id="alertContainer" style="position: fixed; top: 20px; left: 0; right: 0; z-index: 1000; pointer-events: none; display: flex; flex-direction: column; align-items: center;"></div>
 
     </main>
 
@@ -588,7 +321,7 @@
 
         desktopHamburgerBtn.addEventListener('click', toggleSecondaryNav);
 
-        // Alert functionality
+        // Alert functionality from alert documentation
         function dismissAlert(alertId) {
             const alert = document.getElementById(alertId);
             if (alert) {
@@ -606,7 +339,7 @@
             const alertHTML = `
                 <div class="alert alert--${type} alert--dismissible alert--floating" id="${alertId}">
                     <div class="alert__icon-section">
-                        <span class="alert__icon alert__icon--${type}" aria-hidden="true"></span>
+                        <div class="alert__icon alert__icon--${type}" aria-hidden="true"></div>
                     </div>
                     <div class="alert__content">
                         <div class="alert__text">${message}</div>
@@ -629,13 +362,17 @@
             }
         }
 
-        // Update the existing escape key handler to close all components
+        // Say Goodbye button functionality
+        document.getElementById('sayGoodbyeBtn').addEventListener('click', () => {
+            showAlert('info', 'Goodbye! Thanks for trying out our design system.', true);
+        });
+
+        // Global escape key handler
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 closeDrawer();
             }
         });
-
     </script>
 
 </body>

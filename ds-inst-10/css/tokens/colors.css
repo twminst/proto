@@ -227,7 +227,7 @@
 
   /* Success */
   --color-success: var(--color-green-500);
-  --color-success-light: var(--color-green-300);
+  --color-success-light: var(--color-green-500);
   --color-success-dark: var(--color-green-700);
 
   /* Warning */

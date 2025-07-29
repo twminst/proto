@@ -149,6 +149,9 @@
     <!-- Overlay for mobile drawer -->
     <div class="overlay" id="overlay"></div>
 
+    <!-- Alert Container for dynamic alerts -->
+    <div id="alertContainer" style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; max-width: 800px; width: calc(100vw - 40px);"></div>
+
     <!-- Desktop Header -->
     <header class="desktop-header">
         <button class="btn btn--icon-only-minimal btn--medium" id="desktopHamburgerBtn" aria-label="Menu">
@@ -1476,6 +1479,47 @@
         }
 
         desktopHamburgerBtn.addEventListener('click', toggleSecondaryNav);
+
+        // Alert functionality from alert documentation
+        function dismissAlert(alertId) {
+            const alert = document.getElementById(alertId);
+            if (alert) {
+                alert.classList.add('alert--dismissing');
+                setTimeout(() => {
+                    alert.remove();
+                }, 300);
+            }
+        }
+
+        function showAlert(type, message, dismissible = true) {
+            const alertContainer = document.getElementById('alertContainer');
+            const alertId = 'alert-' + Date.now();
+            
+            const alertHTML = `
+                <div class="alert alert--${type} alert--dismissible alert--floating" id="${alertId}">
+                    <div class="alert__icon-section">
+                        <div class="alert__icon alert__icon--${type}" aria-hidden="true"></div>
+                    </div>
+                    <div class="alert__content">
+                        <div class="alert__text">${message}</div>
+                        ${dismissible ? `
+                            <button class="btn btn--icon-only-minimal btn--small" aria-label="Close alert" onclick="dismissAlert('${alertId}')">
+                                <span class="btn-icon" style="mask-image: var(--icon-close-outline);" aria-hidden="true"></span>
+                            </button>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+            
+            alertContainer.insertAdjacentHTML('beforeend', alertHTML);
+            
+            // Auto-dismiss after 5 seconds if dismissible
+            if (dismissible) {
+                setTimeout(() => {
+                    dismissAlert(alertId);
+                }, 5000);
+            }
+        }
 
         // Create portal container for menus
         function createMenuPortal() {
@@ -5448,7 +5492,7 @@
 
                         // Refresh both tables
                         refreshBothTablesGlobal();
-                        alert(`${selectedIds.length} course(s) archived successfully`);
+                        showAlert('success', `${selectedIds.length} course${selectedIds.length > 1 ? 's' : ''} archived successfully.`);
                     }
                 } else {
                     // For other actions, just show an alert for now
@@ -5802,12 +5846,14 @@
                             day: '2-digit'
                         }).replace(/\//g, '-');
                         this.refreshBothTables();
+                        showAlert('success', `Course "${courseData.Name}" has been archived successfully.`);
                         console.log('Course archived');
                         break;
                     case 'restore':
                         courseData.Archive = false;
                         courseData['Archived Date'] = null;
                         this.refreshBothTables();
+                        showAlert('success', `Course "${courseData.Name}" has been restored from archive successfully.`);
                         console.log('Course restored from archive');
                         break;
                     default:
@@ -6874,7 +6920,7 @@
                     // Refresh both tables
                     refreshBothTablesGlobal();
 
-                    alert(`${selectedIds.length} course(s) restored from archive`);
+                    showAlert('success', `${selectedIds.length} course${selectedIds.length > 1 ? 's' : ''} restored from archive successfully.`);
                 });
             }
 
