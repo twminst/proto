@@ -1,0 +1,3271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ignite Agent Prompt Builder</title>
+    <style>
+/* CSS Variables */
+:root {
+  /* Primary Colors (Canvas-inspired) */
+  --color-primary: #0084ff;
+  --color-primary-dark: #0073e6;
+  --color-primary-light: #4da3ff;
+
+  /* Secondary Colors */
+  --color-secondary: #2d3b45;
+  --color-secondary-light: #394b59;
+
+  /* Neutrals */
+  --color-background: #f5f5f7;
+  --color-surface: #ffffff;
+  --color-border: #c7cdd1;
+  --color-text: #2d3b45;
+  --color-text-light: #73818f;
+
+  /* Status Colors */
+  --color-success: #0f9d58;
+  --color-warning: #f9ab00;
+  --color-error: #d93025;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Reset & Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--color-background);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-xl) 0;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--color-text-light);
+}
+
+/* Main Content Area */
+#app {
+  min-height: 400px;
+}
+
+/* Category Selection */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.category-card {
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.category-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.category-icon {
+  font-size: 3rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.category-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-secondary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.category-description {
+  font-size: 0.9375rem;
+  color: var(--color-text-light);
+}
+
+/* Action Selection */
+.action-selection {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.action-selection h2 {
+  font-size: 1.75rem;
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-secondary);
+}
+
+.action-selection .subtitle {
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text-light);
+  font-size: 1rem;
+}
+
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.action-button {
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.action-button:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.action-icon {
+  font-size: 2rem;
+}
+
+.action-label {
+  font-weight: 500;
+}
+
+.back-button {
+  background: transparent;
+  border: none;
+  color: var(--color-primary);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.back-button:hover {
+  text-decoration: underline;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.modal-header h2 {
+  font-size: 1.5rem;
+  color: var(--color-secondary);
+}
+
+.close-button {
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  color: var(--color-text-light);
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s;
+}
+
+.close-button:hover {
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
+.modal-body {
+  padding: var(--spacing-lg);
+}
+
+/* Form Styles */
+.form-field {
+  margin-bottom: var(--spacing-lg);
+}
+
+.form-field label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-text);
+}
+
+.required {
+  color: var(--color-error);
+}
+
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 132, 255, 0.1);
+}
+
+/* Course and term select dropdowns */
+.course-select,
+.term-select {
+  background-color: var(--color-surface);
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2373818f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right var(--spacing-sm) center;
+  background-size: 1.25rem;
+  padding-right: 2.5rem;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.help-text {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+  margin-top: var(--spacing-xs);
+}
+
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+.checkbox-field input[type="checkbox"] {
+  width: auto;
+  cursor: pointer;
+}
+
+.checkbox-field label {
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+/* Buttons */
+.button-primary {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.button-primary:hover {
+  background: var(--color-primary-dark);
+}
+
+.button-primary:disabled {
+  background: var(--color-border);
+  cursor: not-allowed;
+}
+
+.button-secondary {
+  background: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.button-secondary:hover {
+  background: var(--color-primary);
+  color: white;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+/* Prompt Result */
+.prompt-result {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.prompt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.prompt-header h3 {
+  font-size: 1.25rem;
+  color: var(--color-secondary);
+}
+
+.edit-prompt-button {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.edit-prompt-button:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.prompt-text {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: var(--spacing-lg);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.prompt-text[contenteditable="true"] {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.prompt-text[contenteditable="true"]:focus {
+  box-shadow: 0 0 0 3px rgba(0, 132, 255, 0.1);
+}
+
+.prompt-actions {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.prompt-footer {
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.link-button {
+  background: transparent;
+  border: none;
+  color: var(--color-primary);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: var(--spacing-xs);
+}
+
+.link-button:hover {
+  text-decoration: underline;
+}
+
+/* Toast Notification */
+.toast {
+  position: fixed;
+  bottom: var(--spacing-lg);
+  right: var(--spacing-lg);
+  background: var(--color-secondary);
+  color: white;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: 2000;
+  animation: slideInRight 0.3s ease;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.toast.success {
+  background: var(--color-success);
+}
+
+.toast.error {
+  background: var(--color-error);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 1.75rem;
+  }
+
+  .category-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .action-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .prompt-actions {
+    flex-direction: column;
+  }
+
+  .modal {
+    width: 95%;
+  }
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus styles for keyboard navigation */
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Ignite Agent Prompt Builder</h1>
+            <p class="subtitle">Generate structured prompts for your Ignite AI agent</p>
+        </header>
+
+        <main id="app">
+            <!-- Dynamic content will be injected here -->
+        </main>
+
+        <!-- Modal Overlay (hidden by default) -->
+        <div id="modal-overlay" class="modal-overlay" style="display: none;">
+            <div class="modal">
+                <div class="modal-header">
+                    <h2 id="modal-title"></h2>
+                    <button class="close-button" id="close-modal" aria-label="Close">&times;</button>
+                </div>
+                <div class="modal-body" id="modal-body">
+                    <!-- Modal content will be injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Toast (hidden by default) -->
+        <div id="toast" class="toast" style="display: none;">
+            <span id="toast-message"></span>
+        </div>
+    </div>
+
+    <script>
+// Sample Canvas Course Data
+
+const SAMPLE_DATA = {
+  terms: [
+    { value: 'SPRING-2026', label: 'Spring 2026' },
+    { value: 'FALL-2025', label: 'Fall 2025' },
+    { value: 'SUMMER-2026', label: 'Summer 2026' },
+    { value: 'WINTER-2026', label: 'Winter 2026' }
+  ],
+
+  courses: [
+    // Spring 2026 Courses
+    { id: '1698972', name: 'PSY1012 General Psychology', term: 'SPRING-2026' },
+    { id: '1712556', name: 'Financial Literacy 101', term: 'SPRING-2026' },
+    { id: '1712089', name: 'SPAN 502 - Advanced Spanish', term: 'SPRING-2026' },
+    { id: '1728717', name: 'Introduction to Philosophy', term: 'SPRING-2026' },
+    { id: '1733177', name: 'MATH-1010-020-Spring 2026', term: 'SPRING-2026' },
+    { id: '2001234', name: 'BIO-101-Spring 2026', term: 'SPRING-2026' },
+    { id: '2001235', name: 'CHEM-101-Spring 2026', term: 'SPRING-2026' },
+    { id: '2001236', name: 'ENG-101-Spring 2026', term: 'SPRING-2026' },
+    { id: '2001237', name: 'HIST-101-Spring 2026', term: 'SPRING-2026' },
+    { id: '2001238', name: 'CS-101-Spring 2026', term: 'SPRING-2026' },
+    { id: '2001239', name: 'ART-101-Spring 2026', term: 'SPRING-2026' },
+    { id: '2001240', name: 'MUS-101-Spring 2026', term: 'SPRING-2026' },
+    { id: '2001241', name: 'PE-101-Spring 2026', term: 'SPRING-2026' },
+    { id: '2001242', name: 'BUS-101-Spring 2026', term: 'SPRING-2026' },
+
+    // Fall 2025 Courses
+    { id: '1650123', name: 'Introduction to Linguistics', term: 'FALL-2025' },
+    { id: '1650124', name: 'Principles of Teaching & Learning', term: 'FALL-2025' },
+    { id: '1650125', name: 'BIB1520 - Biblical Studies', term: 'FALL-2025' },
+    { id: '1650126', name: 'CDE-103-3602', term: 'FALL-2025' },
+    { id: '1650127', name: 'Biology 101', term: 'FALL-2025' },
+    { id: '1650128', name: 'Chemistry 101', term: 'FALL-2025' },
+    { id: '1650129', name: 'English 101', term: 'FALL-2025' },
+    { id: '1650130', name: 'History 101', term: 'FALL-2025' },
+    { id: '1650131', name: 'Physics 101', term: 'FALL-2025' },
+    { id: '1650132', name: 'Calculus I', term: 'FALL-2025' },
+
+    // Summer 2026 Courses
+    { id: '2100001', name: 'Summer Biology Intensive', term: 'SUMMER-2026' },
+    { id: '2100002', name: 'Summer Chemistry Lab', term: 'SUMMER-2026' },
+    { id: '2100003', name: 'Summer Writing Workshop', term: 'SUMMER-2026' },
+    { id: '2100004', name: 'Summer Math Review', term: 'SUMMER-2026' },
+    { id: '2100005', name: 'Summer Spanish Immersion', term: 'SUMMER-2026' },
+
+    // Winter 2026 Courses
+    { id: '2200001', name: 'Winter Term Special Topics', term: 'WINTER-2026' },
+    { id: '2200002', name: 'Winter Economics', term: 'WINTER-2026' },
+    { id: '2200003', name: 'Winter Political Science', term: 'WINTER-2026' }
+  ],
+
+  // Helper function to get courses for a specific term
+  getCoursesByTerm(termValue) {
+    if (!termValue || termValue === '') {
+      return this.courses;
+    }
+    return this.courses.filter(course => course.term === termValue);
+  },
+
+  // Helper function to get course by name
+  getCourseByName(courseName) {
+    return this.courses.find(course => course.name === courseName);
+  }
+};
+
+    </script>
+    <script>
+// Ignite Agent Prompt Builder Configuration
+
+const PROMPTS_CONFIG = {
+  categories: [
+    {
+      id: 'create',
+      title: 'Create in Canvas',
+      description: 'Generate Canvas content using course materials and data',
+      icon: '✏️'
+    },
+    {
+      id: 'manage',
+      title: 'Manage & Report',
+      description: 'Retrieve and analyze Canvas data and perform batch changes',
+      icon: '📊'
+    },
+    {
+      id: 'student-tracking',
+      title: 'Student Tracking',
+      description: 'Monitor student progress, engagement, and performance',
+      icon: '👥'
+    },
+    {
+      id: 'course-analysis',
+      title: 'Course Analysis',
+      description: 'Evaluate course design and pedagogical effectiveness',
+      icon: '🔍'
+    },
+    {
+      id: 'grading',
+      title: 'Grading & Assessment',
+      description: 'Manage grades, submissions, and feedback',
+      icon: '📝'
+    },
+    {
+      id: 'files',
+      title: 'Files & Documents',
+      description: 'Manage course files and documents',
+      icon: '📁'
+    }
+  ],
+
+  actions: [
+    // CREATE IN CANVAS ACTIONS
+    {
+      id: 'create-course',
+      title: 'Create Course',
+      description: 'Create a new course',
+      category: 'create',
+      icon: '📚',
+      formFields: [
+        {
+          fieldType: 'text',
+          name: 'courseName',
+          label: 'Course Name',
+          required: true,
+          placeholder: 'e.g., Introduction to Psychology',
+          defaultValue: 'Advanced Web Development'
+        },
+        {
+          fieldType: 'text',
+          name: 'courseCode',
+          label: 'Course Code',
+          required: false,
+          placeholder: 'e.g., PSY-101',
+          defaultValue: 'CS-301'
+        },
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: true,
+          defaultValue: 'SPRING-2026',
+          helpText: 'Which term is this course for?'
+        },
+        {
+          fieldType: 'datetime-local',
+          name: 'startDate',
+          label: 'Start Date',
+          required: false,
+          defaultValue: '2026-01-15T00:00'
+        },
+        {
+          fieldType: 'datetime-local',
+          name: 'endDate',
+          label: 'End Date',
+          required: false,
+          defaultValue: '2026-05-15T23:59'
+        },
+        {
+          fieldType: 'textarea',
+          name: 'description',
+          label: 'Course Description',
+          required: false,
+          placeholder: 'Brief description of the course...',
+          rows: 4,
+          defaultValue: 'A comprehensive course covering modern web development frameworks, responsive design, and full-stack application development.'
+        },
+        {
+          fieldType: 'checkbox',
+          name: 'useTemplate',
+          label: 'Copy from Template/Blueprint',
+          helpText: 'Create this course from an existing template',
+          default: true
+        },
+        {
+          fieldType: 'text',
+          name: 'templateCourseName',
+          label: 'Template Course Name',
+          required: false,
+          conditional: { field: 'useTemplate', value: true },
+          placeholder: 'e.g., Web Dev Master Template',
+          defaultValue: 'CS Master Template Spring 2026'
+        },
+        {
+          fieldType: 'number',
+          name: 'enrollmentLimit',
+          label: 'Enrollment Limit (Optional)',
+          required: false,
+          placeholder: 'e.g., 30',
+          min: 1,
+          max: 500
+        },
+        {
+          fieldType: 'checkbox',
+          name: 'publishImmediately',
+          label: 'Publish Course Immediately',
+          helpText: 'Make the course visible to students right away',
+          default: false
+        },
+        {
+          fieldType: 'textarea',
+          name: 'additionalInstructions',
+          label: 'Additional Instructions',
+          required: false,
+          placeholder: 'Any other requirements?',
+          rows: 2,
+          defaultValue: 'Add me as the primary instructor.'
+        }
+      ],
+      promptTemplate: 'Create a new course called "{courseName}"{courseCode} in the {termFormatted} term{startDate}{endDate}{description}{useTemplate}{enrollmentLimit}{publishImmediately}{additionalInstructions}',
+      templateRules: {
+        courseCode: { condition: 'notEmpty', template: ' with course code "{courseCode}"' },
+        startDate: { condition: 'notEmpty', template: ', starting {startDate}' },
+        endDate: { condition: 'notEmpty', template: ' and ending {endDate}' },
+        description: { condition: 'notEmpty', template: '. Course description: "{description}"' },
+        useTemplate: { condition: 'true', template: '. Copy content from the "{templateCourseName}" template course' },
+        enrollmentLimit: { condition: 'notEmpty', template: '. Set enrollment limit to {enrollmentLimit} students' },
+        publishImmediately: { condition: 'true', template: '. Publish the course immediately so students can access it' },
+        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
+      }
+    },
+    {
+      id: 'create-assignment',
+      title: 'Create Assignment',
+      description: 'Create a new assignment in a course',
+      category: 'create',
+      icon: '📄',
+      formFields: [
+        {
+          fieldType: 'text',
+          name: 'assignmentName',
+          label: 'Assignment Name',
+          required: true,
+          placeholder: 'e.g., Week 1 Assignment',
+          defaultValue: 'Week 1 Essay'
+        },
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: false,
+          defaultValue: 'SPRING-2026',
+          helpText: 'Select term to filter courses'
+        },
+        {
+          fieldType: 'course-select',
+          name: 'courseName',
+          label: 'Course Name',
+          required: true,
+          placeholder: 'Type to search courses...',
+          defaultValue: 'Introduction to Philosophy'
+        },
+        {
+          fieldType: 'datetime-local',
+          name: 'dueDate',
+          label: 'Due Date',
+          required: false,
+          defaultValue: '2026-02-28T23:59'
+        },
+        {
+          fieldType: 'number',
+          name: 'points',
+          label: 'Points Possible',
+          required: false,
+          placeholder: '100',
+          min: 0,
+          defaultValue: '100'
+        },
+        {
+          fieldType: 'select',
+          name: 'submissionType',
+          label: 'Submission Type',
+          required: false,
+          defaultValue: 'online_text_entry',
+          options: [
+            { value: '', label: 'Not specified' },
+            { value: 'online_text_entry', label: 'Text Entry' },
+            { value: 'online_upload', label: 'File Upload' },
+            { value: 'online_url', label: 'Website URL' },
+            { value: 'external_tool', label: 'External Tool' }
+          ]
+        },
+        {
+          fieldType: 'textarea',
+          name: 'description',
+          label: 'Assignment Description',
+          required: false,
+          placeholder: 'Instructions for students',
+          rows: 4,
+          defaultValue: 'Write a 3-5 page essay on the topic discussed in class. Include at least three academic sources and follow MLA format.'
+        },
+        {
+          fieldType: 'text',
+          name: 'assignmentGroup',
+          label: 'Assignment Group',
+          required: false,
+          placeholder: 'e.g., Homework, Quizzes, Projects',
+          defaultValue: 'Essays'
+        },
+        {
+          fieldType: 'checkbox',
+          name: 'addToModule',
+          label: 'Add to Module',
+          helpText: 'Also add this assignment to a module',
+          default: true
+        },
+        {
+          fieldType: 'text',
+          name: 'moduleName',
+          label: 'Module Name',
+          required: false,
+          conditional: { field: 'addToModule', value: true },
+          placeholder: 'e.g., Week 1',
+          defaultValue: 'Week 1: Introduction to Ethics'
+        },
+        {
+          fieldType: 'textarea',
+          name: 'additionalInstructions',
+          label: 'Additional Instructions',
+          required: false,
+          placeholder: 'Any other requirements?',
+          rows: 2,
+          defaultValue: 'Send an announcement to students when this is created.'
+        }
+      ],
+      promptTemplate: 'Create an assignment called "{assignmentName}" in the {courseName} course{termInfo}{dueDate}{points}{submissionType}{description}{assignmentGroup}{moduleName}{additionalInstructions}',
+      templateRules: {
+        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
+        dueDate: { condition: 'notEmpty', template: ', due on {dueDate}' },
+        points: { condition: 'notEmpty', template: ', worth {points} points' },
+        submissionType: { condition: 'notEmpty', template: ', with submission type: {submissionType}' },
+        description: { condition: 'notEmpty', template: ', with the description: "{description}"' },
+        assignmentGroup: { condition: 'notEmpty', template: ' in the "{assignmentGroup}" assignment group' },
+        moduleName: { condition: 'notEmpty', template: '. Also add this assignment to the "{moduleName}" module' },
+        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
+      }
+    },
+    {
+      id: 'create-quiz',
+      title: 'Create Quiz',
+      description: 'Create a new quiz (New Quizzes)',
+      category: 'create',
+      icon: '✅',
+      formFields: [
+        {
+          fieldType: 'text',
+          name: 'quizTitle',
+          label: 'Quiz Title',
+          required: true,
+          placeholder: 'e.g., Chapter 1 Quiz',
+          defaultValue: 'Chapter 3: Cell Biology Quiz'
+        },
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: false,
+          defaultValue: 'SPRING-2026',
+          helpText: 'Select term to filter courses'
+        },
+        {
+          fieldType: 'course-select',
+          name: 'courseName',
+          label: 'Course Name',
+          required: true,
+          placeholder: 'Type to search courses...',
+          defaultValue: 'BIO-101-Spring 2026'
+        },
+        {
+          fieldType: 'datetime-local',
+          name: 'dueDate',
+          label: 'Due Date',
+          required: false,
+          defaultValue: '2026-03-15T23:59'
+        },
+        {
+          fieldType: 'number',
+          name: 'points',
+          label: 'Points Possible',
+          required: false,
+          placeholder: '100',
+          min: 0,
+          defaultValue: '50'
+        },
+        {
+          fieldType: 'number',
+          name: 'timeLimit',
+          label: 'Time Limit (minutes)',
+          required: false,
+          min: 1,
+          max: 300,
+          defaultValue: '30'
+        },
+        {
+          fieldType: 'checkbox',
+          name: 'useQuestionBank',
+          label: 'Draw from Question Bank',
+          helpText: 'Create quiz that pulls questions from a question bank',
+          default: true
+        },
+        {
+          fieldType: 'text',
+          name: 'questionBankName',
+          label: 'Question Bank Name',
+          required: false,
+          conditional: { field: 'useQuestionBank', value: true },
+          defaultValue: 'Chapter 3 Questions'
+        },
+        {
+          fieldType: 'checkbox',
+          name: 'shuffleAnswers',
+          label: 'Shuffle Answers',
+          default: true
+        },
+        {
+          fieldType: 'checkbox',
+          name: 'dontPublish',
+          label: 'Keep as Draft (Don\'t Publish)',
+          default: true,
+          helpText: 'Create quiz but don\'t publish to students yet'
+        },
+        {
+          fieldType: 'textarea',
+          name: 'additionalInstructions',
+          label: 'Additional Instructions',
+          required: false,
+          placeholder: 'Any other requirements?',
+          rows: 2,
+          defaultValue: 'Allow 2 attempts, keep highest score.'
+        }
+      ],
+      promptTemplate: 'Create a quiz titled "{quizTitle}" in the {courseName} course{termInfo}{dueDate}{points}{timeLimit}{questionBank}{shuffleAnswers}{dontPublish}{additionalInstructions}',
+      templateRules: {
+        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
+        dueDate: { condition: 'notEmpty', template: ', due on {dueDate}' },
+        points: { condition: 'notEmpty', template: ', worth {points} points' },
+        timeLimit: { condition: 'notEmpty', template: ' with a {timeLimit} minute time limit' },
+        questionBank: { condition: 'useQuestionBank', template: ' that draws questions from the "{questionBankName}" question bank' },
+        shuffleAnswers: { condition: 'true', template: '. Shuffle answers for each question' },
+        dontPublish: { condition: 'true', template: '. Don\'t publish it to students yet - keep it as a draft' },
+        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
+      }
+    },
+    {
+      id: 'create-module',
+      title: 'Create Module',
+      description: 'Create a new module in a course',
+      category: 'create',
+      icon: '📦',
+      formFields: [
+        {
+          fieldType: 'text',
+          name: 'moduleName',
+          label: 'Module Name',
+          required: true,
+          placeholder: 'e.g., Week 1: Introduction',
+          defaultValue: 'Week 3: Advanced Topics'
+        },
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: false,
+          defaultValue: 'FALL-2025',
+          helpText: 'Select term to filter courses'
+        },
+        {
+          fieldType: 'course-select',
+          name: 'courseName',
+          label: 'Course Name',
+          required: true,
+          placeholder: 'Type to search courses...',
+          defaultValue: 'Introduction to Linguistics'
+        },
+        {
+          fieldType: 'number',
+          name: 'position',
+          label: 'Position',
+          required: false,
+          placeholder: 'e.g., 1 for top of list',
+          min: 1,
+          helpText: 'Where in the module list should this appear?',
+          defaultValue: '3'
+        },
+        {
+          fieldType: 'textarea',
+          name: 'additionalInstructions',
+          label: 'Additional Instructions',
+          required: false,
+          placeholder: 'Any other requirements?',
+          rows: 2,
+          defaultValue: 'Lock this module until Week 2 is completed.'
+        }
+      ],
+      promptTemplate: 'Create a new module called "{moduleName}" in the {courseName} course{termInfo}{position}{additionalInstructions}',
+      templateRules: {
+        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
+        position: { condition: 'notEmpty', template: ' at position {position}' },
+        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
+      }
+    },
+    {
+      id: 'create-page',
+      title: 'Create Page',
+      description: 'Create a new page in a course',
+      category: 'create',
+      icon: '📃',
+      formFields: [
+        {
+          fieldType: 'text',
+          name: 'pageTitle',
+          label: 'Page Title',
+          required: true,
+          placeholder: 'e.g., Course Policies',
+          defaultValue: 'Assignment Solutions'
+        },
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: false,
+          defaultValue: 'SPRING-2026',
+          helpText: 'Select term to filter courses'
+        },
+        {
+          fieldType: 'course-select',
+          name: 'courseName',
+          label: 'Course Name',
+          required: true,
+          placeholder: 'Type to search courses...',
+          defaultValue: 'MATH-1010-020-Spring 2026'
+        },
+        {
+          fieldType: 'textarea',
+          name: 'content',
+          label: 'Page Content',
+          required: false,
+          placeholder: 'Content for the page...',
+          rows: 6,
+          defaultValue: 'Here are the solutions to the homework assignments. Review these after submitting your work.'
+        },
+        {
+          fieldType: 'checkbox',
+          name: 'setAsFrontPage',
+          label: 'Set as Course Front Page',
+          helpText: 'Make this the course home page',
+          default: false
+        },
+        {
+          fieldType: 'checkbox',
+          name: 'conditionalAccess',
+          label: 'Add Conditional Access',
+          helpText: 'Restrict access based on certain criteria',
+          default: true
+        },
+        {
+          fieldType: 'textarea',
+          name: 'accessCriteria',
+          label: 'Access Criteria',
+          required: false,
+          conditional: { field: 'conditionalAccess', value: true },
+          placeholder: 'e.g., Only available to students who received a non-zero score on Assignment X',
+          rows: 3,
+          defaultValue: 'Only available to students who received a non-zero score on Homework 1'
+        },
+        {
+          fieldType: 'textarea',
+          name: 'additionalInstructions',
+          label: 'Additional Instructions',
+          required: false,
+          placeholder: 'Any other requirements?',
+          rows: 2,
+          defaultValue: 'Keep as draft until next week.'
+        }
+      ],
+      promptTemplate: 'Create a page titled "{pageTitle}" in the {courseName} course{termInfo}{content}{frontPage}{conditionalAccess}{additionalInstructions}',
+      templateRules: {
+        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
+        content: { condition: 'notEmpty', template: ' with the following content: "{content}"' },
+        frontPage: { condition: 'true', template: '. Set it as the course front page' },
+        conditionalAccess: { condition: 'conditionalAccess', template: '. {accessCriteria}' },
+        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
+      }
+    },
+    {
+      id: 'create-announcement',
+      title: 'Create Announcement',
+      description: 'Create a new announcement in a course',
+      category: 'create',
+      icon: '📢',
+      formFields: [
+        {
+          fieldType: 'text',
+          name: 'announcementTitle',
+          label: 'Announcement Title',
+          required: true,
+          placeholder: 'e.g., Welcome to the Course',
+          defaultValue: 'Week 3 Assignment Reminder'
+        },
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: false,
+          defaultValue: 'FALL-2025',
+          helpText: 'Select term to filter courses'
+        },
+        {
+          fieldType: 'course-select',
+          name: 'courseName',
+          label: 'Course Name',
+          required: true,
+          placeholder: 'Type to search courses...',
+          defaultValue: 'Introduction to Linguistics'
+        },
+        {
+          fieldType: 'textarea',
+          name: 'message',
+          label: 'Message',
+          required: true,
+          placeholder: 'Your announcement message...',
+          rows: 6,
+          defaultValue: 'Hello everyone! This is a reminder that the Week 3 assignment is due this Friday at 11:59 PM. Please reach out if you have any questions.'
+        },
+        {
+          fieldType: 'checkbox',
+          name: 'scheduleDelay',
+          label: 'Schedule for Later',
+          helpText: 'Post the announcement at a specific date/time',
+          default: true
+        },
+        {
+          fieldType: 'datetime-local',
+          name: 'postDate',
+          label: 'Post Date',
+          required: false,
+          conditional: { field: 'scheduleDelay', value: true },
+          defaultValue: '2026-02-24T09:00'
+        },
+        {
+          fieldType: 'textarea',
+          name: 'additionalInstructions',
+          label: 'Additional Instructions',
+          required: false,
+          placeholder: 'Any other requirements?',
+          rows: 2,
+          defaultValue: 'Also send this as an email notification.'
+        }
+      ],
+      promptTemplate: 'Create an announcement titled "{announcementTitle}" in the {courseName} course{termInfo} with the message: "{message}"{postDate}{additionalInstructions}',
+      templateRules: {
+        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
+        postDate: { condition: 'notEmpty', template: '. Schedule it to post on {postDate}' },
+        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
+      }
+    },
+
+    // MANAGE & REPORT ACTIONS
+    {
+      id: 'list-assignments',
+      title: 'List Assignments',
+      description: 'Get all assignments in a course',
+      category: 'manage',
+      icon: '📋',
+      formFields: [
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: false,
+          defaultValue: 'SPRING-2026',
+          helpText: 'Select term to filter courses'
+        },
+        {
+          fieldType: 'course-select',
+          name: 'courseName',
+          label: 'Course Name',
+          required: true,
+          placeholder: 'Type to search courses...',
+          defaultValue: 'MATH-1010-020-Spring 2026'
+        },
+        {
+          fieldType: 'textarea',
+          name: 'additionalInstructions',
+          label: 'Additional Instructions',
+          required: false,
+          placeholder: 'Any filtering or sorting preferences?',
+          rows: 2,
+          defaultValue: 'Show only assignments due in the next 2 weeks.'
+        }
+      ],
+      promptTemplate: 'List all assignments in the {courseName} course{termInfo}{additionalInstructions}',
+      templateRules: {
+        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
+        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
+      }
+    },
+    {
+      id: 'list-modules',
+      title: 'List Modules',
+      description: 'Get all modules in a course',
+      category: 'manage',
+      icon: '📚',
+      formFields: [
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: false,
+          defaultValue: 'FALL-2025',
+          helpText: 'Select term to filter courses'
+        },
+        {
+          fieldType: 'course-select',
+          name: 'courseName',
+          label: 'Course Name',
+          required: true,
+          placeholder: 'Type to search courses...',
+          defaultValue: 'Introduction to Linguistics'
+        },
+        {
+          fieldType: 'textarea',
+          name: 'additionalInstructions',
+          label: 'Additional Instructions',
+          required: false,
+          placeholder: 'Any additional requirements?',
+          rows: 2,
+          defaultValue: 'Include the number of items in each module.'
+        }
+      ],
+      promptTemplate: 'List all modules in the {courseName} course{termInfo}{additionalInstructions}',
+      templateRules: {
+        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
+        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
+      }
+    },
+    {
+      id: 'get-module-items',
+      title: 'Get Module Items',
+      description: 'View contents of a specific module',
+      category: 'manage',
+      icon: '🔎',
+      formFields: [
+        {
+          fieldType: 'text',
+          name: 'moduleName',
+          label: 'Module Name',
+          required: true,
+          placeholder: 'e.g., Module 3: Foundations of Money',
+          defaultValue: 'Module 3: Foundations of Money'
+        },
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: false,
+          defaultValue: 'SPRING-2026',
+          helpText: 'Select term to filter courses'
+        },
+        {
+          fieldType: 'course-select',
+          name: 'courseName',
+          label: 'Course Name',
+          required: true,
+          placeholder: 'Type to search courses...',
+          defaultValue: 'Financial Literacy 101'
+        },
+        {
+          fieldType: 'text',
+          name: 'courseId',
+          label: 'Course ID (Optional)',
+          required: false,
+          placeholder: 'e.g., 1712556',
+          helpText: 'Optional: Makes lookup faster',
+          defaultValue: '1712556'
+        },
+        {
+          fieldType: 'textarea',
+          name: 'additionalInstructions',
+          label: 'Additional Instructions',
+          required: false,
+          placeholder: 'Any additional requirements?',
+          rows: 2,
+          defaultValue: 'Show completion status for each item.'
+        }
+      ],
+      promptTemplate: 'Get module items for {moduleName} in {courseName}{termInfo}{courseId}{additionalInstructions}',
+      templateRules: {
+        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
+        courseId: { condition: 'notEmpty', template: ' (course ID: {courseId})' },
+        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
+      }
+    },
+    {
+      id: 'update-due-date',
+      title: 'Update Due Date',
+      description: 'Change the due date for an assignment or quiz',
+      category: 'manage',
+      icon: '📅',
+      formFields: [
+        {
+          fieldType: 'text',
+          name: 'itemName',
+          label: 'Assignment/Quiz Name',
+          required: true,
+          placeholder: 'e.g., Chapter 1 Quiz',
+          defaultValue: 'Chapter 3 Quiz'
+        },
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: false,
+          defaultValue: 'SPRING-2026',
+          helpText: 'Select term to filter courses'
+        },
+        {
+          fieldType: 'course-select',
+          name: 'courseName',
+          label: 'Course Name',
+          required: false,
+          placeholder: 'Type to search courses...',
+          helpText: 'Optional but recommended',
+          defaultValue: 'BIO-101-Spring 2026'
+        },
+        {
+          fieldType: 'datetime-local',
+          name: 'newDueDate',
+          label: 'New Due Date',
+          required: true,
+          defaultValue: '2026-03-20T23:59'
+        },
+        {
+          fieldType: 'textarea',
+          name: 'additionalInstructions',
+          label: 'Additional Instructions',
+          required: false,
+          placeholder: 'Any additional requirements?',
+          rows: 2,
+          defaultValue: 'Send an announcement about the date change.'
+        }
+      ],
+      promptTemplate: 'Update the due date for "{itemName}"{courseName}{termInfo} to {newDueDate}{additionalInstructions}',
+      templateRules: {
+        courseName: { condition: 'notEmpty', template: ' in the {courseName} course' },
+        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
+        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
+      }
+    },
+
+    // STUDENT TRACKING ACTIONS
+    {
+      id: 'find-students-not-logged-in',
+      title: 'Students Not Logged In',
+      description: 'Find students who haven\'t logged into a course',
+      category: 'student-tracking',
+      icon: '🔍',
+      formFields: [
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: false,
+          defaultValue: 'SPRING-2026',
+          helpText: 'Select term to filter courses'
+        },
+        {
+          fieldType: 'course-select',
+          name: 'courseName',
+          label: 'Course Name',
+          required: true,
+          placeholder: 'Type to search courses...',
+          defaultValue: 'PSY1012 General Psychology'
+        },
+        {
+          fieldType: 'select',
+          name: 'timeframe',
+          label: 'Timeframe',
+          required: false,
+          defaultValue: 'in the last 7 days',
+          options: [
+            { value: '', label: 'Ever (never logged in)' },
+            { value: 'in the last 7 days', label: 'Last 7 days' },
+            { value: 'in the last 14 days', label: 'Last 14 days' },
+            { value: 'in the last 30 days', label: 'Last 30 days' }
+          ]
+        },
+        {
+          fieldType: 'checkbox',
+          name: 'includeLastLogin',
+          label: 'Include Last Login Date',
+          default: true,
+          helpText: 'Show when each student last logged in'
+        },
+        {
+          fieldType: 'textarea',
+          name: 'additionalInstructions',
+          label: 'Additional Instructions',
+          required: false,
+          placeholder: 'What should we do with this list?',
+          rows: 2,
+          defaultValue: 'Send them an encouraging email to check in.'
+        }
+      ],
+      promptTemplate: 'Get a list of students who have not logged into the {courseName} course{termInfo}{timeframe}{includeLastLogin}{additionalInstructions}',
+      templateRules: {
+        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
+        timeframe: { condition: 'notEmpty', template: ' {timeframe}' },
+        includeLastLogin: { condition: 'true', template: '. Include their last login date' },
+        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
+      }
+    },
+    {
+      id: 'find-students-incomplete-module',
+      title: 'Students With Incomplete Module',
+      description: 'Find students who haven\'t completed a module',
+      category: 'student-tracking',
+      icon: '📦',
+      formFields: [
+        {
+          fieldType: 'text',
+          name: 'moduleName',
+          label: 'Module Name',
+          required: true,
+          placeholder: 'e.g., Unit 2',
+          defaultValue: 'Unit 2'
+        },
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: false,
+          defaultValue: 'FALL-2025',
+          helpText: 'Select term to filter courses'
+        },
+        {
+          fieldType: 'course-select',
+          name: 'courseName',
+          label: 'Course Name',
+          required: true,
+          placeholder: 'Select a course',
+          defaultValue: 'Principles of Teaching & Learning'
+        },
+        {
+          fieldType: 'textarea',
+          name: 'additionalInstructions',
+          label: 'Additional Instructions',
+          required: false,
+          placeholder: 'Any additional requirements?',
+          rows: 2,
+          defaultValue: 'Include their progress percentage for the module.'
+        }
+      ],
+      promptTemplate: 'Find students who have not completed the {moduleName} module in the {courseName} course{termInfo}{additionalInstructions}',
+      templateRules: {
+        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
+        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
+      }
+    },
+    {
+      id: 'find-students-by-grade',
+      title: 'Students By Grade Threshold',
+      description: 'Find students below a certain grade',
+      category: 'student-tracking',
+      icon: '📊',
+      formFields: [
+        {
+          fieldType: 'select',
+          name: 'gradeThreshold',
+          label: 'Grade Threshold',
+          required: true,
+          defaultValue: 'less than a C',
+          options: [
+            { value: '', label: 'Select threshold' },
+            { value: 'less than a C', label: 'Below C' },
+            { value: 'less than a D', label: 'Below D (failing)' },
+            { value: 'less than 70%', label: 'Below 70%' },
+            { value: 'less than 60%', label: 'Below 60%' },
+            { value: 'less than 50%', label: 'Below 50%' }
+          ]
+        },
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: false,
+          defaultValue: 'SPRING-2026',
+          helpText: 'Select term to filter courses'
+        },
+        {
+          fieldType: 'course-select',
+          name: 'courseName',
+          label: 'Course Name',
+          required: true,
+          placeholder: 'Select a course',
+          defaultValue: 'Introduction to Psychology'
+        },
+        {
+          fieldType: 'text',
+          name: 'courseId',
+          label: 'Course ID (Optional)',
+          required: false,
+          placeholder: 'e.g., 1698972',
+          defaultValue: '1698972'
+        },
+        {
+          fieldType: 'textarea',
+          name: 'additionalInstructions',
+          label: 'Additional Instructions',
+          required: false,
+          placeholder: 'Any additional requirements?',
+          rows: 2,
+          defaultValue: 'Offer them extra credit opportunities.'
+        }
+      ],
+      promptTemplate: 'Find students with grades {gradeThreshold} in {courseName}{termInfo}{courseId}{additionalInstructions}',
+      templateRules: {
+        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
+        courseId: { condition: 'notEmpty', template: ' (course ID: {courseId})' },
+        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
+      }
+    },
+    {
+      id: 'find-low-engagement',
+      title: 'Low Engagement Students',
+      description: 'Find students with low participation',
+      category: 'student-tracking',
+      icon: '⚠️',
+      formFields: [
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: false,
+          defaultValue: 'FALL-2025',
+          helpText: 'Select term to filter courses'
+        },
+        {
+          fieldType: 'course-select',
+          name: 'courseName',
+          label: 'Course Name',
+          required: true,
+          placeholder: 'Select a course',
+          defaultValue: 'BIB1520 - Biblical Studies'
+        },
+        {
+          fieldType: 'textarea',
+          name: 'additionalInstructions',
+          label: 'Additional Instructions',
+          required: false,
+          placeholder: 'What defines low engagement for you?',
+          rows: 2,
+          defaultValue: 'Include students with less than 50% page views and no discussion posts.'
+        }
+      ],
+      promptTemplate: 'Find students with low engagement in the {courseName} course{termInfo}{additionalInstructions}',
+      templateRules: {
+        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
+        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
+      }
+    },
+
+    // COURSE ANALYSIS ACTIONS
+    {
+      id: 'analyze-design-features',
+      title: 'Analyze Design Features',
+      description: 'Identify standout design features in a course',
+      category: 'course-analysis',
+      icon: '🎨',
+      formFields: [
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: false,
+          defaultValue: 'SPRING-2026',
+          helpText: 'Select term to filter courses'
+        },
+        {
+          fieldType: 'course-select',
+          name: 'courseName',
+          label: 'Course Name',
+          required: true,
+          placeholder: 'Select a course',
+          defaultValue: 'Financial Literacy 101'
+        },
+        {
+          fieldType: 'text',
+          name: 'courseId',
+          label: 'Course ID (Optional)',
+          required: false,
+          placeholder: 'e.g., 1712556',
+          defaultValue: '1712556'
+        },
+        {
+          fieldType: 'textarea',
+          name: 'additionalInstructions',
+          label: 'Additional Instructions',
+          required: false,
+          placeholder: 'Any specific aspects to focus on?',
+          rows: 2,
+          defaultValue: 'Focus on accessibility and visual design elements.'
+        }
+      ],
+      promptTemplate: 'Analyze the design features of {courseName}{termInfo}{courseId} and highlight what stands out{additionalInstructions}',
+      templateRules: {
+        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
+        courseId: { condition: 'notEmpty', template: ' (course ID: {courseId})' },
+        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
+      }
+    },
+    {
+      id: 'evaluate-backward-design',
+      title: 'Backward Design Evaluation',
+      description: 'Evaluate course from backward design perspective',
+      category: 'course-analysis',
+      icon: '🔄',
+      formFields: [
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: false,
+          defaultValue: 'SPRING-2026',
+          helpText: 'Select term to filter courses'
+        },
+        {
+          fieldType: 'course-select',
+          name: 'courseName',
+          label: 'Course Name',
+          required: true,
+          placeholder: 'Select a course',
+          defaultValue: 'Introduction to Philosophy'
+        },
+        {
+          fieldType: 'textarea',
+          name: 'additionalInstructions',
+          label: 'Additional Instructions',
+          required: false,
+          placeholder: 'Any specific aspects to evaluate?',
+          rows: 2,
+          defaultValue: 'Focus on alignment between learning outcomes and assessments.'
+        }
+      ],
+      promptTemplate: 'Evaluate the {courseName} course{termInfo} from a backward design point of view{additionalInstructions}',
+      templateRules: {
+        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
+        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
+      }
+    },
+    {
+      id: 'get-design-tips',
+      title: 'Instructional Design Tips',
+      description: 'Get improvement suggestions for a course',
+      category: 'course-analysis',
+      icon: '💡',
+      formFields: [
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: false,
+          defaultValue: 'FALL-2025',
+          helpText: 'Select term to filter courses'
+        },
+        {
+          fieldType: 'course-select',
+          name: 'courseName',
+          label: 'Course Name',
+          required: true,
+          placeholder: 'Select a course',
+          defaultValue: 'Biology 101'
+        },
+        {
+          fieldType: 'text',
+          name: 'courseUrl',
+          label: 'Course URL (Optional)',
+          required: false,
+          placeholder: 'e.g., https://canvas.edu/courses/12345',
+          defaultValue: 'https://nmsu.instructure.com/courses/1728717'
+        },
+        {
+          fieldType: 'textarea',
+          name: 'additionalInstructions',
+          label: 'Additional Instructions',
+          required: false,
+          placeholder: 'Any specific areas of concern?',
+          rows: 2,
+          defaultValue: 'Focus on improving student engagement and interaction.'
+        }
+      ],
+      promptTemplate: 'Provide instructional design tips for {courseName}{termInfo}{courseUrl}{additionalInstructions}',
+      templateRules: {
+        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
+        courseUrl: { condition: 'notEmpty', template: ': {courseUrl}' },
+        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
+      }
+    },
+
+    // GRADING & ASSESSMENT ACTIONS
+    {
+      id: 'post-grades-with-comments',
+      title: 'Post Grades with Comments',
+      description: 'Add grades and feedback for students',
+      category: 'grading',
+      icon: '✍️',
+      formFields: [
+        {
+          fieldType: 'text',
+          name: 'assignmentName',
+          label: 'Assignment Name',
+          required: true,
+          placeholder: 'e.g., Discussion Post 1',
+          defaultValue: 'Check-in Discussion'
+        },
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: false,
+          defaultValue: 'FALL-2025',
+          helpText: 'Select term to filter courses'
+        },
+        {
+          fieldType: 'course-select',
+          name: 'courseName',
+          label: 'Course Name',
+          required: true,
+          placeholder: 'Select a course',
+          defaultValue: 'CDE-103-3602'
+        },
+        {
+          fieldType: 'number',
+          name: 'points',
+          label: 'Points to Award',
+          required: true,
+          placeholder: '50',
+          min: 0,
+          defaultValue: '50'
+        },
+        {
+          fieldType: 'textarea',
+          name: 'comment',
+          label: 'Comment for Students',
+          required: true,
+          placeholder: 'Feedback to include...',
+          rows: 4,
+          defaultValue: 'Thanks for checking in and sharing who you are as we begin the course.'
+        },
+        {
+          fieldType: 'select',
+          name: 'criteria',
+          label: 'Award to Students Who',
+          required: true,
+          defaultValue: 'completed_with_posts',
+          options: [
+            { value: '', label: 'Select criteria' },
+            { value: 'all_students', label: 'All students' },
+            { value: 'submitted', label: 'Submitted the assignment' },
+            { value: 'completed_with_posts', label: 'Completed with original and peer posts' },
+            { value: 'specific_students', label: 'Specific students only' }
+          ]
+        },
+        {
+          fieldType: 'textarea',
+          name: 'studentNames',
+          label: 'Student Names (if specific)',
+          required: false,
+          conditional: { field: 'criteria', value: 'specific_students' },
+          placeholder: 'List student names...',
+          rows: 3
+        },
+        {
+          fieldType: 'textarea',
+          name: 'additionalInstructions',
+          label: 'Additional Instructions',
+          required: false,
+          placeholder: 'Any other requirements?',
+          rows: 2
+        }
+      ],
+      promptTemplate: 'Post {points} points and this comment in the gradebook for the "{assignmentName}" assignment in {courseName}{termInfo}{criteria}{studentNames}: "{comment}"{additionalInstructions}',
+      templateRules: {
+        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
+        criteria: {
+          condition: 'notEmpty',
+          template: ' for {criteriaText}'
+        },
+        studentNames: {
+          condition: 'notEmpty',
+          template: ' ({studentNames})'
+        },
+        additionalInstructions: {
+          condition: 'notEmpty',
+          template: '. {additionalInstructions}'
+        }
+      }
+    },
+    {
+      id: 'list-missing-submissions',
+      title: 'List Missing Submissions',
+      description: 'Find students who haven\'t submitted an assignment',
+      category: 'grading',
+      icon: '📋',
+      formFields: [
+        {
+          fieldType: 'text',
+          name: 'assignmentName',
+          label: 'Assignment Name',
+          required: true,
+          placeholder: 'e.g., Homework 1',
+          defaultValue: 'Homework 1'
+        },
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: false,
+          defaultValue: 'SPRING-2026',
+          helpText: 'Select term to filter courses'
+        },
+        {
+          fieldType: 'course-select',
+          name: 'courseName',
+          label: 'Course Name',
+          required: true,
+          placeholder: 'Select a course',
+          defaultValue: 'MATH-1010-020-Spring 2026'
+        },
+        {
+          fieldType: 'checkbox',
+          name: 'includeZeroScores',
+          label: 'Include Students with Zero Scores',
+          default: true,
+          helpText: 'Also show students who submitted but received 0 points'
+        },
+        {
+          fieldType: 'textarea',
+          name: 'additionalInstructions',
+          label: 'Additional Instructions',
+          required: false,
+          placeholder: 'Any additional requirements?',
+          rows: 2,
+          defaultValue: 'Send them a reminder email about the missing work.'
+        }
+      ],
+      promptTemplate: 'Show me students who haven\'t submitted "{assignmentName}" in {courseName}{termInfo}{includeZeroScores}{additionalInstructions}',
+      templateRules: {
+        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
+        includeZeroScores: {
+          condition: 'true',
+          template: '. Include students with zero scores'
+        },
+        additionalInstructions: {
+          condition: 'notEmpty',
+          template: '. {additionalInstructions}'
+        }
+      }
+    },
+    {
+      id: 'get-assignment-submissions',
+      title: 'Get Assignment Submissions',
+      description: 'View all submissions for an assignment',
+      category: 'grading',
+      icon: '📥',
+      formFields: [
+        {
+          fieldType: 'text',
+          name: 'assignmentName',
+          label: 'Assignment Name',
+          required: true,
+          placeholder: 'e.g., Final Essay',
+          defaultValue: 'Final Essay'
+        },
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: false,
+          defaultValue: 'FALL-2025',
+          helpText: 'Select term to filter courses'
+        },
+        {
+          fieldType: 'course-select',
+          name: 'courseName',
+          label: 'Course Name',
+          required: true,
+          placeholder: 'Select a course',
+          defaultValue: 'English 101'
+        },
+        {
+          fieldType: 'select',
+          name: 'filterBy',
+          label: 'Filter Submissions',
+          required: false,
+          options: [
+            { value: '', label: 'All submissions' },
+            { value: 'graded', label: 'Only graded' },
+            { value: 'ungraded', label: 'Only ungraded' },
+            { value: 'late', label: 'Only late submissions' }
+          ]
+        },
+        {
+          fieldType: 'checkbox',
+          name: 'includeComments',
+          label: 'Include Submission Comments',
+          default: true
+        },
+        {
+          fieldType: 'textarea',
+          name: 'additionalInstructions',
+          label: 'Additional Instructions',
+          required: false,
+          placeholder: 'Any additional requirements?',
+          rows: 2,
+          defaultValue: 'Show submission timestamps.'
+        }
+      ],
+      promptTemplate: 'Get all submissions for "{assignmentName}" in {courseName}{termInfo}{filterBy}{includeComments}{additionalInstructions}',
+      templateRules: {
+        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
+        filterBy: {
+          condition: 'notEmpty',
+          template: ', showing only {filterBy} submissions'
+        },
+        includeComments: {
+          condition: 'true',
+          template: '. Include submission comments'
+        },
+        additionalInstructions: {
+          condition: 'notEmpty',
+          template: '. {additionalInstructions}'
+        }
+      }
+    },
+    {
+      id: 'update-grade',
+      title: 'Update Student Grade',
+      description: 'Change a grade for a specific student',
+      category: 'grading',
+      icon: '✏️',
+      formFields: [
+        {
+          fieldType: 'text',
+          name: 'studentName',
+          label: 'Student Name',
+          required: true,
+          placeholder: 'e.g., John Smith',
+          defaultValue: 'Jane Doe'
+        },
+        {
+          fieldType: 'text',
+          name: 'assignmentName',
+          label: 'Assignment Name',
+          required: true,
+          placeholder: 'e.g., Quiz 1',
+          defaultValue: 'Quiz 1'
+        },
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: false,
+          defaultValue: 'FALL-2025',
+          helpText: 'Select term to filter courses'
+        },
+        {
+          fieldType: 'course-select',
+          name: 'courseName',
+          label: 'Course Name',
+          required: true,
+          placeholder: 'Select a course',
+          defaultValue: 'Biology 101'
+        },
+        {
+          fieldType: 'number',
+          name: 'newGrade',
+          label: 'New Grade',
+          required: true,
+          placeholder: 'e.g., 95',
+          min: 0,
+          defaultValue: '95'
+        },
+        {
+          fieldType: 'textarea',
+          name: 'gradeComment',
+          label: 'Comment (Optional)',
+          required: false,
+          placeholder: 'Reason for grade change...',
+          rows: 3,
+          defaultValue: 'Adjusted for extra credit work submitted.'
+        }
+      ],
+      promptTemplate: 'Update the grade for {studentName} on "{assignmentName}" in {courseName}{termInfo} to {newGrade}{gradeComment}',
+      templateRules: {
+        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
+        gradeComment: {
+          condition: 'notEmpty',
+          template: ' with this comment: "{gradeComment}"'
+        }
+      }
+    },
+
+    // FILES & DOCUMENTS ACTIONS
+    {
+      id: 'list-course-files',
+      title: 'List Course Files',
+      description: 'View all files in a course',
+      category: 'files',
+      icon: '📂',
+      formFields: [
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: false,
+          defaultValue: 'FALL-2025',
+          helpText: 'Select term to filter courses'
+        },
+        {
+          fieldType: 'course-select',
+          name: 'courseName',
+          label: 'Course Name',
+          required: true,
+          placeholder: 'Select a course',
+          defaultValue: 'Chemistry 101'
+        },
+        {
+          fieldType: 'text',
+          name: 'folderName',
+          label: 'Folder Name (Optional)',
+          required: false,
+          placeholder: 'e.g., Lecture Slides',
+          helpText: 'Leave blank to list all files'
+        },
+        {
+          fieldType: 'select',
+          name: 'fileType',
+          label: 'Filter by File Type',
+          required: false,
+          options: [
+            { value: '', label: 'All file types' },
+            { value: 'pdf', label: 'PDF files only' },
+            { value: 'image', label: 'Images only' },
+            { value: 'video', label: 'Videos only' },
+            { value: 'document', label: 'Documents only' }
+          ]
+        },
+        {
+          fieldType: 'textarea',
+          name: 'additionalInstructions',
+          label: 'Additional Instructions',
+          required: false,
+          placeholder: 'Any additional requirements?',
+          rows: 2,
+          defaultValue: 'Sort by most recently uploaded.'
+        }
+      ],
+      promptTemplate: 'List all files in {courseName}{termInfo}{folderName}{fileType}{additionalInstructions}',
+      templateRules: {
+        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
+        folderName: {
+          condition: 'notEmpty',
+          template: ' in the "{folderName}" folder'
+        },
+        fileType: {
+          condition: 'notEmpty',
+          template: ', showing only {fileType} files'
+        },
+        additionalInstructions: {
+          condition: 'notEmpty',
+          template: '. {additionalInstructions}'
+        }
+      }
+    },
+    {
+      id: 'search-for-file',
+      title: 'Search for File',
+      description: 'Find a specific file in a course',
+      category: 'files',
+      icon: '🔎',
+      formFields: [
+        {
+          fieldType: 'text',
+          name: 'searchTerm',
+          label: 'File Name or Keyword',
+          required: true,
+          placeholder: 'e.g., syllabus',
+          defaultValue: 'syllabus'
+        },
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: false,
+          defaultValue: 'FALL-2025',
+          helpText: 'Select term to filter courses'
+        },
+        {
+          fieldType: 'course-select',
+          name: 'courseName',
+          label: 'Course Name',
+          required: true,
+          placeholder: 'Select a course',
+          defaultValue: 'History 101'
+        },
+        {
+          fieldType: 'checkbox',
+          name: 'exactMatch',
+          label: 'Exact Match Only',
+          default: false,
+          helpText: 'Only find files with exact name match'
+        },
+        {
+          fieldType: 'textarea',
+          name: 'additionalInstructions',
+          label: 'Additional Instructions',
+          required: false,
+          placeholder: 'Any additional requirements?',
+          rows: 2
+        }
+      ],
+      promptTemplate: 'Search for files containing "{searchTerm}" in {courseName}{termInfo}{exactMatch}{additionalInstructions}',
+      templateRules: {
+        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
+        exactMatch: {
+          condition: 'true',
+          template: ' (exact match only)'
+        },
+        additionalInstructions: {
+          condition: 'notEmpty',
+          template: '. {additionalInstructions}'
+        }
+      }
+    },
+    {
+      id: 'organize-files',
+      title: 'Organize Files into Folder',
+      description: 'Move or organize files in course files',
+      category: 'files',
+      icon: '📁',
+      formFields: [
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: false,
+          defaultValue: 'SPRING-2026',
+          helpText: 'Select term to filter courses'
+        },
+        {
+          fieldType: 'course-select',
+          name: 'courseName',
+          label: 'Course Name',
+          required: true,
+          placeholder: 'Select a course',
+          defaultValue: 'ART-101-Spring 2026'
+        },
+        {
+          fieldType: 'text',
+          name: 'folderName',
+          label: 'Target Folder Name',
+          required: true,
+          placeholder: 'e.g., Week 1 Materials',
+          defaultValue: 'Week 1 Materials'
+        },
+        {
+          fieldType: 'textarea',
+          name: 'fileDescription',
+          label: 'Which Files to Move',
+          required: true,
+          placeholder: 'Describe which files to move...',
+          rows: 3,
+          defaultValue: 'All PDF files uploaded this week'
+        },
+        {
+          fieldType: 'checkbox',
+          name: 'createFolder',
+          label: 'Create Folder if it Doesn\'t Exist',
+          default: true
+        },
+        {
+          fieldType: 'textarea',
+          name: 'additionalInstructions',
+          label: 'Additional Instructions',
+          required: false,
+          placeholder: 'Any additional requirements?',
+          rows: 2
+        }
+      ],
+      promptTemplate: 'In {courseName}{termInfo}, move {fileDescription} to the "{folderName}" folder{createFolder}{additionalInstructions}',
+      templateRules: {
+        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
+        createFolder: {
+          condition: 'true',
+          template: '. Create the folder if it doesn\'t exist'
+        },
+        additionalInstructions: {
+          condition: 'notEmpty',
+          template: '. {additionalInstructions}'
+        }
+      }
+    },
+    {
+      id: 'download-course-files',
+      title: 'Download Course Files',
+      description: 'Export or download files from a course',
+      category: 'files',
+      icon: '⬇️',
+      formFields: [
+        {
+          fieldType: 'term-select',
+          name: 'term',
+          label: 'Term',
+          required: false,
+          defaultValue: 'FALL-2025',
+          helpText: 'Select term to filter courses'
+        },
+        {
+          fieldType: 'course-select',
+          name: 'courseName',
+          label: 'Course Name',
+          required: true,
+          placeholder: 'Select a course',
+          defaultValue: 'Physics 101'
+        },
+        {
+          fieldType: 'select',
+          name: 'downloadScope',
+          label: 'What to Download',
+          required: true,
+          defaultValue: 'folder',
+          options: [
+            { value: '', label: 'Select scope' },
+            { value: 'all', label: 'All course files' },
+            { value: 'folder', label: 'Specific folder' },
+            { value: 'type', label: 'Specific file type' }
+          ]
+        },
+        {
+          fieldType: 'text',
+          name: 'folderName',
+          label: 'Folder Name',
+          required: false,
+          conditional: { field: 'downloadScope', value: 'folder' },
+          placeholder: 'e.g., Lecture Slides',
+          defaultValue: 'Lecture Slides'
+        },
+        {
+          fieldType: 'select',
+          name: 'fileType',
+          label: 'File Type',
+          required: false,
+          conditional: { field: 'downloadScope', value: 'type' },
+          options: [
+            { value: '', label: 'Select type' },
+            { value: 'pdf', label: 'PDF files' },
+            { value: 'image', label: 'Images' },
+            { value: 'video', label: 'Videos' },
+            { value: 'document', label: 'Documents' }
+          ]
+        },
+        {
+          fieldType: 'textarea',
+          name: 'additionalInstructions',
+          label: 'Additional Instructions',
+          required: false,
+          placeholder: 'Any additional requirements?',
+          rows: 2,
+          defaultValue: 'Export as a zip file.'
+        }
+      ],
+      promptTemplate: 'Download {downloadText} from {courseName}{termInfo}{additionalInstructions}',
+      templateRules: {
+        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
+        additionalInstructions: {
+          condition: 'notEmpty',
+          template: '. {additionalInstructions}'
+        }
+      }
+    }
+  ]
+};
+
+    </script>
+    <script>
+// Ignite Agent Prompt Builder - Main Application
+
+// ============================================================================
+// STATE MANAGEMENT
+// ============================================================================
+
+const AppState = {
+  currentView: 'categories', // categories | actions | form | result
+  selectedCategory: null,
+  selectedAction: null,
+  formData: {},
+  generatedPrompt: null,
+
+  setState(updates) {
+    Object.assign(this, updates);
+    this.render();
+  },
+
+  reset() {
+    this.currentView = 'categories';
+    this.selectedCategory = null;
+    this.selectedAction = null;
+    this.formData = {};
+    this.generatedPrompt = null;
+    this.render();
+  },
+
+  render() {
+    const app = document.getElementById('app');
+
+    switch(this.currentView) {
+      case 'categories':
+        app.innerHTML = renderCategories();
+        break;
+      case 'actions':
+        app.innerHTML = renderActions(this.selectedCategory);
+        break;
+      case 'form':
+        renderForm(this.selectedAction);
+        break;
+      case 'result':
+        app.innerHTML = renderResult(this.generatedPrompt);
+        break;
+    }
+  }
+};
+
+// ============================================================================
+// PROMPT GENERATOR
+// ============================================================================
+
+class PromptGenerator {
+  constructor(config) {
+    this.config = config;
+  }
+
+  generate(formData) {
+    let prompt = this.config.promptTemplate;
+
+    // Pre-process special fields
+    const processedData = this.preprocessFormData(formData);
+
+    // Get list of fields that have template rules (these will be handled in second pass)
+    const templateRuleFields = this.config.templateRules ?
+      Object.keys(this.config.templateRules) : [];
+
+    // First pass: replace simple placeholders (skip fields with template rules)
+    Object.keys(processedData).forEach(key => {
+      // Skip if this field has a template rule
+      if (templateRuleFields.includes(key)) {
+        return;
+      }
+
+      const value = processedData[key];
+      if (value !== null && value !== undefined && value !== '') {
+        // Format datetime values
+        if (value instanceof Date || key.includes('Date')) {
+          const formatted = this.formatDate(value);
+          prompt = prompt.replace(new RegExp(`\\{${key}\\}`, 'g'), formatted);
+        } else {
+          prompt = prompt.replace(new RegExp(`\\{${key}\\}`, 'g'), value);
+        }
+      }
+    });
+
+    // Second pass: process conditional sections using templateRules
+    if (this.config.templateRules) {
+      Object.keys(this.config.templateRules).forEach(key => {
+        const rule = this.config.templateRules[key];
+        const fieldName = rule.field || key;
+        const fieldValue = processedData[fieldName];
+
+        let replacement = '';
+
+        if (this.shouldIncludeSection(rule, fieldValue, processedData)) {
+          replacement = this.processTemplate(rule.template, processedData);
+        }
+
+        prompt = prompt.replace(new RegExp(`\\{${key}\\}`, 'g'), replacement);
+      });
+    }
+
+    // Clean up the prompt
+    prompt = this.cleanPrompt(prompt);
+
+    return prompt;
+  }
+
+  preprocessFormData(formData) {
+    const processed = { ...formData };
+
+    // Handle term formatting
+    if (processed.term) {
+      const termMap = {
+        'SPRING-2026': 'Spring 2026',
+        'FALL-2025': 'Fall 2025',
+        'SUMMER-2026': 'Summer 2026',
+        'WINTER-2026': 'Winter 2026'
+      };
+      processed.termFormatted = termMap[processed.term] || processed.term;
+    }
+
+    // Handle criteria mapping for grading prompts
+    if (processed.criteria) {
+      const criteriaMap = {
+        'all_students': 'all students',
+        'submitted': 'all students who submitted',
+        'completed_with_posts': 'all students who completed the assignment with original and peer posts',
+        'specific_students': 'the following students'
+      };
+      processed.criteriaText = criteriaMap[processed.criteria] || processed.criteria;
+    }
+
+    // Handle download scope mapping for file downloads
+    if (processed.downloadScope) {
+      if (processed.downloadScope === 'all') {
+        processed.downloadText = 'all files';
+      } else if (processed.downloadScope === 'folder' && processed.folderName) {
+        processed.downloadText = `all files from the "${processed.folderName}" folder`;
+      } else if (processed.downloadScope === 'type' && processed.fileType) {
+        processed.downloadText = `all ${processed.fileType} files`;
+      } else {
+        processed.downloadText = 'files';
+      }
+    }
+
+    return processed;
+  }
+
+  shouldIncludeSection(rule, fieldValue, formData) {
+    switch(rule.condition) {
+      case 'notEmpty':
+        return fieldValue && fieldValue !== '' && fieldValue !== null && fieldValue !== undefined;
+      case 'true':
+        return fieldValue === true || fieldValue === 'true';
+      case 'false':
+        return fieldValue === false || fieldValue === 'false';
+      case 'useQuestionBank':
+        return formData.useQuestionBank === true;
+      case 'conditionalAccess':
+        return formData.conditionalAccess === true;
+      default:
+        if (typeof rule.condition === 'function') {
+          return rule.condition(formData);
+        }
+        return true;
+    }
+  }
+
+  processTemplate(template, formData) {
+    let result = template;
+    Object.keys(formData).forEach(key => {
+      const value = formData[key];
+      if (value !== null && value !== undefined && value !== '') {
+        // Format datetime values
+        if (value instanceof Date || key.includes('Date')) {
+          const formatted = this.formatDate(value);
+          result = result.replace(new RegExp(`\\{${key}\\}`, 'g'), formatted);
+        } else {
+          result = result.replace(new RegExp(`\\{${key}\\}`, 'g'), value);
+        }
+      }
+    });
+    return result;
+  }
+
+  formatDate(value) {
+    if (!value) return '';
+
+    // Handle datetime-local input format
+    if (typeof value === 'string' && value.includes('T')) {
+      const date = new Date(value);
+      return date.toLocaleString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      });
+    }
+
+    return value;
+  }
+
+  cleanPrompt(prompt) {
+    return prompt
+      .replace(/\s+/g, ' ')           // Multiple spaces to single
+      .replace(/\s+\./g, '.')         // Space before period
+      .replace(/\s+,/g, ',')          // Space before comma
+      .replace(/,\s*,/g, ',')         // Double commas
+      .replace(/\.\./g, '.')          // Double periods
+      .replace(/\s+:/g, ':')          // Space before colon
+      .replace(/\.\s*\./g, '.')       // Period space period
+      .replace(/,\s*\./g, '.')        // Comma period
+      .trim();
+  }
+}
+
+// ============================================================================
+// FORM BUILDER
+// ============================================================================
+
+class FormBuilder {
+  constructor(actionConfig) {
+    this.config = actionConfig;
+  }
+
+  build() {
+    const form = document.createElement('form');
+    form.id = 'prompt-form';
+    form.onsubmit = (e) => {
+      e.preventDefault();
+      handleFormSubmit();
+    };
+
+    this.config.formFields.forEach(field => {
+      const fieldElement = this.createField(field);
+      form.appendChild(fieldElement);
+    });
+
+    // Add form actions
+    const actionsDiv = document.createElement('div');
+    actionsDiv.className = 'form-actions';
+    actionsDiv.innerHTML = `
+      <button type="button" class="button-secondary" id="back-to-actions">
+        ← Back
+      </button>
+      <button type="submit" class="button-primary">
+        Generate Prompt
+      </button>
+    `;
+    form.appendChild(actionsDiv);
+
+    return form;
+  }
+
+  createField(fieldConfig) {
+    if (fieldConfig.fieldType === 'checkbox') {
+      return this.createCheckboxField(fieldConfig);
+    }
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'form-field';
+
+    if (fieldConfig.conditional) {
+      wrapper.dataset.conditional = JSON.stringify(fieldConfig.conditional);
+      wrapper.style.display = 'none';
+    }
+
+    const label = this.createLabel(fieldConfig);
+    wrapper.appendChild(label);
+
+    const input = this.createInput(fieldConfig);
+    wrapper.appendChild(input);
+
+    if (fieldConfig.helpText) {
+      const helpText = document.createElement('p');
+      helpText.className = 'help-text';
+      helpText.textContent = fieldConfig.helpText;
+      wrapper.appendChild(helpText);
+    }
+
+    return wrapper;
+  }
+
+  createCheckboxField(fieldConfig) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'checkbox-field';
+
+    if (fieldConfig.conditional) {
+      wrapper.dataset.conditional = JSON.stringify(fieldConfig.conditional);
+      wrapper.style.display = 'none';
+    }
+
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.id = fieldConfig.name;
+    input.name = fieldConfig.name;
+    if (fieldConfig.default) input.checked = true;
+
+    const label = document.createElement('label');
+    label.setAttribute('for', fieldConfig.name);
+    label.textContent = fieldConfig.label;
+
+    wrapper.appendChild(input);
+    wrapper.appendChild(label);
+
+    if (fieldConfig.helpText) {
+      const helpText = document.createElement('p');
+      helpText.className = 'help-text';
+      helpText.textContent = fieldConfig.helpText;
+      wrapper.appendChild(helpText);
+    }
+
+    return wrapper;
+  }
+
+  createLabel(fieldConfig) {
+    const label = document.createElement('label');
+    label.setAttribute('for', fieldConfig.name);
+    label.textContent = fieldConfig.label;
+
+    if (fieldConfig.required) {
+      const required = document.createElement('span');
+      required.className = 'required';
+      required.textContent = ' *';
+      label.appendChild(required);
+    }
+
+    return label;
+  }
+
+  createInput(fieldConfig) {
+    switch(fieldConfig.fieldType) {
+      case 'textarea':
+        return this.createTextarea(fieldConfig);
+      case 'select':
+        return this.createSelect(fieldConfig);
+      case 'term-select':
+        return this.createTermSelect(fieldConfig);
+      case 'course-select':
+        return this.createCourseSelect(fieldConfig);
+      default:
+        return this.createTextInput(fieldConfig);
+    }
+  }
+
+  createTextInput(fieldConfig) {
+    const input = document.createElement('input');
+    input.type = fieldConfig.fieldType === 'number' ? 'number' :
+                 fieldConfig.fieldType === 'datetime-local' ? 'datetime-local' :
+                 'text';
+    input.id = fieldConfig.name;
+    input.name = fieldConfig.name;
+    input.placeholder = fieldConfig.placeholder || '';
+
+    if (fieldConfig.required) input.required = true;
+    if (fieldConfig.min !== undefined) input.min = fieldConfig.min;
+    if (fieldConfig.max !== undefined) input.max = fieldConfig.max;
+    if (fieldConfig.default !== undefined) input.value = fieldConfig.default;
+    if (fieldConfig.defaultValue !== undefined) input.value = fieldConfig.defaultValue;
+
+    return input;
+  }
+
+  createTextarea(fieldConfig) {
+    const textarea = document.createElement('textarea');
+    textarea.id = fieldConfig.name;
+    textarea.name = fieldConfig.name;
+    textarea.placeholder = fieldConfig.placeholder || '';
+    textarea.rows = fieldConfig.rows || 3;
+
+    if (fieldConfig.required) textarea.required = true;
+    if (fieldConfig.defaultValue !== undefined) textarea.value = fieldConfig.defaultValue;
+
+    return textarea;
+  }
+
+  createSelect(fieldConfig) {
+    const select = document.createElement('select');
+    select.id = fieldConfig.name;
+    select.name = fieldConfig.name;
+
+    if (fieldConfig.required) select.required = true;
+
+    fieldConfig.options.forEach(option => {
+      const optionElement = document.createElement('option');
+      optionElement.value = option.value;
+      optionElement.textContent = option.label;
+      if (fieldConfig.defaultValue && option.value === fieldConfig.defaultValue) {
+        optionElement.selected = true;
+      }
+      select.appendChild(optionElement);
+    });
+
+    return select;
+  }
+
+  createTermSelect(fieldConfig) {
+    const select = document.createElement('select');
+    select.id = fieldConfig.name;
+    select.name = fieldConfig.name;
+    select.className = 'term-select';
+
+    if (fieldConfig.required) select.required = true;
+
+    // Add empty option
+    const emptyOption = document.createElement('option');
+    emptyOption.value = '';
+    emptyOption.textContent = 'Select a term';
+    select.appendChild(emptyOption);
+
+    // Add terms from sample data
+    SAMPLE_DATA.terms.forEach(term => {
+      const optionElement = document.createElement('option');
+      optionElement.value = term.value;
+      optionElement.textContent = term.label;
+      if (fieldConfig.defaultValue && term.value === fieldConfig.defaultValue) {
+        optionElement.selected = true;
+      }
+      select.appendChild(optionElement);
+    });
+
+    return select;
+  }
+
+  createCourseSelect(fieldConfig) {
+    const select = document.createElement('select');
+    select.id = fieldConfig.name;
+    select.name = fieldConfig.name;
+    select.className = 'course-select';
+
+    if (fieldConfig.required) select.required = true;
+
+    // Add empty option
+    const emptyOption = document.createElement('option');
+    emptyOption.value = '';
+    emptyOption.textContent = '-- Select a course --';
+    select.appendChild(emptyOption);
+
+    // Initially populate with all courses
+    SAMPLE_DATA.courses.forEach(course => {
+      const option = document.createElement('option');
+      option.value = course.name;
+      option.textContent = course.name;
+      option.setAttribute('data-term', course.term);
+      if (fieldConfig.defaultValue && course.name === fieldConfig.defaultValue) {
+        option.selected = true;
+      }
+      select.appendChild(option);
+    });
+
+    return select;
+  }
+}
+
+// ============================================================================
+// CONDITIONAL FIELD HANDLER
+// ============================================================================
+
+class ConditionalFieldHandler {
+  constructor(formElement) {
+    this.form = formElement;
+    this.conditionalFields = this.findConditionalFields();
+    this.attachListeners();
+    this.evaluateConditions(); // Initial evaluation
+  }
+
+  findConditionalFields() {
+    return Array.from(this.form.querySelectorAll('[data-conditional]'))
+      .map(field => ({
+        element: field,
+        condition: JSON.parse(field.dataset.conditional)
+      }));
+  }
+
+  attachListeners() {
+    this.conditionalFields.forEach(({ condition }) => {
+      const triggerField = this.form.querySelector(`[name="${condition.field}"]`);
+      if (triggerField) {
+        triggerField.addEventListener('change', () => this.evaluateConditions());
+        triggerField.addEventListener('input', () => this.evaluateConditions());
+      }
+    });
+  }
+
+  evaluateConditions() {
+    this.conditionalFields.forEach(({ element, condition }) => {
+      const triggerField = this.form.querySelector(`[name="${condition.field}"]`);
+      const triggerValue = this.getFieldValue(triggerField);
+
+      if (this.conditionMet(triggerValue, condition.value)) {
+        element.style.display = element.classList.contains('checkbox-field') ? 'flex' : 'block';
+        const input = element.querySelector('input, textarea, select');
+        if (element.dataset.originalRequired) {
+          input.required = true;
+        }
+      } else {
+        element.style.display = 'none';
+        const input = element.querySelector('input, textarea, select');
+        if (input && input.required) {
+          element.dataset.originalRequired = 'true';
+          input.required = false;
+        }
+      }
+    });
+  }
+
+  getFieldValue(field) {
+    if (!field) return null;
+    if (field.type === 'checkbox') {
+      return field.checked;
+    }
+    return field.value;
+  }
+
+  conditionMet(actualValue, expectedValue) {
+    if (typeof expectedValue === 'boolean') {
+      return actualValue === expectedValue;
+    }
+    return actualValue == expectedValue;
+  }
+}
+
+// ============================================================================
+// COURSE FILTER HANDLER
+// ============================================================================
+
+class CourseFilterHandler {
+  constructor(formElement) {
+    this.form = formElement;
+    this.termSelect = this.form.querySelector('.term-select');
+    this.courseSelects = this.form.querySelectorAll('.course-select');
+
+    if (this.termSelect && this.courseSelects.length > 0) {
+      this.attachListeners();
+    }
+  }
+
+  attachListeners() {
+    this.termSelect.addEventListener('change', () => {
+      this.filterCourses();
+    });
+  }
+
+  filterCourses() {
+    const selectedTerm = this.termSelect.value;
+
+    this.courseSelects.forEach(select => {
+      // Store current value
+      const currentValue = select.value;
+
+      // Clear existing options
+      select.innerHTML = '';
+
+      // Add empty option
+      const emptyOption = document.createElement('option');
+      emptyOption.value = '';
+      emptyOption.textContent = '-- Select a course --';
+      select.appendChild(emptyOption);
+
+      // Get courses for selected term (or all if no term selected)
+      const courses = selectedTerm
+        ? SAMPLE_DATA.getCoursesByTerm(selectedTerm)
+        : SAMPLE_DATA.courses;
+
+      // Populate select with filtered courses
+      courses.forEach(course => {
+        const option = document.createElement('option');
+        option.value = course.name;
+        option.textContent = course.name;
+        option.setAttribute('data-term', course.term);
+        select.appendChild(option);
+      });
+
+      // Restore value if it's still in the filtered list
+      const isValidCourse = courses.some(c => c.name === currentValue);
+      if (isValidCourse) {
+        select.value = currentValue;
+      }
+    });
+  }
+}
+
+// ============================================================================
+// RENDER FUNCTIONS
+// ============================================================================
+
+function renderCategories() {
+  const categories = PROMPTS_CONFIG.categories.map(category => `
+    <div class="category-card" data-category="${category.id}">
+      <div class="category-icon">${category.icon}</div>
+      <h3 class="category-title">${category.title}</h3>
+      <p class="category-description">${category.description}</p>
+    </div>
+  `).join('');
+
+  return `
+    <div class="category-grid">
+      ${categories}
+    </div>
+  `;
+}
+
+function renderActions(categoryId) {
+  const category = PROMPTS_CONFIG.categories.find(c => c.id === categoryId);
+  const actions = PROMPTS_CONFIG.actions.filter(a => a.category === categoryId);
+
+  const actionButtons = actions.map(action => `
+    <button class="action-button" data-action="${action.id}">
+      <span class="action-icon">${action.icon}</span>
+      <span class="action-label">${action.title}</span>
+    </button>
+  `).join('');
+
+  return `
+    <div class="action-selection">
+      <h2>${category.title}</h2>
+      <p class="subtitle">${category.description}</p>
+      <div class="action-grid">
+        ${actionButtons}
+      </div>
+      <button class="back-button" id="back-to-categories">← Back to Categories</button>
+    </div>
+  `;
+}
+
+function renderForm(actionId) {
+  const action = PROMPTS_CONFIG.actions.find(a => a.id === actionId);
+
+  // Open modal
+  const modal = document.getElementById('modal-overlay');
+  const modalTitle = document.getElementById('modal-title');
+  const modalBody = document.getElementById('modal-body');
+
+  modalTitle.textContent = action.title;
+
+  const formBuilder = new FormBuilder(action);
+  const form = formBuilder.build();
+
+  modalBody.innerHTML = '';
+  modalBody.appendChild(form);
+
+  modal.style.display = 'flex';
+
+  // Initialize conditional field handler
+  new ConditionalFieldHandler(form);
+
+  // Initialize course filter handler
+  new CourseFilterHandler(form);
+}
+
+function renderResult(prompt) {
+  return `
+    <div class="prompt-result">
+      <div class="prompt-header">
+        <h3>Generated Prompt</h3>
+        <button class="edit-prompt-button" id="edit-prompt">Edit</button>
+      </div>
+      <div class="prompt-text" id="prompt-text" contenteditable="false">${prompt}</div>
+      <div class="prompt-actions">
+        <button class="button-secondary" id="copy-prompt">
+          📋 Copy to Clipboard
+        </button>
+        <button class="button-primary" id="use-prompt">
+          Use This Prompt
+        </button>
+      </div>
+      <div class="prompt-footer">
+        <button class="link-button" id="start-over">
+          ← Create Another Prompt
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+// ============================================================================
+// EVENT HANDLERS
+// ============================================================================
+
+function handleFormSubmit() {
+  const form = document.getElementById('prompt-form');
+  const formData = new FormData(form);
+  const data = {};
+
+  // Collect all form data
+  for (let [key, value] of formData.entries()) {
+    data[key] = value;
+  }
+
+  // Handle checkboxes (they won't appear in formData if unchecked)
+  const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+  checkboxes.forEach(checkbox => {
+    data[checkbox.name] = checkbox.checked;
+  });
+
+  // Store form data
+  AppState.formData = data;
+
+  // Generate prompt
+  const action = PROMPTS_CONFIG.actions.find(a => a.id === AppState.selectedAction);
+  const generator = new PromptGenerator(action);
+  const prompt = generator.generate(data);
+
+  // Close modal
+  closeModal();
+
+  // Show result
+  AppState.setState({
+    currentView: 'result',
+    generatedPrompt: prompt
+  });
+}
+
+function closeModal() {
+  const modal = document.getElementById('modal-overlay');
+  modal.style.display = 'none';
+}
+
+function showToast(message, type = 'success') {
+  const toast = document.getElementById('toast');
+  const toastMessage = document.getElementById('toast-message');
+
+  toastMessage.textContent = message;
+  toast.className = `toast ${type}`;
+  toast.style.display = 'block';
+
+  setTimeout(() => {
+    toast.style.display = 'none';
+  }, 3000);
+}
+
+function copyToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('Prompt copied to clipboard!');
+    }).catch(err => {
+      console.error('Failed to copy:', err);
+      showToast('Failed to copy to clipboard', 'error');
+    });
+  } else {
+    // Fallback for older browsers
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      document.execCommand('copy');
+      showToast('Prompt copied to clipboard!');
+    } catch (err) {
+      console.error('Failed to copy:', err);
+      showToast('Failed to copy to clipboard', 'error');
+    }
+    document.body.removeChild(textarea);
+  }
+}
+
+// ============================================================================
+// EVENT DELEGATION
+// ============================================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Initial render
+  AppState.render();
+
+  // Event delegation for dynamic content
+  document.body.addEventListener('click', (e) => {
+    const target = e.target;
+
+    // Category selection
+    if (target.closest('.category-card')) {
+      const categoryId = target.closest('.category-card').dataset.category;
+      AppState.setState({
+        currentView: 'actions',
+        selectedCategory: categoryId
+      });
+    }
+
+    // Action selection
+    if (target.closest('.action-button')) {
+      const actionId = target.closest('.action-button').dataset.action;
+      AppState.setState({
+        currentView: 'form',
+        selectedAction: actionId
+      });
+      renderForm(actionId);
+    }
+
+    // Back to categories
+    if (target.id === 'back-to-categories') {
+      AppState.setState({
+        currentView: 'categories',
+        selectedCategory: null
+      });
+    }
+
+    // Back to actions (from form)
+    if (target.id === 'back-to-actions' || target.closest('#back-to-actions')) {
+      closeModal();
+      AppState.setState({
+        currentView: 'actions'
+      });
+      return;
+    }
+
+    // Close modal button
+    if (target.id === 'close-modal' || target.closest('#close-modal')) {
+      closeModal();
+      AppState.setState({
+        currentView: 'actions'
+      });
+      return;
+    }
+
+    // Close modal by clicking overlay (outside modal)
+    if (target.id === 'modal-overlay') {
+      closeModal();
+      AppState.setState({
+        currentView: 'actions'
+      });
+      return;
+    }
+
+    // Edit prompt
+    if (target.id === 'edit-prompt') {
+      const promptText = document.getElementById('prompt-text');
+      const isEditable = promptText.contentEditable === 'true';
+
+      if (isEditable) {
+        promptText.contentEditable = 'false';
+        target.textContent = 'Edit';
+        AppState.generatedPrompt = promptText.textContent;
+      } else {
+        promptText.contentEditable = 'true';
+        promptText.focus();
+        target.textContent = 'Done';
+      }
+    }
+
+    // Copy prompt
+    if (target.id === 'copy-prompt') {
+      const promptText = document.getElementById('prompt-text').textContent;
+      copyToClipboard(promptText);
+    }
+
+    // Use prompt (same as copy for now)
+    if (target.id === 'use-prompt') {
+      const promptText = document.getElementById('prompt-text').textContent;
+      copyToClipboard(promptText);
+    }
+
+    // Start over
+    if (target.id === 'start-over') {
+      AppState.reset();
+    }
+  });
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', (e) => {
+    // ESC to close modal
+    if (e.key === 'Escape') {
+      const modal = document.getElementById('modal-overlay');
+      if (modal.style.display === 'flex') {
+        closeModal();
+        AppState.setState({
+          currentView: 'actions'
+        });
+      }
+    }
+  });
+});
+
+    </script>
+</body>
+</html>
