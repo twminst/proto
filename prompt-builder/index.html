@@ -1,3271 +1,2601 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ignite Agent Prompt Builder</title>
-    <style>
-/* CSS Variables */
-:root {
-  /* Primary Colors (Canvas-inspired) */
-  --color-primary: #0084ff;
-  --color-primary-dark: #0073e6;
-  --color-primary-light: #4da3ff;
-
-  /* Secondary Colors */
-  --color-secondary: #2d3b45;
-  --color-secondary-light: #394b59;
-
-  /* Neutrals */
-  --color-background: #f5f5f7;
-  --color-surface: #ffffff;
-  --color-border: #c7cdd1;
-  --color-text: #2d3b45;
-  --color-text-light: #73818f;
-
-  /* Status Colors */
-  --color-success: #0f9d58;
-  --color-warning: #f9ab00;
-  --color-error: #d93025;
-
-  /* Spacing */
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-  --spacing-xl: 32px;
-
-  /* Border Radius */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-
-  /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
-
-/* Reset & Base Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background: var(--color-background);
-  color: var(--color-text);
-  line-height: 1.6;
-}
-
-/* Container */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: var(--spacing-lg);
-}
-
-/* Header */
-.header {
-  text-align: center;
-  margin-bottom: var(--spacing-xl);
-  padding: var(--spacing-xl) 0;
-}
-
-.header h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--color-secondary);
-  margin-bottom: var(--spacing-sm);
-}
-
-.subtitle {
-  font-size: 1.125rem;
-  color: var(--color-text-light);
-}
-
-/* Main Content Area */
-#app {
-  min-height: 400px;
-}
-
-/* Category Selection */
-.category-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-xl);
-}
-
-.category-card {
-  background: var(--color-surface);
-  border: 2px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-align: center;
-}
-
-.category-card:hover {
-  border-color: var(--color-primary);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-}
-
-.category-icon {
-  font-size: 3rem;
-  margin-bottom: var(--spacing-md);
-}
-
-.category-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--color-secondary);
-  margin-bottom: var(--spacing-sm);
-}
-
-.category-description {
-  font-size: 0.9375rem;
-  color: var(--color-text-light);
-}
-
-/* Action Selection */
-.action-selection {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-xl);
-  box-shadow: var(--shadow-sm);
-}
-
-.action-selection h2 {
-  font-size: 1.75rem;
-  margin-bottom: var(--spacing-sm);
-  color: var(--color-secondary);
-}
-
-.action-selection .subtitle {
-  margin-bottom: var(--spacing-lg);
-  color: var(--color-text-light);
-  font-size: 1rem;
-}
-
-.action-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
-}
-
-.action-button {
-  background: var(--color-surface);
-  border: 2px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: var(--spacing-lg);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--spacing-sm);
-  font-family: inherit;
-  font-size: 1rem;
-}
-
-.action-button:hover {
-  border-color: var(--color-primary);
-  background: var(--color-primary-light);
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-.action-icon {
-  font-size: 2rem;
-}
-
-.action-label {
-  font-weight: 500;
-}
-
-.back-button {
-  background: transparent;
-  border: none;
-  color: var(--color-primary);
-  font-size: 1rem;
-  cursor: pointer;
-  padding: var(--spacing-sm);
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-}
-
-.back-button:hover {
-  text-decoration: underline;
-}
-
-/* Modal */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  animation: fadeIn 0.2s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.modal {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  max-width: 600px;
-  width: 90%;
-  max-height: 90vh;
-  overflow-y: auto;
-  animation: slideUp 0.3s ease;
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--spacing-lg);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.modal-header h2 {
-  font-size: 1.5rem;
-  color: var(--color-secondary);
-}
-
-.close-button {
-  background: transparent;
-  border: none;
-  font-size: 2rem;
-  color: var(--color-text-light);
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-sm);
-  transition: all 0.2s;
-}
-
-.close-button:hover {
-  background: var(--color-background);
-  color: var(--color-text);
-}
-
-.modal-body {
-  padding: var(--spacing-lg);
-}
-
-/* Form Styles */
-.form-field {
-  margin-bottom: var(--spacing-lg);
-}
-
-.form-field label {
-  display: block;
-  font-weight: 500;
-  margin-bottom: var(--spacing-xs);
-  color: var(--color-text);
-}
-
-.required {
-  color: var(--color-error);
-}
-
-.form-field input,
-.form-field textarea,
-.form-field select {
-  width: 100%;
-  padding: var(--spacing-sm) var(--spacing-md);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  font-size: 1rem;
-  font-family: inherit;
-  transition: all 0.2s;
-}
-
-.form-field input:focus,
-.form-field textarea:focus,
-.form-field select:focus {
-  outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(0, 132, 255, 0.1);
-}
-
-/* Course and term select dropdowns */
-.course-select,
-.term-select {
-  background-color: var(--color-surface);
-  cursor: pointer;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2373818f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right var(--spacing-sm) center;
-  background-size: 1.25rem;
-  padding-right: 2.5rem;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-
-.form-field textarea {
-  resize: vertical;
-  min-height: 80px;
-}
-
-.help-text {
-  font-size: 0.875rem;
-  color: var(--color-text-light);
-  margin-top: var(--spacing-xs);
-}
-
-.checkbox-field {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-lg);
-}
-
-.checkbox-field input[type="checkbox"] {
-  width: auto;
-  cursor: pointer;
-}
-
-.checkbox-field label {
-  cursor: pointer;
-  margin-bottom: 0;
-}
-
-/* Buttons */
-.button-primary {
-  background: var(--color-primary);
-  color: white;
-  border: none;
-  padding: var(--spacing-sm) var(--spacing-lg);
-  border-radius: var(--radius-md);
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.button-primary:hover {
-  background: var(--color-primary-dark);
-}
-
-.button-primary:disabled {
-  background: var(--color-border);
-  cursor: not-allowed;
-}
-
-.button-secondary {
-  background: transparent;
-  color: var(--color-primary);
-  border: 2px solid var(--color-primary);
-  padding: var(--spacing-sm) var(--spacing-lg);
-  border-radius: var(--radius-md);
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.button-secondary:hover {
-  background: var(--color-primary);
-  color: white;
-}
-
-.form-actions {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--spacing-md);
-  margin-top: var(--spacing-xl);
-  padding-top: var(--spacing-lg);
-  border-top: 1px solid var(--color-border);
-}
-
-/* Prompt Result */
-.prompt-result {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-xl);
-  box-shadow: var(--shadow-sm);
-}
-
-.prompt-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--spacing-md);
-}
-
-.prompt-header h3 {
-  font-size: 1.25rem;
-  color: var(--color-secondary);
-}
-
-.edit-prompt-button {
-  background: transparent;
-  border: 1px solid var(--color-border);
-  color: var(--color-text);
-  padding: var(--spacing-xs) var(--spacing-md);
-  border-radius: var(--radius-sm);
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.edit-prompt-button:hover {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
-}
-
-.prompt-text {
-  background: var(--color-background);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: var(--spacing-lg);
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: var(--spacing-lg);
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
-
-.prompt-text[contenteditable="true"] {
-  border-color: var(--color-primary);
-  outline: none;
-}
-
-.prompt-text[contenteditable="true"]:focus {
-  box-shadow: 0 0 0 3px rgba(0, 132, 255, 0.1);
-}
-
-.prompt-actions {
-  display: flex;
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
-}
-
-.prompt-footer {
-  padding-top: var(--spacing-lg);
-  border-top: 1px solid var(--color-border);
-}
-
-.link-button {
-  background: transparent;
-  border: none;
-  color: var(--color-primary);
-  font-size: 1rem;
-  cursor: pointer;
-  padding: var(--spacing-xs);
-}
-
-.link-button:hover {
-  text-decoration: underline;
-}
-
-/* Toast Notification */
-.toast {
-  position: fixed;
-  bottom: var(--spacing-lg);
-  right: var(--spacing-lg);
-  background: var(--color-secondary);
-  color: white;
-  padding: var(--spacing-md) var(--spacing-lg);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-lg);
-  z-index: 2000;
-  animation: slideInRight 0.3s ease;
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(100px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.toast.success {
-  background: var(--color-success);
-}
-
-.toast.error {
-  background: var(--color-error);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .header h1 {
-    font-size: 1.75rem;
-  }
-
-  .category-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .action-grid {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  }
-
-  .form-actions {
-    flex-direction: column;
-  }
-
-  .prompt-actions {
-    flex-direction: column;
-  }
-
-  .modal {
-    width: 95%;
-  }
-}
-
-/* Accessibility */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-/* Focus styles for keyboard navigation */
-*:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-}
-
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ignite — App Layout</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,100..900;1,100..900&family=Inclusive+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      background: #f2f4f5;
+    }
+
+    /* ─── Page wrapper ─────────────────────────────────────────── */
+    .page-wrapper {
+      width: 100%;
+      height: 100vh;
+      background: #f2f4f5;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* ─── Sidebar ──────────────────────────────────────────────── */
+    .sidebar {
+      width: 94px;
+      height: 100%;
+      padding: 12px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-card {
+      background: #fff;
+      border-radius: 16px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 7px 2px rgba(0,0,0,0.15), 0 1px 3.5px rgba(0,0,0,0.30);
+      overflow: hidden;
+    }
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 85px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-menu {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 0 6px;
+      overflow: hidden;
+    }
+
+    .sidebar-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      border-radius: 12px;
+      cursor: pointer;
+      position: relative;
+      text-decoration: none;
+    }
+
+    .sidebar-item:hover { background: #f2f4f4; }
+
+    .sidebar-item .icon-wrap {
+      height: 36px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sidebar-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #e8eaec, #ccc);
+      border: 1px solid #8d959f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: #576773;
+      font-weight: 600;
+    }
+
+    .sidebar-label {
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 11px;
+      color: #273540;
+      text-align: center;
+      line-height: 1.4;
+      margin-top: 2px;
+    }
+
+    .sidebar-badge {
+      position: absolute;
+      top: 2px;
+      right: 6px;
+      background: #2b7abc;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      min-width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4px;
+    }
+
+    .sidebar-minimize {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 6px;
+      cursor: pointer;
+      flex-shrink: 0;
+      border-top: 1px solid #f0f0f0;
+      color: #273540;
+    }
+
+    /* ─── Main area ────────────────────────────────────────────── */
+    .main-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    /* ─── Top navbar ───────────────────────────────────────────── */
+    .topbar-wrap {
+      padding: 12px 12px 12px 0;
+    }
+
+    .topbar {
+      background: #fff;
+      border-radius: 16px;
+      height: 66px;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 24px;
+      border-bottom: 1px solid #e8eaec;
+    }
+
+    .topbar-left {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      flex-shrink: 0;
+      color: #273540;
+    }
+
+    .icon-btn:hover { background: #f2f4f4; }
+
+    /* Athena — gradient outline */
+    .icon-btn.athena {
+      position: relative;
+      background: #fff;
+      border: none;
+      color: #3b0764;
+    }
+    .icon-btn.athena::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 13px;
+      padding: 1px;
+      background: linear-gradient(195deg, #944fb3, #027887);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    /* AI spark — gradient fill (active = panel open) */
+    .icon-btn.ai-spark {
+      background: linear-gradient(195deg, #944fb3, #027887);
+      border: none;
+      color: white;
+    }
+    .icon-btn.ai-spark.inactive {
+      background: transparent;
+      position: relative;
+      border: none;
+      color: #944fb3;
+    }
+    .icon-btn.ai-spark.inactive .ai-icon-white { display: none !important; }
+    .icon-btn.ai-spark.inactive .ai-icon-color { display: inline !important; }
+    .icon-btn.ai-spark:not(.inactive) .ai-icon-color { display: none !important; }
+    .icon-btn.ai-spark.inactive::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 13px;
+      padding: 1px;
+      background: linear-gradient(195deg, #944fb3, #027887);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .bc-link {
+      color: #2369a4;
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 0 4px;
+    }
+
+    .bc-sep {
+      color: #576773;
+      display: flex;
+      align-items: center;
+    }
+
+    .bc-current {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #273540;
+      font-size: 16px;
+      padding: 0 4px;
+    }
+
+    /* ─── Content area ─────────────────────────────────────────── */
+    .content-area {
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      gap: 32px;
+      padding: 16px;
+      overflow: hidden;
+    }
+
+    /* ─── Agent shell ──────────────────────────────────────────── */
+    .agent-shell-border {
+      width: 480px;
+      height: 100%;
+      border-radius: 24px;
+      padding: 1px;
+      background: linear-gradient(193.87deg, #9e58bd, #00828e);
+      flex-shrink: 0;
+      display: flex;
+    }
+
+    .agent-shell {
+      background: #fff;
+      border-radius: 23px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Agent header */
+    .agent-header {
+      background: linear-gradient(193.87deg, #9e58bd 0%, #00828e 100%);
+      height: 60px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      flex-shrink: 0;
+      color: white;
+    }
+
+    .agent-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .agent-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+    }
+
+    .agent-title-text {
+      font-family: 'Inclusive Sans', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.25;
+    }
+
+    .agent-header-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .agent-hdr-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.5);
+      color: white;
+    }
+
+    .agent-hdr-btn:hover { background: rgba(255,255,255,0.15); }
+    .agent-hdr-btn.close-btn { border-color: transparent; }
+
+    /* Agent scrollable content */
+    .agent-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 48px 24px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .agent-body::-webkit-scrollbar { width: 4px; }
+    .agent-body::-webkit-scrollbar-track { background: transparent; }
+    .agent-body::-webkit-scrollbar-thumb { background: #d7dadd; border-radius: 2px; }
+
+    /* ─── Chat history view ─────────────────────────────────────── */
+    .history-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      display: none;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .history-body::-webkit-scrollbar { width: 4px; }
+    .history-body::-webkit-scrollbar-track { background: transparent; }
+    .history-body::-webkit-scrollbar-thumb { background: #d7dadd; border-radius: 2px; }
+
+    .history-back {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #2369a4;
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      width: fit-content;
+    }
+
+    .history-back:hover { text-decoration: underline; }
+
+    .history-title {
+      font-family: 'Inclusive Sans', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #273540;
+      line-height: 1.25;
+    }
+
+    .history-date {
+      font-family: 'Inclusive Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: #273540;
+      line-height: 1.25;
+    }
+
+    .history-group {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .history-items {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .history-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 0;
+      cursor: pointer;
+    }
+
+    .history-item-label {
+      color: #2369a4;
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .history-item-label:hover { text-decoration: underline; }
+
+    .history-item-menu {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #576773;
+      flex-shrink: 0;
+      border-radius: 6px;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    .history-item-menu:hover { background: #f2f4f4; }
+
+    .history-sep {
+      height: 1px;
+      background: #e8eaec;
+      border: none;
+    }
+
+    /* ─── Chat flow view ────────────────────────────────────────── */
+    .chat-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      display: none;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .chat-body::-webkit-scrollbar { width: 4px; }
+    .chat-body::-webkit-scrollbar-track { background: transparent; }
+    .chat-body::-webkit-scrollbar-thumb { background: #d7dadd; border-radius: 2px; }
+
+    /* User bubble */
+    .chat-user-wrap {
+      display: flex;
+      justify-content: flex-end;
+      padding-left: 24px;
+    }
+
+    .chat-user-bubble {
+      background: #fff;
+      border: 1px solid #e8eaec;
+      border-radius: 16px;
+      padding: 16px;
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 16px;
+      color: #273540;
+      line-height: 1.5;
+    }
+
+    /* Agent response */
+    .chat-agent-response {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+
+    .chat-agent-text {
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 16px;
+      color: #273540;
+      line-height: 1.5;
+    }
+
+    .chat-action-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    .chat-action-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: transparent;
+      border: 1px solid #86a8d5;
+      color: #576773;
+    }
+
+    .chat-action-btn:hover { background: #f0f6ff; }
+
+    /* Suggested prompts */
+    .suggested-prompts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .suggested-prompt-btn {
+      background: #d5e2f6;
+      border: 1px solid #d5e2f6;
+      border-radius: 12px;
+      padding: 0 12px;
+      height: 40px;
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: #1d354f;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .suggested-prompt-btn:hover { background: #c2d5f0; }
+
+    .chat-disclaimer {
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 14px;
+      color: #576773;
+      line-height: 1.5;
+    }
+
+    /* Reasoning state component */
+    .reasoning-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .reasoning-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .reasoning-row.loading { color: #576773; cursor: default; }
+    .reasoning-row.done    { color: #037d37; cursor: pointer; }
+
+    .reasoning-spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid #d0d8dd;
+      border-top-color: #576773;
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: reasoning-spin 0.8s linear infinite;
+    }
+
+    @keyframes reasoning-spin { to { transform: rotate(360deg); } }
+
+    .reasoning-chevron { transition: transform 0.2s ease; margin-left: auto; }
+
+    .reasoning-details {
+      display: none;
+      padding: 10px 0 16px 16px;
+    }
+
+    .reasoning-details-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-left: 16px;
+      border-left: 1px solid #8d959f;
+    }
+
+    .reasoning-text,
+    .reasoning-section-label,
+    .reasoning-section-value {
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 14px;
+      color: #273540;
+      line-height: 1.5;
+    }
+
+    .reasoning-section { display: flex; flex-direction: column; gap: 2px; }
+
+    /* Real textarea input */
+    .chat-textarea {
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 16px;
+      color: #273540;
+      line-height: 1.5;
+      border: none;
+      outline: none;
+      resize: none;
+      width: 100%;
+      min-height: 24px;
+      max-height: 120px;
+      overflow-y: auto;
+      background: transparent;
+    }
+
+    .chat-textarea::placeholder { color: #576773; }
+
+    /* Greeting */
+    @keyframes wave-hand {
+      0%   { transform: rotate(0deg);   }
+      20%  { transform: rotate(20deg);  }
+      40%  { transform: rotate(-15deg); }
+      60%  { transform: rotate(18deg);  }
+      80%  { transform: rotate(-8deg);  }
+      100% { transform: rotate(0deg);   }
+    }
+
+    .greeting-hand-wrap {
+      display: inline-flex;
+      flex-shrink: 0;
+      transform-origin: bottom center;
+    }
+
+    .greeting-hand-wrap.waving {
+      animation: wave-hand 0.7s ease-in-out;
+    }
+
+    .greeting-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #273540;
+    }
+
+    .greeting-name {
+      font-family: 'Inclusive Sans', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(90deg, #944fb3 0%, #027887 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.25;
+    }
+
+    .greeting-sub {
+      color: #576773;
+      font-size: 16px;
+      line-height: 1.5;
+      margin-top: 4px;
+    }
+
+    /* Sections */
+    .agent-section {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .section-title {
+      font-family: 'Inclusive Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #273540;
+      line-height: 1.25;
+    }
+
+    .section-items {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Item rows */
+    .agent-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 16px;
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid #e8eaec;
+      cursor: pointer;
+      transition: background 0.12s;
+      color: #2871af;
+    }
+
+    .agent-item:hover { background: #f9fafb; }
+
+    .item-icon {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .item-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .item-title {
+      font-family: 'Inclusive Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #273540;
+      line-height: 1.25;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .item-desc {
+      font-size: 14px;
+      color: #576773;
+      line-height: 1.5;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .item-pill {
+      background: #fff;
+      border: 1px solid #2b7abc;
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #2b7abc;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    /* Agent input area */
+    .agent-input-area {
+      padding: 12px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .agent-input-box {
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid #5f6e7a;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .input-placeholder {
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 16px;
+      color: #576773;
+      line-height: 1.5;
+      min-height: 24px;
+    }
+
+    .input-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .toolbar-left {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #576773;
+    }
+
+    .toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tb-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: transparent;
+      border: 1px solid #86a8d5;
+      color: #1d354f;
+    }
+
+    .tb-btn:hover { background: #f2f4f4; }
+
+    .tb-submit {
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+    }
+
+    .tb-submit.send {
+      background: #1d354f;
+      color: white;
+    }
+
+    .tb-submit.send:hover { background: #162840; }
+
+    /* ═══════════════════════════════════════════════════════════
+       Prompt Builder Modal
+    ═══════════════════════════════════════════════════════════ */
+
+    .pb-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(39,53,64,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      padding: 24px;
+    }
+
+    .pb-modal {
+      background: #fff;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 860px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    .pb-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px;
+      border-bottom: 1px solid #e8ebec;
+      flex-shrink: 0;
+    }
+
+    .pb-modal-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #576773;
+    }
+
+    .pb-modal-title {
+      font-family: 'Inclusive Sans', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #273540;
+    }
+
+    .pb-x-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 8px;
+      color: #576773;
+      display: flex;
+      align-items: center;
+      transition: background 0.15s;
+    }
+    .pb-x-btn:hover { background: #f2f4f5; color: #273540; }
+
+    .pb-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+    }
+
+    .pb-modal-footer {
+      flex-shrink: 0;
+      padding: 16px 24px;
+      border-top: 1px solid #e8ebec;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+    }
+
+    /* Category grid */
+    .pb-category-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .pb-category-card {
+      background: #fff;
+      border: 1.5px solid #d0d8dd;
+      border-radius: 12px;
+      padding: 20px;
+      cursor: pointer;
+      transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .pb-category-card:hover {
+      border-color: #944fb3;
+      box-shadow: 0 4px 16px rgba(148,79,179,0.12);
+      transform: translateY(-1px);
+    }
+
+    .pb-cat-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: #f2f4f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #273540;
+    }
+
+    .pb-cat-title {
+      font-family: 'Inclusive Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #273540;
+      line-height: 1.25;
+    }
+
+    .pb-cat-desc {
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 13px;
+      color: #576773;
+      line-height: 1.5;
+    }
+
+    /* Actions view */
+    .pb-actions-wrap { display: flex; flex-direction: column; gap: 20px; }
+
+    .pb-actions-header { display: flex; align-items: center; gap: 10px; }
+
+    .pb-back-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 8px;
+      color: #576773;
+      display: flex;
+      align-items: center;
+      transition: background 0.15s;
+    }
+    .pb-back-btn:hover { background: #f2f4f5; color: #273540; }
+
+    .pb-actions-title {
+      font-family: 'Inclusive Sans', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #273540;
+    }
+
+    .pb-action-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+    }
+
+    .pb-action-btn {
+      background: #fff;
+      border: 1.5px solid #d0d8dd;
+      border-radius: 10px;
+      padding: 16px 12px;
+      cursor: pointer;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #273540;
+      text-align: center;
+    }
+    .pb-action-btn:hover {
+      border-color: #944fb3;
+      box-shadow: 0 2px 8px rgba(148,79,179,0.1);
+    }
+
+    .pb-action-icon { font-size: 22px; line-height: 1; }
+
+    /* Result view */
+    .pb-result-wrap { display: flex; flex-direction: column; gap: 16px; }
+
+    .pb-result-header { display: flex; align-items: center; gap: 10px; }
+
+    .pb-result-title {
+      font-family: 'Inclusive Sans', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #273540;
+      flex: 1;
+    }
+
+    .pb-prompt-box {
+      background: #f2f4f5;
+      border: 1.5px solid #d0d8dd;
+      border-radius: 10px;
+      padding: 16px;
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 15px;
+      color: #273540;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+      min-height: 80px;
+    }
+    .pb-prompt-box[contenteditable="true"] {
+      border-color: #944fb3;
+      outline: none;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(148,79,179,0.08);
+    }
+
+    .pb-result-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .pb-result-footer {
+      padding-top: 16px;
+      border-top: 1px solid #e8ebec;
+    }
+
+    /* Buttons */
+    .pb-btn-primary {
+      background: #1d354f;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pb-btn-primary:hover { background: #162840; }
+
+    .pb-btn-use {
+      background: linear-gradient(135deg, #944fb3, #027887);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pb-btn-use:hover { opacity: 0.88; }
+
+    .pb-btn-secondary {
+      background: transparent;
+      color: #273540;
+      border: 1.5px solid #d0d8dd;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pb-btn-secondary:hover { border-color: #576773; }
+
+    .pb-btn-ghost {
+      background: transparent;
+      border: none;
+      color: #576773;
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 4px 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pb-btn-ghost:hover { color: #273540; }
+
+    /* Inner form dialog */
+    .pb-form-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(39,53,64,0.45);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      z-index: 300;
+      padding: 40px 24px;
+      overflow-y: auto;
+    }
+
+    .pb-form-dialog {
+      background: #fff;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pb-form-dialog-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      border-bottom: 1px solid #e8ebec;
+      flex-shrink: 0;
+    }
+
+    .pb-form-dialog-title {
+      font-family: 'Inclusive Sans', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #273540;
+    }
+
+    .pb-form-dialog-body {
+      padding: 20px;
+      overflow-y: auto;
+      max-height: 65vh;
+    }
+
+    /* Form fields inside dialog */
+    .pb-form-dialog .form-field { margin-bottom: 16px; }
+
+    .pb-form-dialog .form-field label {
+      display: block;
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #273540;
+      margin-bottom: 4px;
+    }
+
+    .pb-form-dialog .form-field input,
+    .pb-form-dialog .form-field textarea,
+    .pb-form-dialog .form-field select {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1.5px solid #d0d8dd;
+      border-radius: 8px;
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 14px;
+      color: #273540;
+      background: #fff;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      outline: none;
+    }
+    .pb-form-dialog .form-field input:focus,
+    .pb-form-dialog .form-field textarea:focus,
+    .pb-form-dialog .form-field select:focus {
+      border-color: #944fb3;
+      box-shadow: 0 0 0 3px rgba(148,79,179,0.1);
+    }
+
+    .pb-form-dialog .help-text {
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 12px;
+      color: #8d959f;
+      margin-top: 4px;
+    }
+
+    .pb-form-dialog .required { color: #c0392b; }
+
+    .pb-form-dialog .checkbox-field {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .pb-form-dialog .checkbox-field label {
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 14px;
+      color: #273540;
+      margin-bottom: 0;
+      cursor: pointer;
+    }
+
+    .pb-form-dialog .form-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding-top: 16px;
+      margin-top: 8px;
+      border-top: 1px solid #e8ebec;
+    }
+
+    .pb-form-dialog .button-primary,
+    .pb-modal-footer .button-primary {
+      background: #1d354f;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .pb-form-dialog .button-primary:hover,
+    .pb-modal-footer .button-primary:hover { background: #162840; }
+    .pb-form-dialog .button-primary:disabled,
+    .pb-modal-footer .button-primary:disabled { background: #d0d8dd; cursor: not-allowed; }
+
+    .pb-form-dialog .button-secondary,
+    .pb-modal-footer .button-secondary {
+      background: transparent;
+      color: #273540;
+      border: 1.5px solid #d0d8dd;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pb-form-dialog .button-secondary:hover,
+    .pb-modal-footer .button-secondary:hover { border-color: #576773; }
+
+    .pb-form-dialog .advanced-options-section {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #e8ebec;
+    }
+    .pb-form-dialog .advanced-options-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      border: none;
+      color: #576773;
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px 0;
+      width: 100%;
+      justify-content: flex-start;
+    }
+    .pb-form-dialog .advanced-options-toggle:hover { color: #273540; }
+    .pb-form-dialog .advanced-options-toggle-icon { font-size: 10px; transition: transform 0.2s; }
+    .pb-form-dialog .advanced-options-toggle.expanded .advanced-options-toggle-icon { transform: rotate(90deg); }
+    .pb-form-dialog .advanced-options-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+    .pb-form-dialog .advanced-options-content.expanded { max-height: 3000px; transition: max-height 0.5s ease-in; padding-top: 12px; }
+
+    .pb-form-dialog .file-upload-area {
+      border: 1.5px dashed #d0d8dd;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      background: #f2f4f5;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .pb-form-dialog .file-upload-area:hover { border-color: #944fb3; }
+    .pb-form-dialog .file-upload-icon { font-size: 20px; margin-bottom: 4px; }
+    .pb-form-dialog .file-upload-text {
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #273540;
+    }
+    .pb-form-dialog .file-upload-hint {
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 12px;
+      color: #8d959f;
+    }
+    .pb-form-dialog .file-list { list-style: none; margin-top: 8px; }
+    .pb-form-dialog .file-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 10px;
+      border: 1px solid #d0d8dd;
+      border-radius: 6px;
+      margin-bottom: 4px;
+      background: #fff;
+    }
+    .pb-form-dialog .file-item-name {
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 13px;
+      color: #273540;
+    }
+    .pb-form-dialog .file-item-size { font-size: 12px; color: #8d959f; margin-left: 6px; }
+    .pb-form-dialog .file-item-remove {
+      background: transparent;
+      border: none;
+      color: #8d959f;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 2px 4px;
+    }
+    .pb-form-dialog .file-item-remove:hover { color: #c0392b; }
+
+    /* Toast */
+    .pb-toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #273540;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-family: 'Atkinson Hyperlegible Next', sans-serif;
+      font-size: 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      z-index: 9999;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1>Ignite Agent Prompt Builder</h1>
-            <p class="subtitle">Generate structured prompts for your Ignite AI agent</p>
-        </header>
+  <div class="page-wrapper">
 
-        <main id="app">
-            <!-- Dynamic content will be injected here -->
-        </main>
+    <!-- ── Sidebar ── -->
+    <div class="sidebar">
+      <div class="sidebar-card">
 
-        <!-- Modal Overlay (hidden by default) -->
-        <div id="modal-overlay" class="modal-overlay" style="display: none;">
-            <div class="modal">
-                <div class="modal-header">
-                    <h2 id="modal-title"></h2>
-                    <button class="close-button" id="close-modal" aria-label="Close">&times;</button>
-                </div>
-                <div class="modal-body" id="modal-body">
-                    <!-- Modal content will be injected here -->
-                </div>
+        <!-- Logo -->
+        <div class="sidebar-logo">
+          <img src="Canvas.png" alt="Canvas" style="width:40px;height:40px;object-fit:contain">
+        </div>
+
+        <!-- Nav items -->
+        <div class="sidebar-menu">
+
+          <!-- Account -->
+          <div class="sidebar-item">
+            <div class="icon-wrap">
+              <div class="sidebar-avatar">Z</div>
             </div>
+            <span class="sidebar-label">Account</span>
+          </div>
+
+          <!-- Dashboard -->
+          <div class="sidebar-item" style="color:#273540">
+            <div class="icon-wrap">
+              <i data-lucide="layout-dashboard" style="width:24px;height:24px;stroke-width:1.5"></i>
+            </div>
+            <span class="sidebar-label">Dashboard</span>
+          </div>
+
+          <!-- Agent -->
+          <div class="sidebar-item" style="color:#273540">
+            <div class="icon-wrap">
+              <i data-lucide="shield-user" style="width:24px;height:24px;stroke-width:1.5"></i>
+            </div>
+            <span class="sidebar-label">Agent</span>
+          </div>
+
+          <!-- Courses -->
+          <div class="sidebar-item" style="color:#273540">
+            <div class="icon-wrap">
+              <i data-lucide="book-text" style="width:24px;height:24px;stroke-width:1.5"></i>
+            </div>
+            <span class="sidebar-label">Courses</span>
+          </div>
+
+          <!-- Calendar -->
+          <div class="sidebar-item" style="color:#273540">
+            <div class="icon-wrap">
+              <i data-lucide="calendar-days" style="width:24px;height:24px;stroke-width:1.5"></i>
+            </div>
+            <span class="sidebar-label">Calendar</span>
+          </div>
+
+          <!-- Inbox (badge) -->
+          <div class="sidebar-item" style="color:#273540">
+            <span class="sidebar-badge">9</span>
+            <div class="icon-wrap">
+              <i data-lucide="inbox" style="width:24px;height:24px;stroke-width:1.5"></i>
+            </div>
+            <span class="sidebar-label">Inbox</span>
+          </div>
+
+          <!-- History -->
+          <div class="sidebar-item" style="color:#273540">
+            <div class="icon-wrap">
+              <i data-lucide="clock" style="width:24px;height:24px;stroke-width:1.5"></i>
+            </div>
+            <span class="sidebar-label">History</span>
+          </div>
+
+          <!-- Help -->
+          <div class="sidebar-item" style="color:#273540">
+            <div class="icon-wrap">
+              <i data-lucide="circle-help" style="width:24px;height:24px;stroke-width:1.5"></i>
+            </div>
+            <span class="sidebar-label">Help</span>
+          </div>
+
         </div>
 
-        <!-- Success Toast (hidden by default) -->
-        <div id="toast" class="toast" style="display: none;">
-            <span id="toast-message"></span>
+        <!-- Minimize -->
+        <div class="sidebar-minimize">
+          <i data-lucide="panel-left-close" style="width:24px;height:24px;stroke-width:2"></i>
         </div>
+      </div>
     </div>
 
-    <script>
-// Sample Canvas Course Data
+    <!-- ── Main ── -->
+    <div class="main-area">
 
-const SAMPLE_DATA = {
-  terms: [
-    { value: 'SPRING-2026', label: 'Spring 2026' },
-    { value: 'FALL-2025', label: 'Fall 2025' },
-    { value: 'SUMMER-2026', label: 'Summer 2026' },
-    { value: 'WINTER-2026', label: 'Winter 2026' }
-  ],
+      <!-- Top navbar -->
+      <div class="topbar-wrap">
+        <div class="topbar">
+          <div class="topbar-left">
 
-  courses: [
-    // Spring 2026 Courses
-    { id: '1698972', name: 'PSY1012 General Psychology', term: 'SPRING-2026' },
-    { id: '1712556', name: 'Financial Literacy 101', term: 'SPRING-2026' },
-    { id: '1712089', name: 'SPAN 502 - Advanced Spanish', term: 'SPRING-2026' },
-    { id: '1728717', name: 'Introduction to Philosophy', term: 'SPRING-2026' },
-    { id: '1733177', name: 'MATH-1010-020-Spring 2026', term: 'SPRING-2026' },
-    { id: '2001234', name: 'BIO-101-Spring 2026', term: 'SPRING-2026' },
-    { id: '2001235', name: 'CHEM-101-Spring 2026', term: 'SPRING-2026' },
-    { id: '2001236', name: 'ENG-101-Spring 2026', term: 'SPRING-2026' },
-    { id: '2001237', name: 'HIST-101-Spring 2026', term: 'SPRING-2026' },
-    { id: '2001238', name: 'CS-101-Spring 2026', term: 'SPRING-2026' },
-    { id: '2001239', name: 'ART-101-Spring 2026', term: 'SPRING-2026' },
-    { id: '2001240', name: 'MUS-101-Spring 2026', term: 'SPRING-2026' },
-    { id: '2001241', name: 'PE-101-Spring 2026', term: 'SPRING-2026' },
-    { id: '2001242', name: 'BUS-101-Spring 2026', term: 'SPRING-2026' },
+            <!-- Hamburger -->
+            <button class="icon-btn">
+              <i data-lucide="menu" style="width:20px;height:20px;stroke-width:2"></i>
+            </button>
 
-    // Fall 2025 Courses
-    { id: '1650123', name: 'Introduction to Linguistics', term: 'FALL-2025' },
-    { id: '1650124', name: 'Principles of Teaching & Learning', term: 'FALL-2025' },
-    { id: '1650125', name: 'BIB1520 - Biblical Studies', term: 'FALL-2025' },
-    { id: '1650126', name: 'CDE-103-3602', term: 'FALL-2025' },
-    { id: '1650127', name: 'Biology 101', term: 'FALL-2025' },
-    { id: '1650128', name: 'Chemistry 101', term: 'FALL-2025' },
-    { id: '1650129', name: 'English 101', term: 'FALL-2025' },
-    { id: '1650130', name: 'History 101', term: 'FALL-2025' },
-    { id: '1650131', name: 'Physics 101', term: 'FALL-2025' },
-    { id: '1650132', name: 'Calculus I', term: 'FALL-2025' },
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+              <span class="bc-link">Level 1</span>
+              <span class="bc-sep">
+                <i data-lucide="chevron-right" style="width:16px;height:16px;stroke-width:1.5;color:#576773"></i>
+              </span>
+              <span class="bc-current">Current Level</span>
+            </div>
+          </div>
 
-    // Summer 2026 Courses
-    { id: '2100001', name: 'Summer Biology Intensive', term: 'SUMMER-2026' },
-    { id: '2100002', name: 'Summer Chemistry Lab', term: 'SUMMER-2026' },
-    { id: '2100003', name: 'Summer Writing Workshop', term: 'SUMMER-2026' },
-    { id: '2100004', name: 'Summer Math Review', term: 'SUMMER-2026' },
-    { id: '2100005', name: 'Summer Spanish Immersion', term: 'SUMMER-2026' },
+          <div class="topbar-right">
+            <!-- AI Spark button — toggles agent panel -->
+            <button class="icon-btn ai-spark inactive" id="toggleAgentBtn" title="Open Ignite Agent">
+              <img src="AI Icon.svg" class="ai-icon-white" style="width:20px;height:20px;object-fit:contain">
+              <img src="AI Icon-color.svg" class="ai-icon-color" style="width:20px;height:20px;object-fit:contain;display:none">
+            </button>
+          </div>
+        </div>
+      </div>
 
-    // Winter 2026 Courses
-    { id: '2200001', name: 'Winter Term Special Topics', term: 'WINTER-2026' },
-    { id: '2200002', name: 'Winter Economics', term: 'WINTER-2026' },
-    { id: '2200003', name: 'Winter Political Science', term: 'WINTER-2026' }
-  ],
+      <!-- Content area (gray = page content goes here) -->
+      <div class="content-area">
 
-  // Helper function to get courses for a specific term
-  getCoursesByTerm(termValue) {
-    if (!termValue || termValue === '') {
-      return this.courses;
+        <!-- ── Agent Shell ── -->
+        <div class="agent-shell-border" id="agentShellBorder" style="display:none">
+          <div class="agent-shell">
+
+            <!-- Agent header (gradient) -->
+            <div class="agent-header">
+              <div class="agent-header-row">
+                <div class="agent-title">
+                  <img src="AI Icon.svg" style="width:20px;height:20px;object-fit:contain">
+                  <span class="agent-title-text">Ignite Agent</span>
+                </div>
+                <div class="agent-header-actions">
+                  <button class="agent-hdr-btn" id="composeBtn" title="New chat">
+                    <i data-lucide="square-pen" style="width:16px;height:16px;stroke-width:1.5"></i>
+                  </button>
+                  <button class="agent-hdr-btn" id="historyBtn" title="History">
+                    <i data-lucide="history" style="width:16px;height:16px;stroke-width:1.5"></i>
+                  </button>
+                  <button class="agent-hdr-btn close-btn" id="closeAgentBtn" title="Close">
+                    <i data-lucide="x" style="width:16px;height:16px;stroke-width:2"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Scrollable body -->
+            <div class="agent-body" id="agentBody">
+
+              <!-- Greeting -->
+              <div>
+                <div class="greeting-row">
+                  <span class="greeting-hand-wrap"><i data-lucide="hand" style="width:26px;height:26px;stroke-width:1.8;transform:rotate(-35deg)"></i></span>
+                  <span class="greeting-name">Hello, Zoe!</span>
+                </div>
+                <div class="greeting-sub">What are we doing today?</div>
+              </div>
+
+              <!-- Get started -->
+              <div class="agent-section">
+                <div class="section-title">Get started</div>
+                <div class="section-items">
+
+                  <div class="agent-item" id="promptBuilderItem" style="cursor:pointer">
+                    <div class="item-icon">
+                      <i data-lucide="wand-2" style="width:24px;height:24px;stroke-width:2"></i>
+                    </div>
+                    <div class="item-body">
+                      <div class="item-title">Prompt builder</div>
+                      <div class="item-desc">Generate common prompts</div>
+                    </div>
+                    <div class="item-pill">Start here</div>
+                  </div>
+
+                  <div class="agent-item">
+                    <div class="item-icon">
+                      <i data-lucide="library-big" style="width:24px;height:24px;stroke-width:2"></i>
+                    </div>
+                    <div class="item-body">
+                      <div class="item-title">Community library</div>
+                      <div class="item-desc">Browse and contribute community prompts</div>
+                    </div>
+                  </div>
+
+                  <div class="agent-item">
+                    <div class="item-icon">
+                      <i data-lucide="bookmark" style="width:24px;height:24px;stroke-width:2"></i>
+                    </div>
+                    <div class="item-body">
+                      <div class="item-title">Saved prompts</div>
+                      <div class="item-desc">Re-use and share your favorite prompts</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- History -->
+              <div class="agent-section">
+                <div class="section-title">History</div>
+                <div class="section-items">
+
+                  <div class="agent-item">
+                    <div class="item-icon">
+                      <i data-lucide="history" style="width:24px;height:24px;stroke-width:2"></i>
+                    </div>
+                    <div class="item-body">
+                      <div class="item-title">Chats</div>
+                      <div class="item-desc">Access previous agent conversations</div>
+                    </div>
+                  </div>
+
+                  <!-- <div class="agent-item">
+                    <div class="item-icon">
+                      <i data-lucide="file-box" style="width:24px;height:24px;stroke-width:2"></i>
+                    </div>
+                    <div class="item-body">
+                      <div class="item-title">Artifacts</div>
+                      <div class="item-desc">Retrieve previously generated content</div>
+                    </div>
+                  </div> -->
+
+                </div>
+              </div>
+
+              <!-- Specialized agents -->
+              <div class="agent-section" style="padding-bottom:8px">
+                <div class="section-title">Specialized agents</div>
+                <div class="section-items">
+
+                  <!-- <div class="agent-item" style="color:#3b0764">
+                    <div class="item-icon">
+                      <i data-lucide="graduation-cap" style="width:24px;height:24px;stroke-width:2"></i>
+                    </div>
+                    <div class="item-body">
+                      <div class="item-title">Study with Athena</div>
+                      <div class="item-desc">Chat with a study coach for learners</div>
+                    </div>
+                  </div> -->
+
+                  <div class="agent-item" style="color:#576773">
+                    <div class="item-icon">
+                      <i data-lucide="bot" style="width:24px;height:24px;stroke-width:2"></i>
+                    </div>
+                    <div class="item-body">
+                      <div class="item-title">PandaBot</div>
+                      <div class="item-desc">Ask questions and get support for Canvas</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div><!-- /agent-body -->
+
+            <!-- ── Chat History view ── -->
+            <div class="history-body" id="historyBody">
+
+              <div style="display:flex;flex-direction:column;gap:16px">
+                <button class="history-back" id="backBtn">
+                  <i data-lucide="chevron-left" style="width:12px;height:12px;stroke-width:1.5"></i>
+                  Back
+                </button>
+                <h2 class="history-title">Chat History</h2>
+              </div>
+
+              <!-- 12/31/2025 -->
+              <div class="history-group">
+                <div class="history-date">12/31/2025</div>
+                <div class="history-items">
+                  <div class="history-item">
+                    <span class="history-item-label">Review geometry proofs for the Unit 4 quiz</span>
+                    <button class="history-item-menu"><i data-lucide="ellipsis-vertical" style="width:16px;height:16px;stroke-width:1.5"></i></button>
+                  </div>
+                  <hr class="history-sep">
+                  <div class="history-item">
+                    <span class="history-item-label">Build a weekly study plan across classes</span>
+                    <button class="history-item-menu"><i data-lucide="ellipsis-vertical" style="width:16px;height:16px;stroke-width:1.5"></i></button>
+                  </div>
+                  <hr class="history-sep">
+                  <div class="history-item">
+                    <span class="history-item-label">Get feedback on my English essay draft</span>
+                    <button class="history-item-menu"><i data-lucide="ellipsis-vertical" style="width:16px;height:16px;stroke-width:1.5"></i></button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 12/30/2025 -->
+              <div class="history-group">
+                <div class="history-date">12/30/2025</div>
+                <div class="history-items">
+                  <div class="history-item">
+                    <span class="history-item-label">Create a catch up plan for overdue work</span>
+                    <button class="history-item-menu"><i data-lucide="ellipsis-vertical" style="width:16px;height:16px;stroke-width:1.5"></i></button>
+                  </div>
+                  <hr class="history-sep">
+                  <div class="history-item">
+                    <span class="history-item-label">Practice biology terms with quick flashcards</span>
+                    <button class="history-item-menu"><i data-lucide="ellipsis-vertical" style="width:16px;height:16px;stroke-width:1.5"></i></button>
+                  </div>
+                  <hr class="history-sep">
+                  <div class="history-item">
+                    <span class="history-item-label">Prepare for tomorrow's chemistry lab checklist</span>
+                    <button class="history-item-menu"><i data-lucide="ellipsis-vertical" style="width:16px;height:16px;stroke-width:1.5"></i></button>
+                  </div>
+                </div>
+              </div>
+
+            </div><!-- /history-body -->
+
+            <!-- ── Chat Flow view ── -->
+            <div class="chat-body" id="chatBody">
+              <!-- messages injected by JS -->
+            </div><!-- /chat-body -->
+
+            <!-- Input area -->
+            <div class="agent-input-area">
+              <div class="agent-input-box">
+                <textarea id="chatInput" class="chat-textarea" placeholder="Help me…" rows="1"></textarea>
+                <div class="input-toolbar">
+                  <div class="toolbar-left">
+                    <button class="tb-btn" title="Attach">
+                      <i data-lucide="plus" style="width:16px;height:16px;stroke-width:2"></i>
+                    </button>
+                  </div>
+                  <div class="toolbar-right">
+                    <button class="tb-btn" title="Prompt Builder" onclick="pbOpen()">
+                      <i data-lucide="wand-2" style="width:16px;height:16px;stroke-width:1.5"></i>
+                    </button>
+                    <button class="tb-submit send" id="sendBtn" title="Send">
+                      <i data-lucide="arrow-up" style="width:15px;height:15px;stroke-width:2.5"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /agent-shell -->
+        </div><!-- /agent-shell-border -->
+
+      </div><!-- /content-area -->
+    </div><!-- /main-area -->
+  </div><!-- /page-wrapper -->
+
+  <script src="prompts-config.js"></script>
+
+  <!-- ── Prompt Builder Modal ──────────────────────────────────── -->
+  <div id="pb-overlay" class="pb-overlay" style="display:none">
+    <div class="pb-modal">
+      <div class="pb-modal-header">
+        <div class="pb-modal-header-left">
+          <i data-lucide="wand-2" style="width:18px;height:18px;stroke-width:1.5"></i>
+          <span class="pb-modal-title">Prompt Builder</span>
+        </div>
+        <button class="pb-x-btn" onclick="pbClose()">
+          <i data-lucide="x" style="width:18px;height:18px;stroke-width:2"></i>
+        </button>
+      </div>
+      <div id="pb-app" class="pb-body"></div>
+      <div id="pb-footer" class="pb-modal-footer"></div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="pb-toast" class="pb-toast" style="display:none">
+    <span id="pb-toast-message"></span>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    // ── Element refs ──────────────────────────────────────────────
+    const toggleBtn   = document.getElementById('toggleAgentBtn');
+    const closeBtn    = document.getElementById('closeAgentBtn');
+    const composeBtn  = document.getElementById('composeBtn');
+    const historyBtn  = document.getElementById('historyBtn');
+    const backBtn     = document.getElementById('backBtn');
+    const sendBtn     = document.getElementById('sendBtn');
+    const chatInput   = document.getElementById('chatInput');
+    const shell       = document.getElementById('agentShellBorder');
+    const agentBody   = document.getElementById('agentBody');
+    const historyBody = document.getElementById('historyBody');
+    const chatBody    = document.getElementById('chatBody');
+
+    // ── Dummy response pool ───────────────────────────────────────
+    const RESPONSES = [
+      {
+        seconds: 12,
+        reasoning: 'The user is asking a general question. I checked their enrolled courses and found Biology 101, Unit 1 is the most relevant context based on upcoming assessment deadlines and syllabus weight.',
+        tools: 'list_courses, listAssignments',
+        sources: 'Biology 101, Unit 1, Assessment 1',
+        text: 'Sure! Here\'s what I found. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Nunc sit amet velit lorem faucibus, tristique orci ut, posuere odio. Pellentesque venenatis neque ipsum, in sit amet malesuada elit egestas hendrerit. Posuere odio.',
+        suggestions: ['Tell me more', 'Give me an example', 'Summarize this']
+      },
+      {
+        seconds: 8,
+        reasoning: 'I reviewed the foundational concept definitions across all units and cross-referenced them with the student\'s recent quiz performance to identify the highest-leverage areas to focus on.',
+        tools: 'getStudentProgress, listConcepts',
+        sources: 'Biology 101, Unit 1, Quiz 2',
+        text: 'Great question! The key things to consider are: first, reviewing the foundational concepts, then practicing them in different contexts. Finally, test your understanding with a few exercises to make sure it all sticks.',
+        suggestions: ['What are the key concepts?', 'Show me an example', 'Create a quiz for me']
+      },
+      {
+        seconds: 19,
+        reasoning: 'This required pulling context from multiple units and comparing the student\'s prior responses. I identified the core principle underlying the topic by analyzing patterns in assignment feedback across the semester.',
+        tools: 'listAssignments, getFeedback, searchSyllabus',
+        sources: 'Biology 101, Units 1–3, Assignment Feedback',
+        text: 'Here\'s a thoughtful answer. The most important thing to understand is the underlying principle at work. Once you grasp that, the rest follows naturally. Let me know if you\'d like me to go deeper on any particular aspect of this topic.',
+        suggestions: ['Go deeper on this', 'What are the next steps?', 'Explain it differently']
+      },
+      {
+        seconds: 5,
+        reasoning: 'The student\'s goal is clear. I queried the course roadmap and mapped the remaining milestones to a weekly schedule that aligns with assessment dates.',
+        tools: 'getCourseRoadmap',
+        sources: 'Biology 101, Course Schedule',
+        text: 'Absolutely! Let me break it down step by step. First, identify your main goal. Second, gather the resources you need. Third, create a structured plan and timeline. Finally, execute and adjust as you go. Does that help clarify things?',
+        suggestions: ['Help me create a plan', 'What resources do I need?', 'Start a new topic']
+      }
+    ];
+    let responseIndex = 0;
+
+    // ── View management ───────────────────────────────────────────
+    function setView(view) {
+      agentBody.style.display  = view === 'home'    ? 'flex' : 'none';
+      historyBody.style.display = view === 'history' ? 'flex' : 'none';
+      chatBody.style.display   = view === 'chat'    ? 'flex' : 'none';
+      historyBtn.style.background = view === 'history' ? 'rgba(255,255,255,0.2)' : '';
+      if (view === 'home') waveHand();
     }
-    return this.courses.filter(course => course.term === termValue);
-  },
 
-  // Helper function to get course by name
-  getCourseByName(courseName) {
-    return this.courses.find(course => course.name === courseName);
-  }
-};
-
-    </script>
-    <script>
-// Ignite Agent Prompt Builder Configuration
-
-const PROMPTS_CONFIG = {
-  categories: [
-    {
-      id: 'create',
-      title: 'Create in Canvas',
-      description: 'Generate Canvas content using course materials and data',
-      icon: '✏️'
-    },
-    {
-      id: 'manage',
-      title: 'Manage & Report',
-      description: 'Retrieve and analyze Canvas data and perform batch changes',
-      icon: '📊'
-    },
-    {
-      id: 'student-tracking',
-      title: 'Student Tracking',
-      description: 'Monitor student progress, engagement, and performance',
-      icon: '👥'
-    },
-    {
-      id: 'course-analysis',
-      title: 'Course Analysis',
-      description: 'Evaluate course design and pedagogical effectiveness',
-      icon: '🔍'
-    },
-    {
-      id: 'grading',
-      title: 'Grading & Assessment',
-      description: 'Manage grades, submissions, and feedback',
-      icon: '📝'
-    },
-    {
-      id: 'files',
-      title: 'Files & Documents',
-      description: 'Manage course files and documents',
-      icon: '📁'
+    function waveHand() {
+      const hand = document.querySelector('.greeting-hand-wrap');
+      if (!hand) return;
+      hand.classList.remove('waving');
+      void hand.offsetWidth; // restart animation if already playing
+      hand.classList.add('waving');
+      hand.addEventListener('animationend', () => hand.classList.remove('waving'), { once: true });
     }
-  ],
 
-  actions: [
-    // CREATE IN CANVAS ACTIONS
-    {
-      id: 'create-course',
-      title: 'Create Course',
-      description: 'Create a new course',
-      category: 'create',
-      icon: '📚',
-      formFields: [
-        {
-          fieldType: 'text',
-          name: 'courseName',
-          label: 'Course Name',
-          required: true,
-          placeholder: 'e.g., Introduction to Psychology',
-          defaultValue: 'Advanced Web Development'
-        },
-        {
-          fieldType: 'text',
-          name: 'courseCode',
-          label: 'Course Code',
-          required: false,
-          placeholder: 'e.g., PSY-101',
-          defaultValue: 'CS-301'
-        },
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: true,
-          defaultValue: 'SPRING-2026',
-          helpText: 'Which term is this course for?'
-        },
-        {
-          fieldType: 'datetime-local',
-          name: 'startDate',
-          label: 'Start Date',
-          required: false,
-          defaultValue: '2026-01-15T00:00'
-        },
-        {
-          fieldType: 'datetime-local',
-          name: 'endDate',
-          label: 'End Date',
-          required: false,
-          defaultValue: '2026-05-15T23:59'
-        },
-        {
-          fieldType: 'textarea',
-          name: 'description',
-          label: 'Course Description',
-          required: false,
-          placeholder: 'Brief description of the course...',
-          rows: 4,
-          defaultValue: 'A comprehensive course covering modern web development frameworks, responsive design, and full-stack application development.'
-        },
-        {
-          fieldType: 'checkbox',
-          name: 'useTemplate',
-          label: 'Copy from Template/Blueprint',
-          helpText: 'Create this course from an existing template',
-          default: true
-        },
-        {
-          fieldType: 'text',
-          name: 'templateCourseName',
-          label: 'Template Course Name',
-          required: false,
-          conditional: { field: 'useTemplate', value: true },
-          placeholder: 'e.g., Web Dev Master Template',
-          defaultValue: 'CS Master Template Spring 2026'
-        },
-        {
-          fieldType: 'number',
-          name: 'enrollmentLimit',
-          label: 'Enrollment Limit (Optional)',
-          required: false,
-          placeholder: 'e.g., 30',
-          min: 1,
-          max: 500
-        },
-        {
-          fieldType: 'checkbox',
-          name: 'publishImmediately',
-          label: 'Publish Course Immediately',
-          helpText: 'Make the course visible to students right away',
-          default: false
-        },
-        {
-          fieldType: 'textarea',
-          name: 'additionalInstructions',
-          label: 'Additional Instructions',
-          required: false,
-          placeholder: 'Any other requirements?',
-          rows: 2,
-          defaultValue: 'Add me as the primary instructor.'
-        }
-      ],
-      promptTemplate: 'Create a new course called "{courseName}"{courseCode} in the {termFormatted} term{startDate}{endDate}{description}{useTemplate}{enrollmentLimit}{publishImmediately}{additionalInstructions}',
-      templateRules: {
-        courseCode: { condition: 'notEmpty', template: ' with course code "{courseCode}"' },
-        startDate: { condition: 'notEmpty', template: ', starting {startDate}' },
-        endDate: { condition: 'notEmpty', template: ' and ending {endDate}' },
-        description: { condition: 'notEmpty', template: '. Course description: "{description}"' },
-        useTemplate: { condition: 'true', template: '. Copy content from the "{templateCourseName}" template course' },
-        enrollmentLimit: { condition: 'notEmpty', template: '. Set enrollment limit to {enrollmentLimit} students' },
-        publishImmediately: { condition: 'true', template: '. Publish the course immediately so students can access it' },
-        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
-      }
-    },
-    {
-      id: 'create-assignment',
-      title: 'Create Assignment',
-      description: 'Create a new assignment in a course',
-      category: 'create',
-      icon: '📄',
-      formFields: [
-        {
-          fieldType: 'text',
-          name: 'assignmentName',
-          label: 'Assignment Name',
-          required: true,
-          placeholder: 'e.g., Week 1 Assignment',
-          defaultValue: 'Week 1 Essay'
-        },
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: false,
-          defaultValue: 'SPRING-2026',
-          helpText: 'Select term to filter courses'
-        },
-        {
-          fieldType: 'course-select',
-          name: 'courseName',
-          label: 'Course Name',
-          required: true,
-          placeholder: 'Type to search courses...',
-          defaultValue: 'Introduction to Philosophy'
-        },
-        {
-          fieldType: 'datetime-local',
-          name: 'dueDate',
-          label: 'Due Date',
-          required: false,
-          defaultValue: '2026-02-28T23:59'
-        },
-        {
-          fieldType: 'number',
-          name: 'points',
-          label: 'Points Possible',
-          required: false,
-          placeholder: '100',
-          min: 0,
-          defaultValue: '100'
-        },
-        {
-          fieldType: 'select',
-          name: 'submissionType',
-          label: 'Submission Type',
-          required: false,
-          defaultValue: 'online_text_entry',
-          options: [
-            { value: '', label: 'Not specified' },
-            { value: 'online_text_entry', label: 'Text Entry' },
-            { value: 'online_upload', label: 'File Upload' },
-            { value: 'online_url', label: 'Website URL' },
-            { value: 'external_tool', label: 'External Tool' }
-          ]
-        },
-        {
-          fieldType: 'textarea',
-          name: 'description',
-          label: 'Assignment Description',
-          required: false,
-          placeholder: 'Instructions for students',
-          rows: 4,
-          defaultValue: 'Write a 3-5 page essay on the topic discussed in class. Include at least three academic sources and follow MLA format.'
-        },
-        {
-          fieldType: 'text',
-          name: 'assignmentGroup',
-          label: 'Assignment Group',
-          required: false,
-          placeholder: 'e.g., Homework, Quizzes, Projects',
-          defaultValue: 'Essays'
-        },
-        {
-          fieldType: 'checkbox',
-          name: 'addToModule',
-          label: 'Add to Module',
-          helpText: 'Also add this assignment to a module',
-          default: true
-        },
-        {
-          fieldType: 'text',
-          name: 'moduleName',
-          label: 'Module Name',
-          required: false,
-          conditional: { field: 'addToModule', value: true },
-          placeholder: 'e.g., Week 1',
-          defaultValue: 'Week 1: Introduction to Ethics'
-        },
-        {
-          fieldType: 'textarea',
-          name: 'additionalInstructions',
-          label: 'Additional Instructions',
-          required: false,
-          placeholder: 'Any other requirements?',
-          rows: 2,
-          defaultValue: 'Send an announcement to students when this is created.'
-        }
-      ],
-      promptTemplate: 'Create an assignment called "{assignmentName}" in the {courseName} course{termInfo}{dueDate}{points}{submissionType}{description}{assignmentGroup}{moduleName}{additionalInstructions}',
-      templateRules: {
-        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
-        dueDate: { condition: 'notEmpty', template: ', due on {dueDate}' },
-        points: { condition: 'notEmpty', template: ', worth {points} points' },
-        submissionType: { condition: 'notEmpty', template: ', with submission type: {submissionType}' },
-        description: { condition: 'notEmpty', template: ', with the description: "{description}"' },
-        assignmentGroup: { condition: 'notEmpty', template: ' in the "{assignmentGroup}" assignment group' },
-        moduleName: { condition: 'notEmpty', template: '. Also add this assignment to the "{moduleName}" module' },
-        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
-      }
-    },
-    {
-      id: 'create-quiz',
-      title: 'Create Quiz',
-      description: 'Create a new quiz (New Quizzes)',
-      category: 'create',
-      icon: '✅',
-      formFields: [
-        {
-          fieldType: 'text',
-          name: 'quizTitle',
-          label: 'Quiz Title',
-          required: true,
-          placeholder: 'e.g., Chapter 1 Quiz',
-          defaultValue: 'Chapter 3: Cell Biology Quiz'
-        },
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: false,
-          defaultValue: 'SPRING-2026',
-          helpText: 'Select term to filter courses'
-        },
-        {
-          fieldType: 'course-select',
-          name: 'courseName',
-          label: 'Course Name',
-          required: true,
-          placeholder: 'Type to search courses...',
-          defaultValue: 'BIO-101-Spring 2026'
-        },
-        {
-          fieldType: 'datetime-local',
-          name: 'dueDate',
-          label: 'Due Date',
-          required: false,
-          defaultValue: '2026-03-15T23:59'
-        },
-        {
-          fieldType: 'number',
-          name: 'points',
-          label: 'Points Possible',
-          required: false,
-          placeholder: '100',
-          min: 0,
-          defaultValue: '50'
-        },
-        {
-          fieldType: 'number',
-          name: 'timeLimit',
-          label: 'Time Limit (minutes)',
-          required: false,
-          min: 1,
-          max: 300,
-          defaultValue: '30'
-        },
-        {
-          fieldType: 'checkbox',
-          name: 'useQuestionBank',
-          label: 'Draw from Question Bank',
-          helpText: 'Create quiz that pulls questions from a question bank',
-          default: true
-        },
-        {
-          fieldType: 'text',
-          name: 'questionBankName',
-          label: 'Question Bank Name',
-          required: false,
-          conditional: { field: 'useQuestionBank', value: true },
-          defaultValue: 'Chapter 3 Questions'
-        },
-        {
-          fieldType: 'checkbox',
-          name: 'shuffleAnswers',
-          label: 'Shuffle Answers',
-          default: true
-        },
-        {
-          fieldType: 'checkbox',
-          name: 'dontPublish',
-          label: 'Keep as Draft (Don\'t Publish)',
-          default: true,
-          helpText: 'Create quiz but don\'t publish to students yet'
-        },
-        {
-          fieldType: 'textarea',
-          name: 'additionalInstructions',
-          label: 'Additional Instructions',
-          required: false,
-          placeholder: 'Any other requirements?',
-          rows: 2,
-          defaultValue: 'Allow 2 attempts, keep highest score.'
-        }
-      ],
-      promptTemplate: 'Create a quiz titled "{quizTitle}" in the {courseName} course{termInfo}{dueDate}{points}{timeLimit}{questionBank}{shuffleAnswers}{dontPublish}{additionalInstructions}',
-      templateRules: {
-        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
-        dueDate: { condition: 'notEmpty', template: ', due on {dueDate}' },
-        points: { condition: 'notEmpty', template: ', worth {points} points' },
-        timeLimit: { condition: 'notEmpty', template: ' with a {timeLimit} minute time limit' },
-        questionBank: { condition: 'useQuestionBank', template: ' that draws questions from the "{questionBankName}" question bank' },
-        shuffleAnswers: { condition: 'true', template: '. Shuffle answers for each question' },
-        dontPublish: { condition: 'true', template: '. Don\'t publish it to students yet - keep it as a draft' },
-        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
-      }
-    },
-    {
-      id: 'create-module',
-      title: 'Create Module',
-      description: 'Create a new module in a course',
-      category: 'create',
-      icon: '📦',
-      formFields: [
-        {
-          fieldType: 'text',
-          name: 'moduleName',
-          label: 'Module Name',
-          required: true,
-          placeholder: 'e.g., Week 1: Introduction',
-          defaultValue: 'Week 3: Advanced Topics'
-        },
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: false,
-          defaultValue: 'FALL-2025',
-          helpText: 'Select term to filter courses'
-        },
-        {
-          fieldType: 'course-select',
-          name: 'courseName',
-          label: 'Course Name',
-          required: true,
-          placeholder: 'Type to search courses...',
-          defaultValue: 'Introduction to Linguistics'
-        },
-        {
-          fieldType: 'number',
-          name: 'position',
-          label: 'Position',
-          required: false,
-          placeholder: 'e.g., 1 for top of list',
-          min: 1,
-          helpText: 'Where in the module list should this appear?',
-          defaultValue: '3'
-        },
-        {
-          fieldType: 'textarea',
-          name: 'additionalInstructions',
-          label: 'Additional Instructions',
-          required: false,
-          placeholder: 'Any other requirements?',
-          rows: 2,
-          defaultValue: 'Lock this module until Week 2 is completed.'
-        }
-      ],
-      promptTemplate: 'Create a new module called "{moduleName}" in the {courseName} course{termInfo}{position}{additionalInstructions}',
-      templateRules: {
-        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
-        position: { condition: 'notEmpty', template: ' at position {position}' },
-        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
-      }
-    },
-    {
-      id: 'create-page',
-      title: 'Create Page',
-      description: 'Create a new page in a course',
-      category: 'create',
-      icon: '📃',
-      formFields: [
-        {
-          fieldType: 'text',
-          name: 'pageTitle',
-          label: 'Page Title',
-          required: true,
-          placeholder: 'e.g., Course Policies',
-          defaultValue: 'Assignment Solutions'
-        },
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: false,
-          defaultValue: 'SPRING-2026',
-          helpText: 'Select term to filter courses'
-        },
-        {
-          fieldType: 'course-select',
-          name: 'courseName',
-          label: 'Course Name',
-          required: true,
-          placeholder: 'Type to search courses...',
-          defaultValue: 'MATH-1010-020-Spring 2026'
-        },
-        {
-          fieldType: 'textarea',
-          name: 'content',
-          label: 'Page Content',
-          required: false,
-          placeholder: 'Content for the page...',
-          rows: 6,
-          defaultValue: 'Here are the solutions to the homework assignments. Review these after submitting your work.'
-        },
-        {
-          fieldType: 'checkbox',
-          name: 'setAsFrontPage',
-          label: 'Set as Course Front Page',
-          helpText: 'Make this the course home page',
-          default: false
-        },
-        {
-          fieldType: 'checkbox',
-          name: 'conditionalAccess',
-          label: 'Add Conditional Access',
-          helpText: 'Restrict access based on certain criteria',
-          default: true
-        },
-        {
-          fieldType: 'textarea',
-          name: 'accessCriteria',
-          label: 'Access Criteria',
-          required: false,
-          conditional: { field: 'conditionalAccess', value: true },
-          placeholder: 'e.g., Only available to students who received a non-zero score on Assignment X',
-          rows: 3,
-          defaultValue: 'Only available to students who received a non-zero score on Homework 1'
-        },
-        {
-          fieldType: 'textarea',
-          name: 'additionalInstructions',
-          label: 'Additional Instructions',
-          required: false,
-          placeholder: 'Any other requirements?',
-          rows: 2,
-          defaultValue: 'Keep as draft until next week.'
-        }
-      ],
-      promptTemplate: 'Create a page titled "{pageTitle}" in the {courseName} course{termInfo}{content}{frontPage}{conditionalAccess}{additionalInstructions}',
-      templateRules: {
-        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
-        content: { condition: 'notEmpty', template: ' with the following content: "{content}"' },
-        frontPage: { condition: 'true', template: '. Set it as the course front page' },
-        conditionalAccess: { condition: 'conditionalAccess', template: '. {accessCriteria}' },
-        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
-      }
-    },
-    {
-      id: 'create-announcement',
-      title: 'Create Announcement',
-      description: 'Create a new announcement in a course',
-      category: 'create',
-      icon: '📢',
-      formFields: [
-        {
-          fieldType: 'text',
-          name: 'announcementTitle',
-          label: 'Announcement Title',
-          required: true,
-          placeholder: 'e.g., Welcome to the Course',
-          defaultValue: 'Week 3 Assignment Reminder'
-        },
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: false,
-          defaultValue: 'FALL-2025',
-          helpText: 'Select term to filter courses'
-        },
-        {
-          fieldType: 'course-select',
-          name: 'courseName',
-          label: 'Course Name',
-          required: true,
-          placeholder: 'Type to search courses...',
-          defaultValue: 'Introduction to Linguistics'
-        },
-        {
-          fieldType: 'textarea',
-          name: 'message',
-          label: 'Message',
-          required: true,
-          placeholder: 'Your announcement message...',
-          rows: 6,
-          defaultValue: 'Hello everyone! This is a reminder that the Week 3 assignment is due this Friday at 11:59 PM. Please reach out if you have any questions.'
-        },
-        {
-          fieldType: 'checkbox',
-          name: 'scheduleDelay',
-          label: 'Schedule for Later',
-          helpText: 'Post the announcement at a specific date/time',
-          default: true
-        },
-        {
-          fieldType: 'datetime-local',
-          name: 'postDate',
-          label: 'Post Date',
-          required: false,
-          conditional: { field: 'scheduleDelay', value: true },
-          defaultValue: '2026-02-24T09:00'
-        },
-        {
-          fieldType: 'textarea',
-          name: 'additionalInstructions',
-          label: 'Additional Instructions',
-          required: false,
-          placeholder: 'Any other requirements?',
-          rows: 2,
-          defaultValue: 'Also send this as an email notification.'
-        }
-      ],
-      promptTemplate: 'Create an announcement titled "{announcementTitle}" in the {courseName} course{termInfo} with the message: "{message}"{postDate}{additionalInstructions}',
-      templateRules: {
-        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
-        postDate: { condition: 'notEmpty', template: '. Schedule it to post on {postDate}' },
-        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
-      }
-    },
-
-    // MANAGE & REPORT ACTIONS
-    {
-      id: 'list-assignments',
-      title: 'List Assignments',
-      description: 'Get all assignments in a course',
-      category: 'manage',
-      icon: '📋',
-      formFields: [
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: false,
-          defaultValue: 'SPRING-2026',
-          helpText: 'Select term to filter courses'
-        },
-        {
-          fieldType: 'course-select',
-          name: 'courseName',
-          label: 'Course Name',
-          required: true,
-          placeholder: 'Type to search courses...',
-          defaultValue: 'MATH-1010-020-Spring 2026'
-        },
-        {
-          fieldType: 'textarea',
-          name: 'additionalInstructions',
-          label: 'Additional Instructions',
-          required: false,
-          placeholder: 'Any filtering or sorting preferences?',
-          rows: 2,
-          defaultValue: 'Show only assignments due in the next 2 weeks.'
-        }
-      ],
-      promptTemplate: 'List all assignments in the {courseName} course{termInfo}{additionalInstructions}',
-      templateRules: {
-        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
-        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
-      }
-    },
-    {
-      id: 'list-modules',
-      title: 'List Modules',
-      description: 'Get all modules in a course',
-      category: 'manage',
-      icon: '📚',
-      formFields: [
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: false,
-          defaultValue: 'FALL-2025',
-          helpText: 'Select term to filter courses'
-        },
-        {
-          fieldType: 'course-select',
-          name: 'courseName',
-          label: 'Course Name',
-          required: true,
-          placeholder: 'Type to search courses...',
-          defaultValue: 'Introduction to Linguistics'
-        },
-        {
-          fieldType: 'textarea',
-          name: 'additionalInstructions',
-          label: 'Additional Instructions',
-          required: false,
-          placeholder: 'Any additional requirements?',
-          rows: 2,
-          defaultValue: 'Include the number of items in each module.'
-        }
-      ],
-      promptTemplate: 'List all modules in the {courseName} course{termInfo}{additionalInstructions}',
-      templateRules: {
-        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
-        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
-      }
-    },
-    {
-      id: 'get-module-items',
-      title: 'Get Module Items',
-      description: 'View contents of a specific module',
-      category: 'manage',
-      icon: '🔎',
-      formFields: [
-        {
-          fieldType: 'text',
-          name: 'moduleName',
-          label: 'Module Name',
-          required: true,
-          placeholder: 'e.g., Module 3: Foundations of Money',
-          defaultValue: 'Module 3: Foundations of Money'
-        },
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: false,
-          defaultValue: 'SPRING-2026',
-          helpText: 'Select term to filter courses'
-        },
-        {
-          fieldType: 'course-select',
-          name: 'courseName',
-          label: 'Course Name',
-          required: true,
-          placeholder: 'Type to search courses...',
-          defaultValue: 'Financial Literacy 101'
-        },
-        {
-          fieldType: 'text',
-          name: 'courseId',
-          label: 'Course ID (Optional)',
-          required: false,
-          placeholder: 'e.g., 1712556',
-          helpText: 'Optional: Makes lookup faster',
-          defaultValue: '1712556'
-        },
-        {
-          fieldType: 'textarea',
-          name: 'additionalInstructions',
-          label: 'Additional Instructions',
-          required: false,
-          placeholder: 'Any additional requirements?',
-          rows: 2,
-          defaultValue: 'Show completion status for each item.'
-        }
-      ],
-      promptTemplate: 'Get module items for {moduleName} in {courseName}{termInfo}{courseId}{additionalInstructions}',
-      templateRules: {
-        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
-        courseId: { condition: 'notEmpty', template: ' (course ID: {courseId})' },
-        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
-      }
-    },
-    {
-      id: 'update-due-date',
-      title: 'Update Due Date',
-      description: 'Change the due date for an assignment or quiz',
-      category: 'manage',
-      icon: '📅',
-      formFields: [
-        {
-          fieldType: 'text',
-          name: 'itemName',
-          label: 'Assignment/Quiz Name',
-          required: true,
-          placeholder: 'e.g., Chapter 1 Quiz',
-          defaultValue: 'Chapter 3 Quiz'
-        },
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: false,
-          defaultValue: 'SPRING-2026',
-          helpText: 'Select term to filter courses'
-        },
-        {
-          fieldType: 'course-select',
-          name: 'courseName',
-          label: 'Course Name',
-          required: false,
-          placeholder: 'Type to search courses...',
-          helpText: 'Optional but recommended',
-          defaultValue: 'BIO-101-Spring 2026'
-        },
-        {
-          fieldType: 'datetime-local',
-          name: 'newDueDate',
-          label: 'New Due Date',
-          required: true,
-          defaultValue: '2026-03-20T23:59'
-        },
-        {
-          fieldType: 'textarea',
-          name: 'additionalInstructions',
-          label: 'Additional Instructions',
-          required: false,
-          placeholder: 'Any additional requirements?',
-          rows: 2,
-          defaultValue: 'Send an announcement about the date change.'
-        }
-      ],
-      promptTemplate: 'Update the due date for "{itemName}"{courseName}{termInfo} to {newDueDate}{additionalInstructions}',
-      templateRules: {
-        courseName: { condition: 'notEmpty', template: ' in the {courseName} course' },
-        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
-        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
-      }
-    },
-
-    // STUDENT TRACKING ACTIONS
-    {
-      id: 'find-students-not-logged-in',
-      title: 'Students Not Logged In',
-      description: 'Find students who haven\'t logged into a course',
-      category: 'student-tracking',
-      icon: '🔍',
-      formFields: [
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: false,
-          defaultValue: 'SPRING-2026',
-          helpText: 'Select term to filter courses'
-        },
-        {
-          fieldType: 'course-select',
-          name: 'courseName',
-          label: 'Course Name',
-          required: true,
-          placeholder: 'Type to search courses...',
-          defaultValue: 'PSY1012 General Psychology'
-        },
-        {
-          fieldType: 'select',
-          name: 'timeframe',
-          label: 'Timeframe',
-          required: false,
-          defaultValue: 'in the last 7 days',
-          options: [
-            { value: '', label: 'Ever (never logged in)' },
-            { value: 'in the last 7 days', label: 'Last 7 days' },
-            { value: 'in the last 14 days', label: 'Last 14 days' },
-            { value: 'in the last 30 days', label: 'Last 30 days' }
-          ]
-        },
-        {
-          fieldType: 'checkbox',
-          name: 'includeLastLogin',
-          label: 'Include Last Login Date',
-          default: true,
-          helpText: 'Show when each student last logged in'
-        },
-        {
-          fieldType: 'textarea',
-          name: 'additionalInstructions',
-          label: 'Additional Instructions',
-          required: false,
-          placeholder: 'What should we do with this list?',
-          rows: 2,
-          defaultValue: 'Send them an encouraging email to check in.'
-        }
-      ],
-      promptTemplate: 'Get a list of students who have not logged into the {courseName} course{termInfo}{timeframe}{includeLastLogin}{additionalInstructions}',
-      templateRules: {
-        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
-        timeframe: { condition: 'notEmpty', template: ' {timeframe}' },
-        includeLastLogin: { condition: 'true', template: '. Include their last login date' },
-        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
-      }
-    },
-    {
-      id: 'find-students-incomplete-module',
-      title: 'Students With Incomplete Module',
-      description: 'Find students who haven\'t completed a module',
-      category: 'student-tracking',
-      icon: '📦',
-      formFields: [
-        {
-          fieldType: 'text',
-          name: 'moduleName',
-          label: 'Module Name',
-          required: true,
-          placeholder: 'e.g., Unit 2',
-          defaultValue: 'Unit 2'
-        },
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: false,
-          defaultValue: 'FALL-2025',
-          helpText: 'Select term to filter courses'
-        },
-        {
-          fieldType: 'course-select',
-          name: 'courseName',
-          label: 'Course Name',
-          required: true,
-          placeholder: 'Select a course',
-          defaultValue: 'Principles of Teaching & Learning'
-        },
-        {
-          fieldType: 'textarea',
-          name: 'additionalInstructions',
-          label: 'Additional Instructions',
-          required: false,
-          placeholder: 'Any additional requirements?',
-          rows: 2,
-          defaultValue: 'Include their progress percentage for the module.'
-        }
-      ],
-      promptTemplate: 'Find students who have not completed the {moduleName} module in the {courseName} course{termInfo}{additionalInstructions}',
-      templateRules: {
-        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
-        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
-      }
-    },
-    {
-      id: 'find-students-by-grade',
-      title: 'Students By Grade Threshold',
-      description: 'Find students below a certain grade',
-      category: 'student-tracking',
-      icon: '📊',
-      formFields: [
-        {
-          fieldType: 'select',
-          name: 'gradeThreshold',
-          label: 'Grade Threshold',
-          required: true,
-          defaultValue: 'less than a C',
-          options: [
-            { value: '', label: 'Select threshold' },
-            { value: 'less than a C', label: 'Below C' },
-            { value: 'less than a D', label: 'Below D (failing)' },
-            { value: 'less than 70%', label: 'Below 70%' },
-            { value: 'less than 60%', label: 'Below 60%' },
-            { value: 'less than 50%', label: 'Below 50%' }
-          ]
-        },
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: false,
-          defaultValue: 'SPRING-2026',
-          helpText: 'Select term to filter courses'
-        },
-        {
-          fieldType: 'course-select',
-          name: 'courseName',
-          label: 'Course Name',
-          required: true,
-          placeholder: 'Select a course',
-          defaultValue: 'Introduction to Psychology'
-        },
-        {
-          fieldType: 'text',
-          name: 'courseId',
-          label: 'Course ID (Optional)',
-          required: false,
-          placeholder: 'e.g., 1698972',
-          defaultValue: '1698972'
-        },
-        {
-          fieldType: 'textarea',
-          name: 'additionalInstructions',
-          label: 'Additional Instructions',
-          required: false,
-          placeholder: 'Any additional requirements?',
-          rows: 2,
-          defaultValue: 'Offer them extra credit opportunities.'
-        }
-      ],
-      promptTemplate: 'Find students with grades {gradeThreshold} in {courseName}{termInfo}{courseId}{additionalInstructions}',
-      templateRules: {
-        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
-        courseId: { condition: 'notEmpty', template: ' (course ID: {courseId})' },
-        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
-      }
-    },
-    {
-      id: 'find-low-engagement',
-      title: 'Low Engagement Students',
-      description: 'Find students with low participation',
-      category: 'student-tracking',
-      icon: '⚠️',
-      formFields: [
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: false,
-          defaultValue: 'FALL-2025',
-          helpText: 'Select term to filter courses'
-        },
-        {
-          fieldType: 'course-select',
-          name: 'courseName',
-          label: 'Course Name',
-          required: true,
-          placeholder: 'Select a course',
-          defaultValue: 'BIB1520 - Biblical Studies'
-        },
-        {
-          fieldType: 'textarea',
-          name: 'additionalInstructions',
-          label: 'Additional Instructions',
-          required: false,
-          placeholder: 'What defines low engagement for you?',
-          rows: 2,
-          defaultValue: 'Include students with less than 50% page views and no discussion posts.'
-        }
-      ],
-      promptTemplate: 'Find students with low engagement in the {courseName} course{termInfo}{additionalInstructions}',
-      templateRules: {
-        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
-        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
-      }
-    },
-
-    // COURSE ANALYSIS ACTIONS
-    {
-      id: 'analyze-design-features',
-      title: 'Analyze Design Features',
-      description: 'Identify standout design features in a course',
-      category: 'course-analysis',
-      icon: '🎨',
-      formFields: [
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: false,
-          defaultValue: 'SPRING-2026',
-          helpText: 'Select term to filter courses'
-        },
-        {
-          fieldType: 'course-select',
-          name: 'courseName',
-          label: 'Course Name',
-          required: true,
-          placeholder: 'Select a course',
-          defaultValue: 'Financial Literacy 101'
-        },
-        {
-          fieldType: 'text',
-          name: 'courseId',
-          label: 'Course ID (Optional)',
-          required: false,
-          placeholder: 'e.g., 1712556',
-          defaultValue: '1712556'
-        },
-        {
-          fieldType: 'textarea',
-          name: 'additionalInstructions',
-          label: 'Additional Instructions',
-          required: false,
-          placeholder: 'Any specific aspects to focus on?',
-          rows: 2,
-          defaultValue: 'Focus on accessibility and visual design elements.'
-        }
-      ],
-      promptTemplate: 'Analyze the design features of {courseName}{termInfo}{courseId} and highlight what stands out{additionalInstructions}',
-      templateRules: {
-        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
-        courseId: { condition: 'notEmpty', template: ' (course ID: {courseId})' },
-        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
-      }
-    },
-    {
-      id: 'evaluate-backward-design',
-      title: 'Backward Design Evaluation',
-      description: 'Evaluate course from backward design perspective',
-      category: 'course-analysis',
-      icon: '🔄',
-      formFields: [
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: false,
-          defaultValue: 'SPRING-2026',
-          helpText: 'Select term to filter courses'
-        },
-        {
-          fieldType: 'course-select',
-          name: 'courseName',
-          label: 'Course Name',
-          required: true,
-          placeholder: 'Select a course',
-          defaultValue: 'Introduction to Philosophy'
-        },
-        {
-          fieldType: 'textarea',
-          name: 'additionalInstructions',
-          label: 'Additional Instructions',
-          required: false,
-          placeholder: 'Any specific aspects to evaluate?',
-          rows: 2,
-          defaultValue: 'Focus on alignment between learning outcomes and assessments.'
-        }
-      ],
-      promptTemplate: 'Evaluate the {courseName} course{termInfo} from a backward design point of view{additionalInstructions}',
-      templateRules: {
-        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
-        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
-      }
-    },
-    {
-      id: 'get-design-tips',
-      title: 'Instructional Design Tips',
-      description: 'Get improvement suggestions for a course',
-      category: 'course-analysis',
-      icon: '💡',
-      formFields: [
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: false,
-          defaultValue: 'FALL-2025',
-          helpText: 'Select term to filter courses'
-        },
-        {
-          fieldType: 'course-select',
-          name: 'courseName',
-          label: 'Course Name',
-          required: true,
-          placeholder: 'Select a course',
-          defaultValue: 'Biology 101'
-        },
-        {
-          fieldType: 'text',
-          name: 'courseUrl',
-          label: 'Course URL (Optional)',
-          required: false,
-          placeholder: 'e.g., https://canvas.edu/courses/12345',
-          defaultValue: 'https://nmsu.instructure.com/courses/1728717'
-        },
-        {
-          fieldType: 'textarea',
-          name: 'additionalInstructions',
-          label: 'Additional Instructions',
-          required: false,
-          placeholder: 'Any specific areas of concern?',
-          rows: 2,
-          defaultValue: 'Focus on improving student engagement and interaction.'
-        }
-      ],
-      promptTemplate: 'Provide instructional design tips for {courseName}{termInfo}{courseUrl}{additionalInstructions}',
-      templateRules: {
-        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
-        courseUrl: { condition: 'notEmpty', template: ': {courseUrl}' },
-        additionalInstructions: { condition: 'notEmpty', template: '. {additionalInstructions}' }
-      }
-    },
-
-    // GRADING & ASSESSMENT ACTIONS
-    {
-      id: 'post-grades-with-comments',
-      title: 'Post Grades with Comments',
-      description: 'Add grades and feedback for students',
-      category: 'grading',
-      icon: '✍️',
-      formFields: [
-        {
-          fieldType: 'text',
-          name: 'assignmentName',
-          label: 'Assignment Name',
-          required: true,
-          placeholder: 'e.g., Discussion Post 1',
-          defaultValue: 'Check-in Discussion'
-        },
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: false,
-          defaultValue: 'FALL-2025',
-          helpText: 'Select term to filter courses'
-        },
-        {
-          fieldType: 'course-select',
-          name: 'courseName',
-          label: 'Course Name',
-          required: true,
-          placeholder: 'Select a course',
-          defaultValue: 'CDE-103-3602'
-        },
-        {
-          fieldType: 'number',
-          name: 'points',
-          label: 'Points to Award',
-          required: true,
-          placeholder: '50',
-          min: 0,
-          defaultValue: '50'
-        },
-        {
-          fieldType: 'textarea',
-          name: 'comment',
-          label: 'Comment for Students',
-          required: true,
-          placeholder: 'Feedback to include...',
-          rows: 4,
-          defaultValue: 'Thanks for checking in and sharing who you are as we begin the course.'
-        },
-        {
-          fieldType: 'select',
-          name: 'criteria',
-          label: 'Award to Students Who',
-          required: true,
-          defaultValue: 'completed_with_posts',
-          options: [
-            { value: '', label: 'Select criteria' },
-            { value: 'all_students', label: 'All students' },
-            { value: 'submitted', label: 'Submitted the assignment' },
-            { value: 'completed_with_posts', label: 'Completed with original and peer posts' },
-            { value: 'specific_students', label: 'Specific students only' }
-          ]
-        },
-        {
-          fieldType: 'textarea',
-          name: 'studentNames',
-          label: 'Student Names (if specific)',
-          required: false,
-          conditional: { field: 'criteria', value: 'specific_students' },
-          placeholder: 'List student names...',
-          rows: 3
-        },
-        {
-          fieldType: 'textarea',
-          name: 'additionalInstructions',
-          label: 'Additional Instructions',
-          required: false,
-          placeholder: 'Any other requirements?',
-          rows: 2
-        }
-      ],
-      promptTemplate: 'Post {points} points and this comment in the gradebook for the "{assignmentName}" assignment in {courseName}{termInfo}{criteria}{studentNames}: "{comment}"{additionalInstructions}',
-      templateRules: {
-        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
-        criteria: {
-          condition: 'notEmpty',
-          template: ' for {criteriaText}'
-        },
-        studentNames: {
-          condition: 'notEmpty',
-          template: ' ({studentNames})'
-        },
-        additionalInstructions: {
-          condition: 'notEmpty',
-          template: '. {additionalInstructions}'
-        }
-      }
-    },
-    {
-      id: 'list-missing-submissions',
-      title: 'List Missing Submissions',
-      description: 'Find students who haven\'t submitted an assignment',
-      category: 'grading',
-      icon: '📋',
-      formFields: [
-        {
-          fieldType: 'text',
-          name: 'assignmentName',
-          label: 'Assignment Name',
-          required: true,
-          placeholder: 'e.g., Homework 1',
-          defaultValue: 'Homework 1'
-        },
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: false,
-          defaultValue: 'SPRING-2026',
-          helpText: 'Select term to filter courses'
-        },
-        {
-          fieldType: 'course-select',
-          name: 'courseName',
-          label: 'Course Name',
-          required: true,
-          placeholder: 'Select a course',
-          defaultValue: 'MATH-1010-020-Spring 2026'
-        },
-        {
-          fieldType: 'checkbox',
-          name: 'includeZeroScores',
-          label: 'Include Students with Zero Scores',
-          default: true,
-          helpText: 'Also show students who submitted but received 0 points'
-        },
-        {
-          fieldType: 'textarea',
-          name: 'additionalInstructions',
-          label: 'Additional Instructions',
-          required: false,
-          placeholder: 'Any additional requirements?',
-          rows: 2,
-          defaultValue: 'Send them a reminder email about the missing work.'
-        }
-      ],
-      promptTemplate: 'Show me students who haven\'t submitted "{assignmentName}" in {courseName}{termInfo}{includeZeroScores}{additionalInstructions}',
-      templateRules: {
-        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
-        includeZeroScores: {
-          condition: 'true',
-          template: '. Include students with zero scores'
-        },
-        additionalInstructions: {
-          condition: 'notEmpty',
-          template: '. {additionalInstructions}'
-        }
-      }
-    },
-    {
-      id: 'get-assignment-submissions',
-      title: 'Get Assignment Submissions',
-      description: 'View all submissions for an assignment',
-      category: 'grading',
-      icon: '📥',
-      formFields: [
-        {
-          fieldType: 'text',
-          name: 'assignmentName',
-          label: 'Assignment Name',
-          required: true,
-          placeholder: 'e.g., Final Essay',
-          defaultValue: 'Final Essay'
-        },
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: false,
-          defaultValue: 'FALL-2025',
-          helpText: 'Select term to filter courses'
-        },
-        {
-          fieldType: 'course-select',
-          name: 'courseName',
-          label: 'Course Name',
-          required: true,
-          placeholder: 'Select a course',
-          defaultValue: 'English 101'
-        },
-        {
-          fieldType: 'select',
-          name: 'filterBy',
-          label: 'Filter Submissions',
-          required: false,
-          options: [
-            { value: '', label: 'All submissions' },
-            { value: 'graded', label: 'Only graded' },
-            { value: 'ungraded', label: 'Only ungraded' },
-            { value: 'late', label: 'Only late submissions' }
-          ]
-        },
-        {
-          fieldType: 'checkbox',
-          name: 'includeComments',
-          label: 'Include Submission Comments',
-          default: true
-        },
-        {
-          fieldType: 'textarea',
-          name: 'additionalInstructions',
-          label: 'Additional Instructions',
-          required: false,
-          placeholder: 'Any additional requirements?',
-          rows: 2,
-          defaultValue: 'Show submission timestamps.'
-        }
-      ],
-      promptTemplate: 'Get all submissions for "{assignmentName}" in {courseName}{termInfo}{filterBy}{includeComments}{additionalInstructions}',
-      templateRules: {
-        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
-        filterBy: {
-          condition: 'notEmpty',
-          template: ', showing only {filterBy} submissions'
-        },
-        includeComments: {
-          condition: 'true',
-          template: '. Include submission comments'
-        },
-        additionalInstructions: {
-          condition: 'notEmpty',
-          template: '. {additionalInstructions}'
-        }
-      }
-    },
-    {
-      id: 'update-grade',
-      title: 'Update Student Grade',
-      description: 'Change a grade for a specific student',
-      category: 'grading',
-      icon: '✏️',
-      formFields: [
-        {
-          fieldType: 'text',
-          name: 'studentName',
-          label: 'Student Name',
-          required: true,
-          placeholder: 'e.g., John Smith',
-          defaultValue: 'Jane Doe'
-        },
-        {
-          fieldType: 'text',
-          name: 'assignmentName',
-          label: 'Assignment Name',
-          required: true,
-          placeholder: 'e.g., Quiz 1',
-          defaultValue: 'Quiz 1'
-        },
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: false,
-          defaultValue: 'FALL-2025',
-          helpText: 'Select term to filter courses'
-        },
-        {
-          fieldType: 'course-select',
-          name: 'courseName',
-          label: 'Course Name',
-          required: true,
-          placeholder: 'Select a course',
-          defaultValue: 'Biology 101'
-        },
-        {
-          fieldType: 'number',
-          name: 'newGrade',
-          label: 'New Grade',
-          required: true,
-          placeholder: 'e.g., 95',
-          min: 0,
-          defaultValue: '95'
-        },
-        {
-          fieldType: 'textarea',
-          name: 'gradeComment',
-          label: 'Comment (Optional)',
-          required: false,
-          placeholder: 'Reason for grade change...',
-          rows: 3,
-          defaultValue: 'Adjusted for extra credit work submitted.'
-        }
-      ],
-      promptTemplate: 'Update the grade for {studentName} on "{assignmentName}" in {courseName}{termInfo} to {newGrade}{gradeComment}',
-      templateRules: {
-        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
-        gradeComment: {
-          condition: 'notEmpty',
-          template: ' with this comment: "{gradeComment}"'
-        }
-      }
-    },
-
-    // FILES & DOCUMENTS ACTIONS
-    {
-      id: 'list-course-files',
-      title: 'List Course Files',
-      description: 'View all files in a course',
-      category: 'files',
-      icon: '📂',
-      formFields: [
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: false,
-          defaultValue: 'FALL-2025',
-          helpText: 'Select term to filter courses'
-        },
-        {
-          fieldType: 'course-select',
-          name: 'courseName',
-          label: 'Course Name',
-          required: true,
-          placeholder: 'Select a course',
-          defaultValue: 'Chemistry 101'
-        },
-        {
-          fieldType: 'text',
-          name: 'folderName',
-          label: 'Folder Name (Optional)',
-          required: false,
-          placeholder: 'e.g., Lecture Slides',
-          helpText: 'Leave blank to list all files'
-        },
-        {
-          fieldType: 'select',
-          name: 'fileType',
-          label: 'Filter by File Type',
-          required: false,
-          options: [
-            { value: '', label: 'All file types' },
-            { value: 'pdf', label: 'PDF files only' },
-            { value: 'image', label: 'Images only' },
-            { value: 'video', label: 'Videos only' },
-            { value: 'document', label: 'Documents only' }
-          ]
-        },
-        {
-          fieldType: 'textarea',
-          name: 'additionalInstructions',
-          label: 'Additional Instructions',
-          required: false,
-          placeholder: 'Any additional requirements?',
-          rows: 2,
-          defaultValue: 'Sort by most recently uploaded.'
-        }
-      ],
-      promptTemplate: 'List all files in {courseName}{termInfo}{folderName}{fileType}{additionalInstructions}',
-      templateRules: {
-        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
-        folderName: {
-          condition: 'notEmpty',
-          template: ' in the "{folderName}" folder'
-        },
-        fileType: {
-          condition: 'notEmpty',
-          template: ', showing only {fileType} files'
-        },
-        additionalInstructions: {
-          condition: 'notEmpty',
-          template: '. {additionalInstructions}'
-        }
-      }
-    },
-    {
-      id: 'search-for-file',
-      title: 'Search for File',
-      description: 'Find a specific file in a course',
-      category: 'files',
-      icon: '🔎',
-      formFields: [
-        {
-          fieldType: 'text',
-          name: 'searchTerm',
-          label: 'File Name or Keyword',
-          required: true,
-          placeholder: 'e.g., syllabus',
-          defaultValue: 'syllabus'
-        },
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: false,
-          defaultValue: 'FALL-2025',
-          helpText: 'Select term to filter courses'
-        },
-        {
-          fieldType: 'course-select',
-          name: 'courseName',
-          label: 'Course Name',
-          required: true,
-          placeholder: 'Select a course',
-          defaultValue: 'History 101'
-        },
-        {
-          fieldType: 'checkbox',
-          name: 'exactMatch',
-          label: 'Exact Match Only',
-          default: false,
-          helpText: 'Only find files with exact name match'
-        },
-        {
-          fieldType: 'textarea',
-          name: 'additionalInstructions',
-          label: 'Additional Instructions',
-          required: false,
-          placeholder: 'Any additional requirements?',
-          rows: 2
-        }
-      ],
-      promptTemplate: 'Search for files containing "{searchTerm}" in {courseName}{termInfo}{exactMatch}{additionalInstructions}',
-      templateRules: {
-        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
-        exactMatch: {
-          condition: 'true',
-          template: ' (exact match only)'
-        },
-        additionalInstructions: {
-          condition: 'notEmpty',
-          template: '. {additionalInstructions}'
-        }
-      }
-    },
-    {
-      id: 'organize-files',
-      title: 'Organize Files into Folder',
-      description: 'Move or organize files in course files',
-      category: 'files',
-      icon: '📁',
-      formFields: [
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: false,
-          defaultValue: 'SPRING-2026',
-          helpText: 'Select term to filter courses'
-        },
-        {
-          fieldType: 'course-select',
-          name: 'courseName',
-          label: 'Course Name',
-          required: true,
-          placeholder: 'Select a course',
-          defaultValue: 'ART-101-Spring 2026'
-        },
-        {
-          fieldType: 'text',
-          name: 'folderName',
-          label: 'Target Folder Name',
-          required: true,
-          placeholder: 'e.g., Week 1 Materials',
-          defaultValue: 'Week 1 Materials'
-        },
-        {
-          fieldType: 'textarea',
-          name: 'fileDescription',
-          label: 'Which Files to Move',
-          required: true,
-          placeholder: 'Describe which files to move...',
-          rows: 3,
-          defaultValue: 'All PDF files uploaded this week'
-        },
-        {
-          fieldType: 'checkbox',
-          name: 'createFolder',
-          label: 'Create Folder if it Doesn\'t Exist',
-          default: true
-        },
-        {
-          fieldType: 'textarea',
-          name: 'additionalInstructions',
-          label: 'Additional Instructions',
-          required: false,
-          placeholder: 'Any additional requirements?',
-          rows: 2
-        }
-      ],
-      promptTemplate: 'In {courseName}{termInfo}, move {fileDescription} to the "{folderName}" folder{createFolder}{additionalInstructions}',
-      templateRules: {
-        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
-        createFolder: {
-          condition: 'true',
-          template: '. Create the folder if it doesn\'t exist'
-        },
-        additionalInstructions: {
-          condition: 'notEmpty',
-          template: '. {additionalInstructions}'
-        }
-      }
-    },
-    {
-      id: 'download-course-files',
-      title: 'Download Course Files',
-      description: 'Export or download files from a course',
-      category: 'files',
-      icon: '⬇️',
-      formFields: [
-        {
-          fieldType: 'term-select',
-          name: 'term',
-          label: 'Term',
-          required: false,
-          defaultValue: 'FALL-2025',
-          helpText: 'Select term to filter courses'
-        },
-        {
-          fieldType: 'course-select',
-          name: 'courseName',
-          label: 'Course Name',
-          required: true,
-          placeholder: 'Select a course',
-          defaultValue: 'Physics 101'
-        },
-        {
-          fieldType: 'select',
-          name: 'downloadScope',
-          label: 'What to Download',
-          required: true,
-          defaultValue: 'folder',
-          options: [
-            { value: '', label: 'Select scope' },
-            { value: 'all', label: 'All course files' },
-            { value: 'folder', label: 'Specific folder' },
-            { value: 'type', label: 'Specific file type' }
-          ]
-        },
-        {
-          fieldType: 'text',
-          name: 'folderName',
-          label: 'Folder Name',
-          required: false,
-          conditional: { field: 'downloadScope', value: 'folder' },
-          placeholder: 'e.g., Lecture Slides',
-          defaultValue: 'Lecture Slides'
-        },
-        {
-          fieldType: 'select',
-          name: 'fileType',
-          label: 'File Type',
-          required: false,
-          conditional: { field: 'downloadScope', value: 'type' },
-          options: [
-            { value: '', label: 'Select type' },
-            { value: 'pdf', label: 'PDF files' },
-            { value: 'image', label: 'Images' },
-            { value: 'video', label: 'Videos' },
-            { value: 'document', label: 'Documents' }
-          ]
-        },
-        {
-          fieldType: 'textarea',
-          name: 'additionalInstructions',
-          label: 'Additional Instructions',
-          required: false,
-          placeholder: 'Any additional requirements?',
-          rows: 2,
-          defaultValue: 'Export as a zip file.'
-        }
-      ],
-      promptTemplate: 'Download {downloadText} from {courseName}{termInfo}{additionalInstructions}',
-      templateRules: {
-        termInfo: { field: 'term', condition: 'notEmpty', template: ' in the {termFormatted} term' },
-        additionalInstructions: {
-          condition: 'notEmpty',
-          template: '. {additionalInstructions}'
-        }
-      }
+    function openAgent() {
+      shell.style.display = 'flex';
+      toggleBtn.classList.remove('inactive');
+      waveHand();
     }
-  ]
-};
 
-    </script>
-    <script>
-// Ignite Agent Prompt Builder - Main Application
-
-// ============================================================================
-// STATE MANAGEMENT
-// ============================================================================
-
-const AppState = {
-  currentView: 'categories', // categories | actions | form | result
-  selectedCategory: null,
-  selectedAction: null,
-  formData: {},
-  generatedPrompt: null,
-
-  setState(updates) {
-    Object.assign(this, updates);
-    this.render();
-  },
-
-  reset() {
-    this.currentView = 'categories';
-    this.selectedCategory = null;
-    this.selectedAction = null;
-    this.formData = {};
-    this.generatedPrompt = null;
-    this.render();
-  },
-
-  render() {
-    const app = document.getElementById('app');
-
-    switch(this.currentView) {
-      case 'categories':
-        app.innerHTML = renderCategories();
-        break;
-      case 'actions':
-        app.innerHTML = renderActions(this.selectedCategory);
-        break;
-      case 'form':
-        renderForm(this.selectedAction);
-        break;
-      case 'result':
-        app.innerHTML = renderResult(this.generatedPrompt);
-        break;
+    function closeAgent() {
+      shell.style.display = 'none';
+      toggleBtn.classList.add('inactive');
+      setView('home');
     }
-  }
-};
 
-// ============================================================================
-// PROMPT GENERATOR
-// ============================================================================
-
-class PromptGenerator {
-  constructor(config) {
-    this.config = config;
-  }
-
-  generate(formData) {
-    let prompt = this.config.promptTemplate;
-
-    // Pre-process special fields
-    const processedData = this.preprocessFormData(formData);
-
-    // Get list of fields that have template rules (these will be handled in second pass)
-    const templateRuleFields = this.config.templateRules ?
-      Object.keys(this.config.templateRules) : [];
-
-    // First pass: replace simple placeholders (skip fields with template rules)
-    Object.keys(processedData).forEach(key => {
-      // Skip if this field has a template rule
-      if (templateRuleFields.includes(key)) {
-        return;
-      }
-
-      const value = processedData[key];
-      if (value !== null && value !== undefined && value !== '') {
-        // Format datetime values
-        if (value instanceof Date || key.includes('Date')) {
-          const formatted = this.formatDate(value);
-          prompt = prompt.replace(new RegExp(`\\{${key}\\}`, 'g'), formatted);
-        } else {
-          prompt = prompt.replace(new RegExp(`\\{${key}\\}`, 'g'), value);
-        }
-      }
+    // ── Auto-grow textarea ────────────────────────────────────────
+    chatInput.addEventListener('input', () => {
+      chatInput.style.height = 'auto';
+      chatInput.style.height = chatInput.scrollHeight + 'px';
     });
 
-    // Second pass: process conditional sections using templateRules
-    if (this.config.templateRules) {
-      Object.keys(this.config.templateRules).forEach(key => {
-        const rule = this.config.templateRules[key];
-        const fieldName = rule.field || key;
-        const fieldValue = processedData[fieldName];
+    // ── Send message ──────────────────────────────────────────────
+    function sendMessage() {
+      const text = chatInput.value.trim();
+      if (!text) return;
 
-        let replacement = '';
+      // Switch to chat view
+      setView('chat');
+      openAgent();
 
-        if (this.shouldIncludeSection(rule, fieldValue, processedData)) {
-          replacement = this.processTemplate(rule.template, processedData);
-        }
+      // Clear input
+      chatInput.value = '';
+      chatInput.style.height = 'auto';
 
-        prompt = prompt.replace(new RegExp(`\\{${key}\\}`, 'g'), replacement);
+      // Append user bubble
+      appendUserMessage(text);
+
+      // Append thinking indicator then resolve to response
+      const thinkingEl = appendThinking();
+      const response = RESPONSES[responseIndex % RESPONSES.length];
+      responseIndex++;
+
+      setTimeout(() => {
+        thinkingEl.remove();
+        appendAgentResponse(response);
+        // re-init icons for newly added elements
+        lucide.createIcons({ nodes: [chatBody] });
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, 1800);
+
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    function appendUserMessage(text) {
+      const wrap = document.createElement('div');
+      wrap.className = 'chat-user-wrap';
+      wrap.innerHTML = `<div class="chat-user-bubble">${escapeHtml(text)}</div>`;
+      chatBody.appendChild(wrap);
+    }
+
+    function appendThinking() {
+      const el = document.createElement('div');
+      el.className = 'chat-agent-response';
+      el.innerHTML = `
+        <div class="reasoning-wrap">
+          <div class="reasoning-row loading">
+            <div class="reasoning-spinner"></div>
+            <span>Analyzing request…</span>
+          </div>
+        </div>`;
+      chatBody.appendChild(el);
+      chatBody.scrollTop = chatBody.scrollHeight;
+      return el;
+    }
+
+    function toggleReasoning(row) {
+      const details = row.nextElementSibling;
+      const chevron = row.querySelector('.reasoning-chevron');
+      const isOpen = details.style.display === 'block';
+      details.style.display = isOpen ? 'none' : 'block';
+      chevron.style.transform = isOpen ? '' : 'rotate(90deg)';
+    }
+
+    function appendAgentResponse(response) {
+      // Remove old suggested-prompts + disclaimer if present
+      chatBody.querySelectorAll('.suggested-prompts, .chat-disclaimer').forEach(el => el.remove());
+
+      const toolsHtml = response.tools ? `
+          <div class="reasoning-section">
+            <span class="reasoning-section-label">Tools</span>
+            <span class="reasoning-section-value">${escapeHtml(response.tools)}</span>
+          </div>` : '';
+      const sourcesHtml = response.sources ? `
+          <div class="reasoning-section">
+            <span class="reasoning-section-label">Sources</span>
+            <span class="reasoning-section-value">${escapeHtml(response.sources)}</span>
+          </div>` : '';
+
+      const el = document.createElement('div');
+      el.className = 'chat-agent-response';
+      el.innerHTML = `
+        <div class="reasoning-wrap">
+          <div class="reasoning-row done" onclick="toggleReasoning(this)">
+            <i data-lucide="circle-check-big" style="width:20px;height:20px;stroke-width:1.5;color:#037d37;flex-shrink:0"></i>
+            <span>Analyzed request</span>
+            <i data-lucide="chevron-right" class="reasoning-chevron" style="width:16px;height:16px;stroke-width:1.5;color:#037d37"></i>
+          </div>
+          <div class="reasoning-details">
+            <div class="reasoning-details-inner">
+              <p class="reasoning-text">${escapeHtml(response.reasoning)}</p>
+              ${toolsHtml}
+              ${sourcesHtml}
+            </div>
+          </div>
+        </div>
+        <div class="chat-agent-text">${escapeHtml(response.text)}</div>
+        <div class="chat-action-btns">
+          <button class="chat-action-btn" title="Copy">
+            <i data-lucide="copy" style="width:14px;height:14px;stroke-width:1.5"></i>
+          </button>
+          <button class="chat-action-btn" title="Good response">
+            <i data-lucide="thumbs-up" style="width:14px;height:14px;stroke-width:1.5"></i>
+          </button>
+          <button class="chat-action-btn" title="Bad response">
+            <i data-lucide="thumbs-down" style="width:14px;height:14px;stroke-width:1.5"></i>
+          </button>
+        </div>`;
+      chatBody.appendChild(el);
+
+      // Suggested prompts footer
+      const footer = document.createElement('div');
+      footer.innerHTML = `
+        <div class="suggested-prompts">
+          ${response.suggestions.map(s => `<button class="suggested-prompt-btn">${escapeHtml(s)}</button>`).join('')}
+        </div>
+        <p class="chat-disclaimer" style="margin-top:8px">AI can make mistakes. Consider checking important information.</p>`;
+      chatBody.appendChild(footer);
+
+      // Clicking a suggested prompt fills the input
+      footer.querySelectorAll('.suggested-prompt-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          chatInput.value = btn.textContent;
+          chatInput.focus();
+          chatInput.dispatchEvent(new Event('input'));
+        });
       });
     }
 
-    // Clean up the prompt
-    prompt = this.cleanPrompt(prompt);
-
-    return prompt;
-  }
-
-  preprocessFormData(formData) {
-    const processed = { ...formData };
-
-    // Handle term formatting
-    if (processed.term) {
-      const termMap = {
-        'SPRING-2026': 'Spring 2026',
-        'FALL-2025': 'Fall 2025',
-        'SUMMER-2026': 'Summer 2026',
-        'WINTER-2026': 'Winter 2026'
-      };
-      processed.termFormatted = termMap[processed.term] || processed.term;
+    function escapeHtml(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
 
-    // Handle criteria mapping for grading prompts
-    if (processed.criteria) {
-      const criteriaMap = {
-        'all_students': 'all students',
-        'submitted': 'all students who submitted',
-        'completed_with_posts': 'all students who completed the assignment with original and peer posts',
-        'specific_students': 'the following students'
-      };
-      processed.criteriaText = criteriaMap[processed.criteria] || processed.criteria;
-    }
+    // ── Event wiring ──────────────────────────────────────────────
+    toggleBtn.addEventListener('click', () => {
+      shell.style.display === 'none' ? openAgent() : closeAgent();
+    });
 
-    // Handle download scope mapping for file downloads
-    if (processed.downloadScope) {
-      if (processed.downloadScope === 'all') {
-        processed.downloadText = 'all files';
-      } else if (processed.downloadScope === 'folder' && processed.folderName) {
-        processed.downloadText = `all files from the "${processed.folderName}" folder`;
-      } else if (processed.downloadScope === 'type' && processed.fileType) {
-        processed.downloadText = `all ${processed.fileType} files`;
-      } else {
-        processed.downloadText = 'files';
-      }
-    }
+    document.querySelector('.greeting-hand-wrap')?.addEventListener('mouseenter', waveHand);
 
-    return processed;
-  }
+    closeBtn.addEventListener('click', closeAgent);
+    composeBtn.addEventListener('click', () => {
+      chatBody.innerHTML = '';
+      responseIndex = 0;
+      setView('home');
+    });
+    historyBtn.addEventListener('click', () => setView('history'));
+    backBtn.addEventListener('click', () => setView('home'));
+    sendBtn.addEventListener('click', sendMessage);
 
-  shouldIncludeSection(rule, fieldValue, formData) {
-    switch(rule.condition) {
-      case 'notEmpty':
-        return fieldValue && fieldValue !== '' && fieldValue !== null && fieldValue !== undefined;
-      case 'true':
-        return fieldValue === true || fieldValue === 'true';
-      case 'false':
-        return fieldValue === false || fieldValue === 'false';
-      case 'useQuestionBank':
-        return formData.useQuestionBank === true;
-      case 'conditionalAccess':
-        return formData.conditionalAccess === true;
-      default:
-        if (typeof rule.condition === 'function') {
-          return rule.condition(formData);
-        }
-        return true;
-    }
-  }
-
-  processTemplate(template, formData) {
-    let result = template;
-    Object.keys(formData).forEach(key => {
-      const value = formData[key];
-      if (value !== null && value !== undefined && value !== '') {
-        // Format datetime values
-        if (value instanceof Date || key.includes('Date')) {
-          const formatted = this.formatDate(value);
-          result = result.replace(new RegExp(`\\{${key}\\}`, 'g'), formatted);
-        } else {
-          result = result.replace(new RegExp(`\\{${key}\\}`, 'g'), value);
-        }
+    chatInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
       }
     });
-    return result;
-  }
 
-  formatDate(value) {
-    if (!value) return '';
+    // ═══════════════════════════════════════════════════════════
+    // PROMPT BUILDER — inlined from sample-data.js, prompts-config.js, app.js
+    // ═══════════════════════════════════════════════════════════
 
-    // Handle datetime-local input format
-    if (typeof value === 'string' && value.includes('T')) {
-      const date = new Date(value);
-      return date.toLocaleString('en-US', {
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric',
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: true
-      });
-    }
-
-    return value;
-  }
-
-  cleanPrompt(prompt) {
-    return prompt
-      .replace(/\s+/g, ' ')           // Multiple spaces to single
-      .replace(/\s+\./g, '.')         // Space before period
-      .replace(/\s+,/g, ',')          // Space before comma
-      .replace(/,\s*,/g, ',')         // Double commas
-      .replace(/\.\./g, '.')          // Double periods
-      .replace(/\s+:/g, ':')          // Space before colon
-      .replace(/\.\s*\./g, '.')       // Period space period
-      .replace(/,\s*\./g, '.')        // Comma period
-      .trim();
-  }
-}
-
-// ============================================================================
-// FORM BUILDER
-// ============================================================================
-
-class FormBuilder {
-  constructor(actionConfig) {
-    this.config = actionConfig;
-  }
-
-  build() {
-    const form = document.createElement('form');
-    form.id = 'prompt-form';
-    form.onsubmit = (e) => {
-      e.preventDefault();
-      handleFormSubmit();
+    const SAMPLE_DATA = {
+      terms: [
+        { value: 'SPRING-2026', label: 'Spring 2026' },
+        { value: 'FALL-2025',   label: 'Fall 2025'   },
+        { value: 'SUMMER-2026', label: 'Summer 2026' },
+        { value: 'WINTER-2026', label: 'Winter 2026' }
+      ],
+      courses: [
+        { id: '1698972', name: 'PSY1012 General Psychology',        term: 'SPRING-2026' },
+        { id: '1712556', name: 'Financial Literacy 101',            term: 'SPRING-2026' },
+        { id: '1712089', name: 'SPAN 502 - Advanced Spanish',       term: 'SPRING-2026' },
+        { id: '1728717', name: 'Introduction to Philosophy',        term: 'SPRING-2026' },
+        { id: '1733177', name: 'MATH-1010-020-Spring 2026',         term: 'SPRING-2026' },
+        { id: '2001234', name: 'BIO-101-Spring 2026',               term: 'SPRING-2026' },
+        { id: '2001235', name: 'CHEM-101-Spring 2026',              term: 'SPRING-2026' },
+        { id: '2001236', name: 'ENG-101-Spring 2026',               term: 'SPRING-2026' },
+        { id: '2001237', name: 'HIST-101-Spring 2026',              term: 'SPRING-2026' },
+        { id: '2001238', name: 'CS-101-Spring 2026',                term: 'SPRING-2026' },
+        { id: '1650123', name: 'Introduction to Linguistics',       term: 'FALL-2025'   },
+        { id: '1650124', name: 'Principles of Teaching & Learning', term: 'FALL-2025'   },
+        { id: '1650125', name: 'BIB1520 - Biblical Studies',        term: 'FALL-2025'   },
+        { id: '1650127', name: 'Biology 101',                       term: 'FALL-2025'   },
+        { id: '1650129', name: 'English 101',                       term: 'FALL-2025'   },
+        { id: '2100001', name: 'Summer Biology Intensive',          term: 'SUMMER-2026' },
+        { id: '2100003', name: 'Summer Writing Workshop',           term: 'SUMMER-2026' },
+        { id: '2200001', name: 'Winter Term Special Topics',        term: 'WINTER-2026' }
+      ],
+      getCoursesByTerm(t) { return t ? this.courses.filter(c => c.term === t) : this.courses; },
+      getCourseByName(n)  { return this.courses.find(c => c.name === n); }
     };
 
-    this.config.formFields.forEach(field => {
-      const fieldElement = this.createField(field);
-      form.appendChild(fieldElement);
-    });
+    // prompts-config.js is loaded from external file — reference PROMPTS_CONFIG directly
 
-    // Add form actions
-    const actionsDiv = document.createElement('div');
-    actionsDiv.className = 'form-actions';
-    actionsDiv.innerHTML = `
-      <button type="button" class="button-secondary" id="back-to-actions">
-        ← Back
-      </button>
-      <button type="submit" class="button-primary">
-        Generate Prompt
-      </button>
-    `;
-    form.appendChild(actionsDiv);
+    // ── Prompt Builder State ──────────────────────────────────────
+    const PbState = {
+      currentView: 'categories',
+      selectedCategory: null,
+      selectedAction: null,
+      formData: {},
+      generatedPrompt: null,
 
-    return form;
-  }
+      setState(updates) { Object.assign(this, updates); this.render(); },
 
-  createField(fieldConfig) {
-    if (fieldConfig.fieldType === 'checkbox') {
-      return this.createCheckboxField(fieldConfig);
-    }
+      reset() {
+        this.currentView = 'categories';
+        this.selectedCategory = null;
+        this.selectedAction = null;
+        this.formData = {};
+        this.generatedPrompt = null;
+        this.render();
+      },
 
-    const wrapper = document.createElement('div');
-    wrapper.className = 'form-field';
-
-    if (fieldConfig.conditional) {
-      wrapper.dataset.conditional = JSON.stringify(fieldConfig.conditional);
-      wrapper.style.display = 'none';
-    }
-
-    const label = this.createLabel(fieldConfig);
-    wrapper.appendChild(label);
-
-    const input = this.createInput(fieldConfig);
-    wrapper.appendChild(input);
-
-    if (fieldConfig.helpText) {
-      const helpText = document.createElement('p');
-      helpText.className = 'help-text';
-      helpText.textContent = fieldConfig.helpText;
-      wrapper.appendChild(helpText);
-    }
-
-    return wrapper;
-  }
-
-  createCheckboxField(fieldConfig) {
-    const wrapper = document.createElement('div');
-    wrapper.className = 'checkbox-field';
-
-    if (fieldConfig.conditional) {
-      wrapper.dataset.conditional = JSON.stringify(fieldConfig.conditional);
-      wrapper.style.display = 'none';
-    }
-
-    const input = document.createElement('input');
-    input.type = 'checkbox';
-    input.id = fieldConfig.name;
-    input.name = fieldConfig.name;
-    if (fieldConfig.default) input.checked = true;
-
-    const label = document.createElement('label');
-    label.setAttribute('for', fieldConfig.name);
-    label.textContent = fieldConfig.label;
-
-    wrapper.appendChild(input);
-    wrapper.appendChild(label);
-
-    if (fieldConfig.helpText) {
-      const helpText = document.createElement('p');
-      helpText.className = 'help-text';
-      helpText.textContent = fieldConfig.helpText;
-      wrapper.appendChild(helpText);
-    }
-
-    return wrapper;
-  }
-
-  createLabel(fieldConfig) {
-    const label = document.createElement('label');
-    label.setAttribute('for', fieldConfig.name);
-    label.textContent = fieldConfig.label;
-
-    if (fieldConfig.required) {
-      const required = document.createElement('span');
-      required.className = 'required';
-      required.textContent = ' *';
-      label.appendChild(required);
-    }
-
-    return label;
-  }
-
-  createInput(fieldConfig) {
-    switch(fieldConfig.fieldType) {
-      case 'textarea':
-        return this.createTextarea(fieldConfig);
-      case 'select':
-        return this.createSelect(fieldConfig);
-      case 'term-select':
-        return this.createTermSelect(fieldConfig);
-      case 'course-select':
-        return this.createCourseSelect(fieldConfig);
-      default:
-        return this.createTextInput(fieldConfig);
-    }
-  }
-
-  createTextInput(fieldConfig) {
-    const input = document.createElement('input');
-    input.type = fieldConfig.fieldType === 'number' ? 'number' :
-                 fieldConfig.fieldType === 'datetime-local' ? 'datetime-local' :
-                 'text';
-    input.id = fieldConfig.name;
-    input.name = fieldConfig.name;
-    input.placeholder = fieldConfig.placeholder || '';
-
-    if (fieldConfig.required) input.required = true;
-    if (fieldConfig.min !== undefined) input.min = fieldConfig.min;
-    if (fieldConfig.max !== undefined) input.max = fieldConfig.max;
-    if (fieldConfig.default !== undefined) input.value = fieldConfig.default;
-    if (fieldConfig.defaultValue !== undefined) input.value = fieldConfig.defaultValue;
-
-    return input;
-  }
-
-  createTextarea(fieldConfig) {
-    const textarea = document.createElement('textarea');
-    textarea.id = fieldConfig.name;
-    textarea.name = fieldConfig.name;
-    textarea.placeholder = fieldConfig.placeholder || '';
-    textarea.rows = fieldConfig.rows || 3;
-
-    if (fieldConfig.required) textarea.required = true;
-    if (fieldConfig.defaultValue !== undefined) textarea.value = fieldConfig.defaultValue;
-
-    return textarea;
-  }
-
-  createSelect(fieldConfig) {
-    const select = document.createElement('select');
-    select.id = fieldConfig.name;
-    select.name = fieldConfig.name;
-
-    if (fieldConfig.required) select.required = true;
-
-    fieldConfig.options.forEach(option => {
-      const optionElement = document.createElement('option');
-      optionElement.value = option.value;
-      optionElement.textContent = option.label;
-      if (fieldConfig.defaultValue && option.value === fieldConfig.defaultValue) {
-        optionElement.selected = true;
-      }
-      select.appendChild(optionElement);
-    });
-
-    return select;
-  }
-
-  createTermSelect(fieldConfig) {
-    const select = document.createElement('select');
-    select.id = fieldConfig.name;
-    select.name = fieldConfig.name;
-    select.className = 'term-select';
-
-    if (fieldConfig.required) select.required = true;
-
-    // Add empty option
-    const emptyOption = document.createElement('option');
-    emptyOption.value = '';
-    emptyOption.textContent = 'Select a term';
-    select.appendChild(emptyOption);
-
-    // Add terms from sample data
-    SAMPLE_DATA.terms.forEach(term => {
-      const optionElement = document.createElement('option');
-      optionElement.value = term.value;
-      optionElement.textContent = term.label;
-      if (fieldConfig.defaultValue && term.value === fieldConfig.defaultValue) {
-        optionElement.selected = true;
-      }
-      select.appendChild(optionElement);
-    });
-
-    return select;
-  }
-
-  createCourseSelect(fieldConfig) {
-    const select = document.createElement('select');
-    select.id = fieldConfig.name;
-    select.name = fieldConfig.name;
-    select.className = 'course-select';
-
-    if (fieldConfig.required) select.required = true;
-
-    // Add empty option
-    const emptyOption = document.createElement('option');
-    emptyOption.value = '';
-    emptyOption.textContent = '-- Select a course --';
-    select.appendChild(emptyOption);
-
-    // Initially populate with all courses
-    SAMPLE_DATA.courses.forEach(course => {
-      const option = document.createElement('option');
-      option.value = course.name;
-      option.textContent = course.name;
-      option.setAttribute('data-term', course.term);
-      if (fieldConfig.defaultValue && course.name === fieldConfig.defaultValue) {
-        option.selected = true;
-      }
-      select.appendChild(option);
-    });
-
-    return select;
-  }
-}
-
-// ============================================================================
-// CONDITIONAL FIELD HANDLER
-// ============================================================================
-
-class ConditionalFieldHandler {
-  constructor(formElement) {
-    this.form = formElement;
-    this.conditionalFields = this.findConditionalFields();
-    this.attachListeners();
-    this.evaluateConditions(); // Initial evaluation
-  }
-
-  findConditionalFields() {
-    return Array.from(this.form.querySelectorAll('[data-conditional]'))
-      .map(field => ({
-        element: field,
-        condition: JSON.parse(field.dataset.conditional)
-      }));
-  }
-
-  attachListeners() {
-    this.conditionalFields.forEach(({ condition }) => {
-      const triggerField = this.form.querySelector(`[name="${condition.field}"]`);
-      if (triggerField) {
-        triggerField.addEventListener('change', () => this.evaluateConditions());
-        triggerField.addEventListener('input', () => this.evaluateConditions());
-      }
-    });
-  }
-
-  evaluateConditions() {
-    this.conditionalFields.forEach(({ element, condition }) => {
-      const triggerField = this.form.querySelector(`[name="${condition.field}"]`);
-      const triggerValue = this.getFieldValue(triggerField);
-
-      if (this.conditionMet(triggerValue, condition.value)) {
-        element.style.display = element.classList.contains('checkbox-field') ? 'flex' : 'block';
-        const input = element.querySelector('input, textarea, select');
-        if (element.dataset.originalRequired) {
-          input.required = true;
+      render() {
+        const app = document.getElementById('pb-app');
+        const footer = document.getElementById('pb-footer');
+        if (!app) return;
+        if (footer) { footer.innerHTML = ''; footer.style.display = 'none'; }
+        switch (this.currentView) {
+          case 'categories': app.innerHTML = pbRenderCategories(); break;
+          case 'actions':    app.innerHTML = pbRenderActions(this.selectedCategory); break;
+          case 'form':       pbRenderForm(this.selectedAction); break;
+          case 'result':
+            app.innerHTML = pbRenderResult(this.generatedPrompt);
+            if (footer) {
+              footer.innerHTML = `
+                <button class="pb-btn-ghost" id="pb-start-over">
+                  <i data-lucide="rotate-ccw" style="width:14px;height:14px;stroke-width:1.5"></i> Create another prompt
+                </button>
+                <div style="display:flex;gap:10px;margin-left:auto">
+                  <button class="pb-btn-secondary" id="pb-copy-prompt">
+                    <i data-lucide="copy" style="width:14px;height:14px;stroke-width:1.5"></i> Copy
+                  </button>
+                  <button class="pb-btn-use" id="pb-use-prompt">
+                    <i data-lucide="send" style="width:14px;height:14px;stroke-width:1.5"></i> Send to Agent
+                  </button>
+                </div>`;
+              footer.style.display = 'flex';
+              lucide.createIcons({ nodes: [footer] });
+            }
+            break;
         }
-      } else {
-        element.style.display = 'none';
-        const input = element.querySelector('input, textarea, select');
-        if (input && input.required) {
-          element.dataset.originalRequired = 'true';
-          input.required = false;
+        lucide.createIcons({ nodes: [app] });
+      }
+    };
+
+    // ── Category icon mapping ──────────────────────────────────────
+    const PB_CAT_ICONS = {
+      'create':            'pencil',
+      'manage':            'bar-chart-2',
+      'student-management':'users',
+      'course-analysis':   'search'
+    };
+
+    // ── Render functions ──────────────────────────────────────────
+    function pbRenderCategories() {
+      const cards = PROMPTS_CONFIG.categories.map(c => `
+        <div class="pb-category-card" data-category="${c.id}">
+          <div class="pb-cat-icon">
+            <i data-lucide="${PB_CAT_ICONS[c.id] || 'layers'}" style="width:20px;height:20px;stroke-width:1.5"></i>
+          </div>
+          <div class="pb-cat-title">${c.title}</div>
+          <div class="pb-cat-desc">${c.description}</div>
+        </div>`).join('');
+      return `<div class="pb-category-grid">${cards}</div>`;
+    }
+
+    function pbRenderActions(categoryId) {
+      const cat = PROMPTS_CONFIG.categories.find(c => c.id === categoryId);
+      const actions = PROMPTS_CONFIG.actions.filter(a => a.category === categoryId);
+      const btns = actions.map(a => `
+        <button class="pb-action-btn" data-action="${a.id}">
+          <span class="pb-action-icon"><i data-lucide="${a.icon}" style="width:22px;height:22px;stroke-width:1.5"></i></span>
+          <span>${a.title}</span>
+        </button>`).join('');
+      return `
+        <div class="pb-actions-wrap">
+          <div class="pb-actions-header">
+            <button class="pb-back-btn" id="pb-back-to-categories">
+              <i data-lucide="arrow-left" style="width:18px;height:18px;stroke-width:2"></i>
+            </button>
+            <span class="pb-actions-title">${cat.title}</span>
+          </div>
+          <div class="pb-action-grid">${btns}</div>
+        </div>`;
+    }
+
+    function pbRenderForm(actionId) {
+      const action = PROMPTS_CONFIG.actions.find(a => a.id === actionId);
+      const app = document.getElementById('pb-app');
+
+      // Inline wrapper reuses pb-form-dialog CSS scope for field styles
+      const wrap = document.createElement('div');
+      wrap.className = 'pb-form-dialog';
+      wrap.style.cssText = 'background:transparent;box-shadow:none;border-radius:0;max-height:none;max-width:none;width:100%;';
+
+      const header = document.createElement('div');
+      header.className = 'pb-actions-header';
+      header.style.marginBottom = '16px';
+      header.innerHTML = `
+        <button class="pb-back-btn" id="pb-back-to-actions">
+          <i data-lucide="arrow-left" style="width:18px;height:18px;stroke-width:2"></i>
+        </button>
+        <span class="pb-actions-title">${action.title}</span>`;
+
+      const formBuilder = new PbFormBuilder(action);
+      const form = formBuilder.build();
+
+      // Move form actions to modal footer
+      const formActions = form.querySelector('.form-actions');
+      if (formActions) formActions.remove();
+
+      wrap.appendChild(header);
+      wrap.appendChild(form);
+      app.innerHTML = '';
+      app.appendChild(wrap);
+      lucide.createIcons({ nodes: [app] });
+
+      const footer = document.getElementById('pb-footer');
+      if (footer) {
+        footer.innerHTML = `<button type="submit" form="pb-prompt-form" class="button-primary">Generate Prompt</button>`;
+        footer.style.display = 'flex';
+        footer.style.justifyContent = 'flex-end';
+      }
+
+      new PbConditionalFieldHandler(form);
+      new PbCourseFilterHandler(form);
+    }
+
+    function pbRenderResult(prompt) {
+      return `
+        <div class="pb-result-wrap">
+          <div class="pb-result-header">
+            <button class="pb-back-btn" id="pb-back-to-categories-from-result">
+              <i data-lucide="arrow-left" style="width:18px;height:18px;stroke-width:2"></i>
+            </button>
+            <span class="pb-result-title">Generated Prompt</span>
+            <button class="pb-btn-secondary" id="pb-edit-prompt" style="padding:6px 12px;font-size:13px">Edit</button>
+          </div>
+          <div class="pb-prompt-box" id="pb-prompt-text" contenteditable="false">${prompt}</div>
+        </div>`;
+    }
+
+    // ── Form Builder (renamed class to avoid conflict) ────────────
+    class PbFormBuilder {
+      constructor(actionConfig) { this.config = actionConfig; }
+
+      build() {
+        const form = document.createElement('form');
+        form.id = 'pb-prompt-form';
+        form.onsubmit = (e) => { e.preventDefault(); pbHandleFormSubmit(); };
+
+        const basicFields    = this.config.formFields.filter(f => !f.advanced && f.name !== 'additionalInstructions');
+        const advancedFields = this.config.formFields.filter(f =>  f.advanced && f.name !== 'additionalInstructions');
+        const addlField      = this.config.formFields.find(f => f.name === 'additionalInstructions');
+
+        basicFields.forEach(f => form.appendChild(this.createField(f)));
+
+        if (addlField) form.appendChild(this.createField(addlField));
+
+        if (advancedFields.length > 0) {
+          const section = document.createElement('div');
+          section.className = 'advanced-options-section';
+          const toggle = document.createElement('button');
+          toggle.type = 'button';
+          toggle.className = 'advanced-options-toggle';
+          toggle.innerHTML = `<span class="advanced-options-toggle-icon">▶</span><span>Advanced Options</span>`;
+          const content = document.createElement('div');
+          content.className = 'advanced-options-content';
+          advancedFields.forEach(f => {
+            const el = this.createField(f);
+            el.classList.add('advanced-field');
+            content.appendChild(el);
+          });
+          toggle.addEventListener('click', () => {
+            toggle.classList.toggle('expanded');
+            content.classList.toggle('expanded');
+          });
+          section.appendChild(toggle);
+          section.appendChild(content);
+          form.appendChild(section);
+        }
+
+        const actions = document.createElement('div');
+        actions.className = 'form-actions';
+        actions.style.justifyContent = 'flex-end';
+        actions.innerHTML = `<button type="submit" class="button-primary">Generate Prompt</button>`;
+        form.appendChild(actions);
+        return form;
+      }
+
+      createField(fc) {
+        if (fc.fieldType === 'checkbox') return this.createCheckboxField(fc);
+        const wrap = document.createElement('div');
+        wrap.className = 'form-field';
+        if (fc.conditional) { wrap.dataset.conditional = JSON.stringify(fc.conditional); wrap.style.display = 'none'; }
+        wrap.appendChild(this.createLabel(fc));
+        wrap.appendChild(this.createInput(fc));
+        if (fc.helpText) { const p = document.createElement('p'); p.className = 'help-text'; p.textContent = fc.helpText; wrap.appendChild(p); }
+        return wrap;
+      }
+
+      createCheckboxField(fc) {
+        const wrap = document.createElement('div');
+        wrap.className = 'checkbox-field';
+        if (fc.conditional) { wrap.dataset.conditional = JSON.stringify(fc.conditional); wrap.style.display = 'none'; }
+        const input = document.createElement('input');
+        input.type = 'checkbox'; input.id = fc.name; input.name = fc.name;
+        if (fc.default) input.checked = true;
+        const label = document.createElement('label');
+        label.setAttribute('for', fc.name); label.textContent = fc.label;
+        wrap.appendChild(input); wrap.appendChild(label);
+        if (fc.helpText) { const p = document.createElement('p'); p.className = 'help-text'; p.textContent = fc.helpText; wrap.appendChild(p); }
+        return wrap;
+      }
+
+      createLabel(fc) {
+        const label = document.createElement('label');
+        label.setAttribute('for', fc.name); label.textContent = fc.label;
+        if (fc.required) { const s = document.createElement('span'); s.className = 'required'; s.textContent = ' *'; label.appendChild(s); }
+        return label;
+      }
+
+      createInput(fc) {
+        switch (fc.fieldType) {
+          case 'textarea':    return this.createTextarea(fc);
+          case 'select':      return this.createSelect(fc);
+          case 'term-select': return this.createTermSelect(fc);
+          case 'course-select': return this.createCourseSelect(fc);
+          case 'file-upload': return this.createFileUpload(fc);
+          default:            return this.createTextInput(fc);
         }
       }
-    });
-  }
 
-  getFieldValue(field) {
-    if (!field) return null;
-    if (field.type === 'checkbox') {
-      return field.checked;
-    }
-    return field.value;
-  }
-
-  conditionMet(actualValue, expectedValue) {
-    if (typeof expectedValue === 'boolean') {
-      return actualValue === expectedValue;
-    }
-    return actualValue == expectedValue;
-  }
-}
-
-// ============================================================================
-// COURSE FILTER HANDLER
-// ============================================================================
-
-class CourseFilterHandler {
-  constructor(formElement) {
-    this.form = formElement;
-    this.termSelect = this.form.querySelector('.term-select');
-    this.courseSelects = this.form.querySelectorAll('.course-select');
-
-    if (this.termSelect && this.courseSelects.length > 0) {
-      this.attachListeners();
-    }
-  }
-
-  attachListeners() {
-    this.termSelect.addEventListener('change', () => {
-      this.filterCourses();
-    });
-  }
-
-  filterCourses() {
-    const selectedTerm = this.termSelect.value;
-
-    this.courseSelects.forEach(select => {
-      // Store current value
-      const currentValue = select.value;
-
-      // Clear existing options
-      select.innerHTML = '';
-
-      // Add empty option
-      const emptyOption = document.createElement('option');
-      emptyOption.value = '';
-      emptyOption.textContent = '-- Select a course --';
-      select.appendChild(emptyOption);
-
-      // Get courses for selected term (or all if no term selected)
-      const courses = selectedTerm
-        ? SAMPLE_DATA.getCoursesByTerm(selectedTerm)
-        : SAMPLE_DATA.courses;
-
-      // Populate select with filtered courses
-      courses.forEach(course => {
-        const option = document.createElement('option');
-        option.value = course.name;
-        option.textContent = course.name;
-        option.setAttribute('data-term', course.term);
-        select.appendChild(option);
-      });
-
-      // Restore value if it's still in the filtered list
-      const isValidCourse = courses.some(c => c.name === currentValue);
-      if (isValidCourse) {
-        select.value = currentValue;
+      createTextInput(fc) {
+        const input = document.createElement('input');
+        input.type = fc.fieldType === 'number' ? 'number' : fc.fieldType === 'datetime-local' ? 'datetime-local' : 'text';
+        input.id = fc.name; input.name = fc.name; input.placeholder = fc.placeholder || '';
+        if (fc.required) input.required = true;
+        if (fc.min !== undefined) input.min = fc.min;
+        if (fc.max !== undefined) input.max = fc.max;
+        if (fc.defaultValue !== undefined) input.value = fc.defaultValue;
+        return input;
       }
-    });
-  }
-}
 
-// ============================================================================
-// RENDER FUNCTIONS
-// ============================================================================
+      createTextarea(fc) {
+        const ta = document.createElement('textarea');
+        ta.id = fc.name; ta.name = fc.name; ta.placeholder = fc.placeholder || ''; ta.rows = fc.rows || 3;
+        if (fc.required) ta.required = true;
+        if (fc.defaultValue !== undefined) ta.value = fc.defaultValue;
+        return ta;
+      }
 
-function renderCategories() {
-  const categories = PROMPTS_CONFIG.categories.map(category => `
-    <div class="category-card" data-category="${category.id}">
-      <div class="category-icon">${category.icon}</div>
-      <h3 class="category-title">${category.title}</h3>
-      <p class="category-description">${category.description}</p>
-    </div>
-  `).join('');
+      createSelect(fc) {
+        const sel = document.createElement('select');
+        sel.id = fc.name; sel.name = fc.name;
+        if (fc.required) sel.required = true;
+        fc.options.forEach(o => {
+          const opt = document.createElement('option');
+          opt.value = o.value; opt.textContent = o.label;
+          if (fc.defaultValue && o.value === fc.defaultValue) opt.selected = true;
+          sel.appendChild(opt);
+        });
+        return sel;
+      }
 
-  return `
-    <div class="category-grid">
-      ${categories}
-    </div>
-  `;
-}
+      createTermSelect(fc) {
+        const sel = document.createElement('select');
+        sel.id = fc.name; sel.name = fc.name; sel.className = 'term-select';
+        if (fc.required) sel.required = true;
+        const empty = document.createElement('option'); empty.value = ''; empty.textContent = 'Select a term'; sel.appendChild(empty);
+        SAMPLE_DATA.terms.forEach(t => {
+          const opt = document.createElement('option');
+          opt.value = t.value; opt.textContent = t.label;
+          if (fc.defaultValue && t.value === fc.defaultValue) opt.selected = true;
+          sel.appendChild(opt);
+        });
+        return sel;
+      }
 
-function renderActions(categoryId) {
-  const category = PROMPTS_CONFIG.categories.find(c => c.id === categoryId);
-  const actions = PROMPTS_CONFIG.actions.filter(a => a.category === categoryId);
+      createCourseSelect(fc) {
+        const sel = document.createElement('select');
+        sel.id = fc.name; sel.name = fc.name; sel.className = 'course-select';
+        if (fc.required) sel.required = true;
+        const empty = document.createElement('option'); empty.value = ''; empty.textContent = '-- Select a course --'; sel.appendChild(empty);
+        SAMPLE_DATA.courses.forEach(c => {
+          const opt = document.createElement('option');
+          opt.value = c.name; opt.textContent = c.name; opt.setAttribute('data-term', c.term);
+          if (fc.defaultValue && c.name === fc.defaultValue) opt.selected = true;
+          sel.appendChild(opt);
+        });
+        return sel;
+      }
 
-  const actionButtons = actions.map(action => `
-    <button class="action-button" data-action="${action.id}">
-      <span class="action-icon">${action.icon}</span>
-      <span class="action-label">${action.title}</span>
-    </button>
-  `).join('');
-
-  return `
-    <div class="action-selection">
-      <h2>${category.title}</h2>
-      <p class="subtitle">${category.description}</p>
-      <div class="action-grid">
-        ${actionButtons}
-      </div>
-      <button class="back-button" id="back-to-categories">← Back to Categories</button>
-    </div>
-  `;
-}
-
-function renderForm(actionId) {
-  const action = PROMPTS_CONFIG.actions.find(a => a.id === actionId);
-
-  // Open modal
-  const modal = document.getElementById('modal-overlay');
-  const modalTitle = document.getElementById('modal-title');
-  const modalBody = document.getElementById('modal-body');
-
-  modalTitle.textContent = action.title;
-
-  const formBuilder = new FormBuilder(action);
-  const form = formBuilder.build();
-
-  modalBody.innerHTML = '';
-  modalBody.appendChild(form);
-
-  modal.style.display = 'flex';
-
-  // Initialize conditional field handler
-  new ConditionalFieldHandler(form);
-
-  // Initialize course filter handler
-  new CourseFilterHandler(form);
-}
-
-function renderResult(prompt) {
-  return `
-    <div class="prompt-result">
-      <div class="prompt-header">
-        <h3>Generated Prompt</h3>
-        <button class="edit-prompt-button" id="edit-prompt">Edit</button>
-      </div>
-      <div class="prompt-text" id="prompt-text" contenteditable="false">${prompt}</div>
-      <div class="prompt-actions">
-        <button class="button-secondary" id="copy-prompt">
-          📋 Copy to Clipboard
-        </button>
-        <button class="button-primary" id="use-prompt">
-          Use This Prompt
-        </button>
-      </div>
-      <div class="prompt-footer">
-        <button class="link-button" id="start-over">
-          ← Create Another Prompt
-        </button>
-      </div>
-    </div>
-  `;
-}
-
-// ============================================================================
-// EVENT HANDLERS
-// ============================================================================
-
-function handleFormSubmit() {
-  const form = document.getElementById('prompt-form');
-  const formData = new FormData(form);
-  const data = {};
-
-  // Collect all form data
-  for (let [key, value] of formData.entries()) {
-    data[key] = value;
-  }
-
-  // Handle checkboxes (they won't appear in formData if unchecked)
-  const checkboxes = form.querySelectorAll('input[type="checkbox"]');
-  checkboxes.forEach(checkbox => {
-    data[checkbox.name] = checkbox.checked;
-  });
-
-  // Store form data
-  AppState.formData = data;
-
-  // Generate prompt
-  const action = PROMPTS_CONFIG.actions.find(a => a.id === AppState.selectedAction);
-  const generator = new PromptGenerator(action);
-  const prompt = generator.generate(data);
-
-  // Close modal
-  closeModal();
-
-  // Show result
-  AppState.setState({
-    currentView: 'result',
-    generatedPrompt: prompt
-  });
-}
-
-function closeModal() {
-  const modal = document.getElementById('modal-overlay');
-  modal.style.display = 'none';
-}
-
-function showToast(message, type = 'success') {
-  const toast = document.getElementById('toast');
-  const toastMessage = document.getElementById('toast-message');
-
-  toastMessage.textContent = message;
-  toast.className = `toast ${type}`;
-  toast.style.display = 'block';
-
-  setTimeout(() => {
-    toast.style.display = 'none';
-  }, 3000);
-}
-
-function copyToClipboard(text) {
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text).then(() => {
-      showToast('Prompt copied to clipboard!');
-    }).catch(err => {
-      console.error('Failed to copy:', err);
-      showToast('Failed to copy to clipboard', 'error');
-    });
-  } else {
-    // Fallback for older browsers
-    const textarea = document.createElement('textarea');
-    textarea.value = text;
-    textarea.style.position = 'fixed';
-    textarea.style.opacity = '0';
-    document.body.appendChild(textarea);
-    textarea.select();
-    try {
-      document.execCommand('copy');
-      showToast('Prompt copied to clipboard!');
-    } catch (err) {
-      console.error('Failed to copy:', err);
-      showToast('Failed to copy to clipboard', 'error');
-    }
-    document.body.removeChild(textarea);
-  }
-}
-
-// ============================================================================
-// EVENT DELEGATION
-// ============================================================================
-
-document.addEventListener('DOMContentLoaded', () => {
-  // Initial render
-  AppState.render();
-
-  // Event delegation for dynamic content
-  document.body.addEventListener('click', (e) => {
-    const target = e.target;
-
-    // Category selection
-    if (target.closest('.category-card')) {
-      const categoryId = target.closest('.category-card').dataset.category;
-      AppState.setState({
-        currentView: 'actions',
-        selectedCategory: categoryId
-      });
-    }
-
-    // Action selection
-    if (target.closest('.action-button')) {
-      const actionId = target.closest('.action-button').dataset.action;
-      AppState.setState({
-        currentView: 'form',
-        selectedAction: actionId
-      });
-      renderForm(actionId);
-    }
-
-    // Back to categories
-    if (target.id === 'back-to-categories') {
-      AppState.setState({
-        currentView: 'categories',
-        selectedCategory: null
-      });
-    }
-
-    // Back to actions (from form)
-    if (target.id === 'back-to-actions' || target.closest('#back-to-actions')) {
-      closeModal();
-      AppState.setState({
-        currentView: 'actions'
-      });
-      return;
-    }
-
-    // Close modal button
-    if (target.id === 'close-modal' || target.closest('#close-modal')) {
-      closeModal();
-      AppState.setState({
-        currentView: 'actions'
-      });
-      return;
-    }
-
-    // Close modal by clicking overlay (outside modal)
-    if (target.id === 'modal-overlay') {
-      closeModal();
-      AppState.setState({
-        currentView: 'actions'
-      });
-      return;
-    }
-
-    // Edit prompt
-    if (target.id === 'edit-prompt') {
-      const promptText = document.getElementById('prompt-text');
-      const isEditable = promptText.contentEditable === 'true';
-
-      if (isEditable) {
-        promptText.contentEditable = 'false';
-        target.textContent = 'Edit';
-        AppState.generatedPrompt = promptText.textContent;
-      } else {
-        promptText.contentEditable = 'true';
-        promptText.focus();
-        target.textContent = 'Done';
+      createFileUpload(fc) {
+        const container = document.createElement('div');
+        container.className = 'file-upload-container';
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file'; fileInput.id = fc.name; fileInput.name = fc.name;
+        fileInput.className = 'file-upload-input'; fileInput.multiple = true;
+        if (fc.accept) fileInput.accept = fc.accept;
+        const dropArea = document.createElement('div');
+        dropArea.className = 'file-upload-area';
+        dropArea.innerHTML = `<div class="file-upload-icon">📎</div><div class="file-upload-text">Drop files here or click to browse</div><div class="file-upload-hint">${fc.helpText || ''}</div>`;
+        const fileList = document.createElement('ul');
+        fileList.className = 'file-list'; fileList.style.display = 'none';
+        const filesData = [];
+        dropArea.addEventListener('click', () => fileInput.click());
+        ['dragenter','dragover','dragleave','drop'].forEach(ev => dropArea.addEventListener(ev, e => { e.preventDefault(); e.stopPropagation(); }));
+        ['dragenter','dragover'].forEach(ev => dropArea.addEventListener(ev, () => dropArea.classList.add('drag-over')));
+        ['dragleave','drop'].forEach(ev => dropArea.addEventListener(ev, () => dropArea.classList.remove('drag-over')));
+        dropArea.addEventListener('drop', e => handlePbFiles(e.dataTransfer.files));
+        fileInput.addEventListener('change', e => handlePbFiles(e.target.files));
+        const handlePbFiles = (files) => {
+          filesData.length = 0; fileList.innerHTML = '';
+          if (!files.length) { fileList.style.display = 'none'; return; }
+          fileList.style.display = 'block';
+          Array.from(files).forEach((file, i) => {
+            filesData.push({ name: file.name, size: file.size });
+            const li = document.createElement('li'); li.className = 'file-item';
+            const sz = file.size < 1024 ? file.size + ' B' : file.size < 1048576 ? Math.round(file.size/1024) + ' KB' : Math.round(file.size/1048576*10)/10 + ' MB';
+            li.innerHTML = `<div class="file-item-info"><span class="file-item-name">${file.name}</span><span class="file-item-size">(${sz})</span></div><button type="button" class="file-item-remove" data-index="${i}">×</button>`;
+            li.querySelector('.file-item-remove').addEventListener('click', function() { filesData.splice(+this.dataset.index, 1); handlePbFiles(new DataTransfer().files); });
+            fileList.appendChild(li);
+          });
+          let hidden = container.querySelector(`input[name="${fc.name}-data"]`);
+          if (!hidden) { hidden = document.createElement('input'); hidden.type = 'hidden'; hidden.name = `${fc.name}-data`; container.appendChild(hidden); }
+          hidden.value = JSON.stringify(filesData);
+        };
+        container.appendChild(fileInput); container.appendChild(dropArea); container.appendChild(fileList);
+        return container;
       }
     }
 
-    // Copy prompt
-    if (target.id === 'copy-prompt') {
-      const promptText = document.getElementById('prompt-text').textContent;
-      copyToClipboard(promptText);
-    }
-
-    // Use prompt (same as copy for now)
-    if (target.id === 'use-prompt') {
-      const promptText = document.getElementById('prompt-text').textContent;
-      copyToClipboard(promptText);
-    }
-
-    // Start over
-    if (target.id === 'start-over') {
-      AppState.reset();
-    }
-  });
-
-  // Keyboard shortcuts
-  document.addEventListener('keydown', (e) => {
-    // ESC to close modal
-    if (e.key === 'Escape') {
-      const modal = document.getElementById('modal-overlay');
-      if (modal.style.display === 'flex') {
-        closeModal();
-        AppState.setState({
-          currentView: 'actions'
+    // ── Conditional field handler ─────────────────────────────────
+    class PbConditionalFieldHandler {
+      constructor(form) {
+        this.form = form;
+        this.conditionalFields = Array.from(form.querySelectorAll('[data-conditional]')).map(el => ({ element: el, condition: JSON.parse(el.dataset.conditional) }));
+        this.conditionalFields.forEach(({ condition }) => {
+          const trigger = form.querySelector(`[name="${condition.field}"]`);
+          if (trigger) { trigger.addEventListener('change', () => this.evaluate()); trigger.addEventListener('input', () => this.evaluate()); }
+        });
+        this.evaluate();
+      }
+      evaluate() {
+        this.conditionalFields.forEach(({ element, condition }) => {
+          const trigger = this.form.querySelector(`[name="${condition.field}"]`);
+          const val = trigger ? (trigger.type === 'checkbox' ? trigger.checked : trigger.value) : null;
+          const met = typeof condition.value === 'boolean' ? val === condition.value : val == condition.value;
+          element.style.display = met ? (element.classList.contains('checkbox-field') ? 'flex' : 'block') : 'none';
         });
       }
     }
-  });
-});
 
-    </script>
+    // ── Course filter handler ─────────────────────────────────────
+    class PbCourseFilterHandler {
+      constructor(form) {
+        this.form = form;
+        this.termSel = form.querySelector('.term-select');
+        this.courseSels = form.querySelectorAll('.course-select');
+        if (this.termSel && this.courseSels.length) this.termSel.addEventListener('change', () => this.filter());
+      }
+      filter() {
+        const term = this.termSel.value;
+        this.courseSels.forEach(sel => {
+          const prev = sel.value;
+          sel.innerHTML = '<option value="">-- Select a course --</option>';
+          const courses = SAMPLE_DATA.getCoursesByTerm(term);
+          courses.forEach(c => { const opt = document.createElement('option'); opt.value = c.name; opt.textContent = c.name; opt.dataset.term = c.term; sel.appendChild(opt); });
+          if (courses.some(c => c.name === prev)) sel.value = prev;
+        });
+      }
+    }
+
+    // ── Prompt generator ──────────────────────────────────────────
+    class PbPromptGenerator {
+      constructor(config) { this.config = config; }
+
+      generate(formData) {
+        let prompt = this.config.promptTemplate;
+        const processed = this.preprocess(formData);
+        const ruleKeys = this.config.templateRules ? Object.keys(this.config.templateRules) : [];
+
+        Object.keys(processed).forEach(key => {
+          if (ruleKeys.includes(key)) return;
+          const v = processed[key];
+          if (v != null && v !== '') {
+            const formatted = (v instanceof Date || key.includes('Date')) ? this.fmtDate(v) : v;
+            prompt = prompt.replace(new RegExp(`\\{${key}\\}`, 'g'), formatted);
+          }
+        });
+
+        if (this.config.templateRules) {
+          Object.keys(this.config.templateRules).forEach(key => {
+            const rule = this.config.templateRules[key];
+            const fv = processed[rule.field || key];
+            let replacement = '';
+            if (this.shouldInclude(rule, fv, processed)) replacement = this.applyTemplate(rule.template, processed);
+            prompt = prompt.replace(new RegExp(`\\{${key}\\}`, 'g'), replacement);
+          });
+        }
+
+        return prompt.replace(/\s+/g,' ').replace(/\s+\./g,'.').replace(/\s+,/g,',').replace(/,\s*,/g,',').replace(/\.\./g,'.').replace(/,\s*\./g,'.').trim();
+      }
+
+      preprocess(fd) {
+        const p = {...fd};
+        if (p.term) { const map = {'SPRING-2026':'Spring 2026','FALL-2025':'Fall 2025','SUMMER-2026':'Summer 2026','WINTER-2026':'Winter 2026'}; p.termFormatted = map[p.term] || p.term; }
+        if (p.recipientType === 'all') p.recipientDescription = 'all students';
+        else if (p.recipientType === 'criteria' && p.criteriaDescription) p.recipientDescription = p.criteriaDescription;
+        else if (p.recipientType === 'specific' && p.studentNames) p.recipientDescription = `these specific students: ${p.studentNames}`;
+        else if (p.recipientType) p.recipientDescription = 'students';
+        Object.keys(p).forEach(k => { if (Array.isArray(p[k]) && p[k].length && p[k][0].name) p[`${k}List`] = p[k].map(f=>f.name).join(', '); });
+        return p;
+      }
+
+      shouldInclude(rule, fv, fd) {
+        switch (rule.condition) {
+          case 'notEmpty': return fv && fv !== '' && fv != null;
+          case 'true':     return fv === true || fv === 'true';
+          case 'false':    return fv === false || fv === 'false';
+          case 'useQuestionBank': return fd.useQuestionBank === true;
+          case 'conditionalAccess': return fd.conditionalAccess === true;
+          default: return typeof rule.condition === 'function' ? rule.condition(fd) : true;
+        }
+      }
+
+      applyTemplate(tmpl, fd) {
+        let r = tmpl;
+        Object.keys(fd).forEach(k => { const v = fd[k]; if (v != null && v !== '') r = r.replace(new RegExp(`\\{${k}\\}`,'g'), (v instanceof Date || k.includes('Date')) ? this.fmtDate(v) : v); });
+        return r;
+      }
+
+      fmtDate(v) {
+        if (!v) return '';
+        if (typeof v === 'string' && v.includes('T')) return new Date(v).toLocaleString('en-US',{month:'long',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',hour12:true});
+        return v;
+      }
+    }
+
+    // ── Form submit handler ───────────────────────────────────────
+    function pbHandleFormSubmit() {
+      const form = document.getElementById('pb-prompt-form');
+      const fd = new FormData(form);
+      const data = {};
+      for (let [k, v] of fd.entries()) { if (!k.endsWith('-data')) data[k] = v; }
+      form.querySelectorAll('input[type="checkbox"]').forEach(cb => { data[cb.name] = cb.checked; });
+      form.querySelectorAll('input[name$="-data"]').forEach(inp => {
+        const fn = inp.name.replace('-data','');
+        if (inp.value) { try { const files = JSON.parse(inp.value); if (files.length) data[fn] = files; } catch(e){} }
+      });
+      PbState.formData = data;
+      const action = PROMPTS_CONFIG.actions.find(a => a.id === PbState.selectedAction);
+      const prompt = new PbPromptGenerator(action).generate(data);
+      pbCloseForm();
+      PbState.setState({ currentView: 'result', generatedPrompt: prompt });
+    }
+
+    // ── Modal helpers ─────────────────────────────────────────────
+    function pbClose() {
+      document.getElementById('pb-overlay').style.display = 'none';
+      PbState.reset();
+    }
+
+    function pbCloseForm() {
+      PbState.setState({ currentView: 'actions' });
+    }
+
+    function pbShowToast(msg) {
+      const toast = document.getElementById('pb-toast');
+      document.getElementById('pb-toast-message').textContent = msg;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 2800);
+    }
+
+    function pbUsePrompt(text) {
+      chatInput.value = text;
+      chatInput.style.height = 'auto';
+      chatInput.style.height = chatInput.scrollHeight + 'px';
+      pbClose();
+      openAgent();
+      sendMessage();
+    }
+
+    // ── Open prompt builder ───────────────────────────────────────
+    function pbOpen() {
+      PbState.reset();
+      document.getElementById('pb-overlay').style.display = 'flex';
+      lucide.createIcons({ nodes: [document.getElementById('pb-overlay')] });
+    }
+
+    // ── Event delegation ──────────────────────────────────────────
+    document.addEventListener('click', e => {
+      const t = e.target;
+
+      // Open from agent item
+      if (t.closest('#promptBuilderItem')) { pbOpen(); return; }
+
+      // Category card
+      if (t.closest('.pb-category-card')) {
+        PbState.setState({ currentView: 'actions', selectedCategory: t.closest('.pb-category-card').dataset.category });
+        return;
+      }
+
+      // Back to categories
+      if (t.id === 'pb-back-to-categories' || t.closest('#pb-back-to-categories')) {
+        PbState.setState({ currentView: 'categories', selectedCategory: null }); return;
+      }
+      if (t.id === 'pb-back-to-categories-from-result' || t.closest('#pb-back-to-categories-from-result')) {
+        PbState.setState({ currentView: 'categories', selectedCategory: null }); return;
+      }
+
+      // Action button
+      if (t.closest('.pb-action-btn')) {
+        const actionId = t.closest('.pb-action-btn').dataset.action;
+        PbState.setState({ currentView: 'form', selectedAction: actionId });
+        pbRenderForm(actionId);
+        return;
+      }
+
+      // Back to actions (from form dialog)
+      if (t.id === 'pb-back-to-actions' || t.closest('#pb-back-to-actions')) {
+        pbCloseForm(); return;
+      }
+
+      // Edit prompt toggle
+      if (t.id === 'pb-edit-prompt') {
+        const box = document.getElementById('pb-prompt-text');
+        const editing = box.contentEditable === 'true';
+        box.contentEditable = editing ? 'false' : 'true';
+        t.textContent = editing ? 'Edit' : 'Done';
+        if (!editing) box.focus();
+        if (editing) PbState.generatedPrompt = box.textContent;
+        return;
+      }
+
+      // Copy prompt
+      if (t.id === 'pb-copy-prompt' || t.closest('#pb-copy-prompt')) {
+        const text = document.getElementById('pb-prompt-text').textContent;
+        navigator.clipboard?.writeText(text).then(() => pbShowToast('Copied to clipboard!')).catch(() => pbShowToast('Copy failed'));
+        return;
+      }
+
+      // Use prompt → insert into agent chat input
+      if (t.id === 'pb-use-prompt' || t.closest('#pb-use-prompt')) {
+        const text = document.getElementById('pb-prompt-text').textContent;
+        pbUsePrompt(text);
+        return;
+      }
+
+      // Start over
+      if (t.id === 'pb-start-over') { PbState.setState({ currentView: 'categories' }); return; }
+    });
+
+    // ESC closes prompt builder
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Escape') return;
+      const pbOvr = document.getElementById('pb-overlay');
+      if (pbOvr.style.display === 'flex') { pbClose(); }
+    });
+  </script>
 </body>
 </html>
